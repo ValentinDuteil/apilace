@@ -10,12 +10,7 @@ import { prisma } from '../lib/prisma.js'
 import { UnauthorizedError, NotFoundError, ConflictError } from '../utils/AppError.js'
 import type { RegisterDto, LoginDto, UpdateProfileDto, UpdatePasswordDto } from '../schemas/auth.schemas.js'
 import type { User } from '@prisma/client'
-
-// JWT payload shape — used for both sign() and verify() throughout this file
-interface JwtPayload {
-  id: number
-  role: string
-}
+import { getCallerRole } from '../utils/auth.utils.js'
 
 // User shape returned to the client — passwordHash is always stripped before sending
 type SafeUser = Omit<User, 'passwordHash'>
@@ -94,16 +89,7 @@ export async function register(req: Request, res: Response): Promise<void> {
   })
 
   // If the request comes from an authenticated admin, don't overwrite their session cookies
-  const existingToken = req.cookies?.accessToken
-  let isAdmin = false
-  if (existingToken) {
-    try {
-      const decoded = jwt.verify(existingToken, process.env.JWT_SECRET!) as JwtPayload
-      isAdmin = decoded.role === 'ADMIN'
-    } catch {
-      // Invalid or expired token — treat as unauthenticated
-    }
-  }
+  const isAdmin = getCallerRole(req) === 'ADMIN'
 
   if (!isAdmin) {
     const accessToken = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET!, { expiresIn: ACCESS_TOKEN_EXPIRY })
