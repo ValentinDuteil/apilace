@@ -3,6 +3,8 @@
 // Protected routes: me, updateMe, updatePassword, deleteMe
 
 import { Router } from 'express'
+import { csrfProtection } from '../middlewares/csrf.middleware.js'
+import { authRateLimit } from '../middlewares/rateLimit.middleware.js'
 import { requireAuth } from '../middlewares/requireAuth.middleware.js'
 import { validate } from '../middlewares/validate.middleware.js'
 import {
@@ -29,17 +31,17 @@ import {
 const router = Router()
 
 // Public
-router.post('/register', validate(RegisterSchema), register)
-router.post('/login', validate(LoginSchema), login)
+router.post('/register', authRateLimit, validate(RegisterSchema), register)
+router.post('/login', authRateLimit, validate(LoginSchema), login)
 router.post('/logout', logout)
 router.post('/refresh', refresh)
-router.post('/forgot-password', validate(ForgotPasswordSchema), forgotPassword)
-router.post('/reset-password', validate(ResetPasswordSchema), resetPassword)
+router.post('/forgot-password', authRateLimit, validate(ForgotPasswordSchema), forgotPassword)
+router.post('/reset-password', authRateLimit, validate(ResetPasswordSchema), resetPassword)
 
 // Protected
 router.get('/me', requireAuth, me)
-router.patch('/me', requireAuth, validate(UpdateProfileSchema), updateMe)
-router.patch('/password', requireAuth, validate(UpdatePasswordSchema), updatePassword)
-router.delete('/me', requireAuth, deleteMe)
+router.patch('/me', requireAuth, csrfProtection, validate(UpdateProfileSchema), updateMe)
+router.patch('/password', requireAuth, csrfProtection, validate(UpdatePasswordSchema), updatePassword)
+router.delete('/me', requireAuth, csrfProtection, deleteMe)
 
 export default router
