@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
+import authRoutes from './routes/auth.routes.js'
 import { notFound } from './middlewares/notFound.middleware.js'
 import { errorHandler } from './middlewares/errorHandler.middleware.js'
 
@@ -16,6 +17,8 @@ app.use(cookieParser())
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', message: 'Apilace API is running 🚀' })
 })
+
+app.use('/api/auth', authRoutes)
 
 // Must be mounted last — catches unknown routes then handles all errors
 app.use(notFound)
