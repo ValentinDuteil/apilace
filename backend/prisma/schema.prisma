@@ -25,6 +25,7 @@ model User {
   orders        Order[]
   messages      Message[]
   refreshTokens RefreshToken[]
+  passwordResetTokens PasswordResetToken[]
 }
 
 model Product {
@@ -127,6 +128,17 @@ model RefreshToken {
   userId    Int
   tokenHash String
   expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PasswordResetToken {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  tokenHash String
+  expiresAt DateTime
+  isUsed    Boolean  @default(false)
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
