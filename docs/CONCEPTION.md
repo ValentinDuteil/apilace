@@ -629,6 +629,8 @@ PENDING → PAID → READY → COLLECTED
 - **Dashboard analytique** : Graphiques de ventes, produits les plus vendus, CA mensuel, taux de conversion, paniers abandonnés
 - **Campagnes newsletter** : Envoi groupé via Resend Broadcast ou Mailchimp
 - **Application mobile** : React Native avec les mêmes API
+- **Gravure personnalisée** : Option de gravure d'initiales sur le boîtier — bien personnalisé = exclusion du droit de rétractation (Article L221-28 du Code de la consommation). Impacte : champ `isPersonalized` sur `OrderItem`, logique d'annulation, fiche produit.
+- **Manuel produit PDF** : Upload d'un PDF (manuel d'utilisation, entretien, détails techniques) par produit via l'interface admin. Bouton de téléchargement sur la fiche produit publique. Impacte : champ `manualUrl` sur `Product`, upload Cloudinary en PDF, composant de téléchargement sur `ProductPage`.
 
 ---
 
