@@ -2,7 +2,14 @@ import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
+
 import authRoutes from './routes/auth.routes.js'
+import userRoutes from './routes/user.routes.js'
+
+import { requireAdmin } from './middlewares/requireAdmin.middleware.js'
+import { requireAuth } from './middlewares/requireAuth.middleware.js'
+import { publicStoreRouter, adminStoreRouter } from './routes/store.routes.js'
+
 import { notFound } from './middlewares/notFound.middleware.js'
 import { errorHandler } from './middlewares/errorHandler.middleware.js'
 
@@ -19,6 +26,9 @@ app.get('/health', (_req, res) => {
 })
 
 app.use('/api/auth', authRoutes)
+app.use('/api/admin/users', requireAuth, requireAdmin, userRoutes)
+app.use('/api/stores', publicStoreRouter)
+app.use('/api/admin/stores', requireAuth, requireAdmin, adminStoreRouter)
 
 // Must be mounted last — catches unknown routes then handles all errors
 app.use(notFound)
