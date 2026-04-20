@@ -10,10 +10,8 @@ import { prisma } from '../lib/prisma.js'
 import { UnauthorizedError, NotFoundError, ConflictError } from '../utils/AppError.js'
 import type { RegisterDto, LoginDto, UpdateProfileDto, UpdatePasswordDto } from '../schemas/auth.schemas.js'
 import type { User } from '@prisma/client'
+import type { SafeUser } from '../types/models.types.js'
 import { getCallerRole } from '../utils/auth.utils.js'
-
-// User shape returned to the client — passwordHash is always stripped before sending
-type SafeUser = Omit<User, 'passwordHash'>
 
 const ACCESS_TOKEN_EXPIRY = '7d'
 const REFRESH_TOKEN_EXPIRY_MS = 7 * 24 * 60 * 60 * 1000
