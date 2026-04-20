@@ -78,6 +78,8 @@ model ProductSection {
   desc2        String?
   text3        String?
   desc3        String?
+  text4        String?
+  desc4        String?
 
   product      Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }

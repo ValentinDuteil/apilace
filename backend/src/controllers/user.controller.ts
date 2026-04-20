@@ -6,10 +6,7 @@ import { prisma } from '../lib/prisma.js'
 import { NotFoundError } from '../utils/AppError.js'
 import type { UpdateUserRoleDto } from '../schemas/user.schemas.js'
 import type { User } from '@prisma/client'
-
-// Omit<User, 'passwordHash'> creates a new type identical to User but without the passwordHash field
-// This guarantees at the TypeScript level that we never accidentally send the hash to the client
-type SafeUser = Omit<User, 'passwordHash'>
+import type { SafeUser } from '../types/models.types.js'
 
 function toSafeUser(user: User): SafeUser {
   const { passwordHash: _, ...safeUser } = user
