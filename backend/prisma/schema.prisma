@@ -17,6 +17,7 @@ model User {
   address       String?
   postalCode    String?
   city          String?
+  cart          Cart?
   role          Role      @default(MEMBER)
   isDeleted     Boolean   @default(false)
   createdAt     DateTime  @default(now())
@@ -42,6 +43,7 @@ model Product {
   sizes       ProductSize[]
   sections    ProductSection[]
   orderItems  OrderItem[]
+  cartItems   CartItem[]
 }
 
 model ProductImage {
@@ -123,6 +125,29 @@ model OrderItem {
 
   order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   product Product @relation(fields: [productId], references: [id])
+}
+
+model Cart {
+  id        Int        @id @default(autoincrement())
+  userId    Int        @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItem[]
+}
+
+model CartItem {
+  id        Int     @id @default(autoincrement())
+  cartId    Int
+  productId Int
+  size      String
+  quantity  Int     @default(1)
+
+  cart    Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([cartId, productId, size])
 }
 
 model RefreshToken {
