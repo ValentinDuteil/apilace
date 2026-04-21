@@ -6,6 +6,8 @@ declare global {
     interface Request {
       // Attached by requireAuth middleware after JWT verification
       user?: JwtPayload
+      // Attached by stripeWebhook middleware after signature verification
+      stripeEvent?: Stripe.Event
     }
   }
 }
