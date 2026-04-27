@@ -149,3 +149,37 @@ export type Order = {
   items: OrderItem[]
   store: Store
 }
+
+// ─── Contexts ────────────────────────────────────────────────────────────────
+
+export type LocalCartItem = {
+  productId: number
+  size: string
+  quantity: number
+  name: string
+  price: string
+  imageUrl: string | null
+}
+
+export interface AuthContextValue {
+  user: SafeUser | null
+  isLoading: boolean
+  login: (email: string, password: string, onSuccess?: () => Promise<void>) => Promise<void>
+  logout: () => Promise<void>
+}
+
+export interface CartContextValue {
+  cart: Cart | null
+  localItems: LocalCartItem[]
+  itemCount: number
+  fetchCart: () => Promise<void>
+  addToCart: (productId: number, size: string, quantity: number) => Promise<void>
+  updateItem: (itemId: number, quantity: number) => Promise<void>
+  removeItem: (itemId: number) => Promise<void>
+  clearCart: () => Promise<void>
+  addLocalItem: (item: LocalCartItem) => void
+  removeLocalItem: (productId: number, size: string) => void
+  updateLocalItem: (productId: number, size: string, quantity: number) => void
+  clearLocalCart: () => void
+  mergeAndClearLocal: () => Promise<void>
+}

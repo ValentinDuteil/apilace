@@ -3,14 +3,7 @@
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import api from '../lib/axios'
-import type { SafeUser } from '../types/models.types'
-
-interface AuthContextValue {
-  user: SafeUser | null
-  isLoading: boolean
-  login: (email: string, password: string) => Promise<void>
-  logout: () => Promise<void>
-}
+import type { SafeUser, AuthContextValue } from '../types/models.types'
 
 const AuthContext = createContext<AuthContextValue | null>(null)
 
