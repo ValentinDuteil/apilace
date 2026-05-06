@@ -55,11 +55,11 @@ export default function Navbar() {
           </button>
 
           <nav className="navbar-desktop-links">
-            <NavLink to="/boutique" style={navLinkStyle}>Boutique</NavLink>
+            <NavLink to="/boutique" className="navbar-nav-link">Boutique</NavLink>
             {!user ? (
               <>
-                <NavLink to="/inscription" style={navLinkStyle}>Inscription</NavLink>
-                <NavLink to="/connexion" style={navLinkStyle}>Connexion</NavLink>
+                <NavLink to="/inscription" className="navbar-nav-link">Inscription</NavLink>
+                <NavLink to="/connexion" className="navbar-nav-link">Connexion</NavLink>
               </>
             ) : (
               <span style={welcomeStyle}>
@@ -79,14 +79,14 @@ export default function Navbar() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flex: 1, justifyContent: 'flex-end' }}>
           {/* No inline gap/display here: letting CSS .navbar-desktop-links handle consistency */}
           <nav className="navbar-desktop-links">
-            <a href="https://custom.apilace.com/" target="_blank" rel="noopener noreferrer" style={externalLinkStyle}>
+            <a href="https://custom.apilace.com/" target="_blank" rel="noopener noreferrer" className="navbar-external-link">
               <i className="fa-regular fa-clock" style={{ marginRight: '6px' }} />
               Configurateur
             </a>
-            <a href="https://apilace.com/pages/actualites" target="_blank" rel="noopener noreferrer" style={externalLinkStyle}>
+            <a href="https://apilace.com/pages/actualites" target="_blank" rel="noopener noreferrer" className="navbar-external-link">
               Actualités
             </a>
-            <a href="https://apilace.com/pages/contact" target="_blank" rel="noopener noreferrer" style={externalLinkStyle}>
+            <a href="https://apilace.com/pages/contact" target="_blank" rel="noopener noreferrer" className="navbar-external-link">
               Contact
             </a>
           </nav>
@@ -104,15 +104,10 @@ export default function Navbar() {
       </header>
 
       {/* ── Sidebar Overlay ── */}
-      {isOpen && (
-        <div
-          style={backdropStyle}
-          onClick={close}
-        />
-      )}
+      <div className={`sidebar-backdrop${isOpen ? ' sidebar-backdrop--open' : ''}`} onClick={close} />
 
       {/* ── Navigation Sidebar ── */}
-      <div style={{ ...sidebarStyle, transform: isOpen ? 'translateX(0)' : 'translateX(-100%)' }}>
+      <div className={`sidebar${isOpen ? ' sidebar--open' : ''}`}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
           <span style={sidebarTitleStyle}>Apilace</span>
           <button onClick={close} aria-label="Close menu" style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#ffffff' }}>
@@ -222,17 +217,6 @@ const headerStyle: React.CSSProperties = {
   boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
 }
 
-const navLinkStyle = ({ isActive }: { isActive: boolean }): React.CSSProperties => ({
-  fontFamily: "'CenturySchoolbook', serif", fontSize: '14px',
-  color: isActive ? '#957d4c' : '#212529', textDecoration: 'none',
-  marginRight: '15px'
-})
-
-const externalLinkStyle: React.CSSProperties = {
-  fontFamily: "'CenturySchoolbook', serif", fontSize: '14px',
-  color: '#212529', textDecoration: 'none', display: 'flex', alignItems: 'center'
-}
-
 const logoContainerStyle: React.CSSProperties = {
   textDecoration: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center'
 }
@@ -253,17 +237,6 @@ const cartBadgeStyle: React.CSSProperties = {
   backgroundColor: '#957d4c', color: '#fff', borderRadius: '50%',
   width: '18px', height: '18px', fontSize: '10px',
   display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold'
-}
-
-const sidebarStyle: React.CSSProperties = {
-  position: 'fixed', top: 0, left: 0, bottom: 0,
-  width: 'min(350px, 80vw)', backgroundColor: '#1a1a1a', zIndex: 200,
-  padding: '30px', transition: 'transform 0.3s ease-out',
-  overflowY: 'auto'
-}
-
-const backdropStyle: React.CSSProperties = {
-  position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 150
 }
 
 const sidebarLinkStyle: React.CSSProperties = {

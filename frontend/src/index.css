@@ -23,6 +23,27 @@ body {
   gap: 28px;
 }
 
+/* ── Navbar links ── */
+.navbar-nav-link {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+}
+
+.navbar-nav-link.active {
+  color: #212529;
+}
+
+.navbar-external-link {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
 /* ── Sidebar ── */
 .sidebar {
   position: fixed;
@@ -66,4 +87,42 @@ body {
   .sidebar {
     width: 100vw;
   }
+}
+
+/* ── Footer ── */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Footer links ── */
+.footer-link {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.9rem;
+  color: #ffffff;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.25s;
+}
+
+.footer-link:hover {
+  color: #DECF95;
+}
+
+.footer-social-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
