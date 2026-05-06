@@ -1,7 +1,7 @@
 // App.tsx — Route definitions for Apilace
 // Uncomment routes as pages are implemented
 
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { ProtectedRoute } from './router/ProtectedRoute'
 import { AdminRoute } from './router/AdminRoute'
 // import MainLayout from './layouts/MainLayout'
@@ -44,7 +44,7 @@ export default function App() {
       {/* <Route element={<MainLayout />}> */}
 
         {/* Public routes */}
-        {/* <Route path="/" element={<HomePage />} /> */}
+        {/* <Route path="/" element={<Navigate to="/boutique" replace />} /> */}
         {/* <Route path="/boutique" element={<ShopPage />} /> */}
         {/* <Route path="/boutique/:slug" element={<ProductPage />} /> */}
         {/* <Route path="/panier" element={<CartPage />} /> */}
