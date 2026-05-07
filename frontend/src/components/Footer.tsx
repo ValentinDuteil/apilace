@@ -103,8 +103,7 @@ export default function Footer() {
 
       {/* Bottom — Logo placeholder + brand + copyright */}
       <div style={bottomStyle}>
-        {/* Replace with <img src="/img/LOGO_BLANC.png" width="150" alt="Apilace" /> when logo is available */}
-        <div style={logoPlaceholderStyle}>A</div>
+        <img src="/img/logo_apilace_blanc.png" alt="Apilace" style={{ width: '150px' }} />
         <span style={brandNameStyle}>APILACE</span>
         <p style={copyrightStyle}>&copy; Copyright 2026</p>
       </div>
@@ -118,21 +117,21 @@ export default function Footer() {
 const footerStyle: CSSProperties = {
   backgroundColor: '#957d4c',
   color: '#ffffff',
-  padding: '60px 48px 32px',
+  padding: '60px 16px 32px',
 }
 
 const columnTitleStyle: CSSProperties = {
   fontFamily: "'CenturySchoolbook', serif",
-  fontSize: '16px',
-  fontWeight: 'normal',
+  fontSize: 'calc(1.275rem + .3vw)',
+  fontWeight: '500',
   color: '#ffffff',
   marginBottom: '16px',
 }
 
 const dividerStyle: CSSProperties = {
-  border: 'none',
-  borderTop: '1px solid rgba(255,255,255,0.3)',
-  margin: '12px 0',
+  border: '1px solid white',
+  opacity: 1,
+  margin: '16px 0',
 }
 
 const listStyle: CSSProperties = {
@@ -149,31 +148,18 @@ const bottomStyle: CSSProperties = {
   flexDirection: 'column',
   alignItems: 'center',
   marginTop: '48px',
-  gap: '8px',
-}
-
-const logoPlaceholderStyle: CSSProperties = {
-  width: '60px',
-  height: '60px',
-  border: '2px solid rgba(255,255,255,0.6)',
-  borderRadius: '4px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  color: 'rgba(255,255,255,0.8)',
-  fontSize: '24px',
-  marginBottom: '8px',
+  gap: '4px',
 }
 
 const brandNameStyle: CSSProperties = {
   fontFamily: "'CenturySchoolbook', serif",
-  fontSize: '22px',
-  letterSpacing: '4px',
+  fontSize: '1.5rem',
   color: '#ffffff',
 }
 
 const copyrightStyle: CSSProperties = {
-  fontSize: '13px',
-  color: 'rgba(255,255,255,0.7)',
+  fontSize: '1rem',
+  color: '#ffffff',
   margin: 0,
+  textAlign: 'center'
 }

@@ -92,7 +92,7 @@ export default function Navbar() {
           </nav>
 
           {/* Cart Widget */}
-          <Link to="/panier" style={{ position: 'relative', textDecoration: 'none', color: '#957d4c' }}>
+          <Link to="/panier" style={{ position: 'relative', textDecoration: 'none', color: '#DFCF95' }}>
             <i className="fa-solid fa-cart-shopping" style={{ fontSize: '18px' }} />
             {itemCount > 0 && (
               <span style={cartBadgeStyle}>
@@ -209,7 +209,7 @@ function SidebarSeparator() {
 const headerStyle: React.CSSProperties = {
   position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
   backgroundColor: '#ffffff', height: '60px', display: 'flex',
-  alignItems: 'center', padding: '0 24px',
+  alignItems: 'center', padding: '0 8px',
   borderBottom: '1px solid rgba(33, 37, 41, 0.1)',
   boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
   overflow: 'visible'
@@ -229,7 +229,6 @@ const logoTextStyle: React.CSSProperties = {
   textAlign: 'center',
   textTransform: 'uppercase',
   color: '#212529',
-  letterSpacing: '2px',
 }
 
 const logoImgStyle: React.CSSProperties = {
