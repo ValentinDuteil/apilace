@@ -15,3 +15,126 @@ body {
   background-color: #ffffff;
   color: #212529;
 }
+
+/* ── Navbar links ── */
+.navbar-nav-link {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  padding: 0.5rem;
+}
+
+.navbar-nav-link.active {
+  color: #212529;
+}
+
+.navbar-external-link {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Navbar desktop links visibility ── */
+.navbar-desktop-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 50vw;
+  background-color: #262626;
+  z-index: 200;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+}
+
+.sidebar--open {
+  transform: translateX(0);
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-backdrop--open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── Sidebar scrollbar ── */
+.sidebar::-webkit-scrollbar {
+  width: 3px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+}
+
+/* ── Footer links ── */
+.footer-link {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.9rem;
+  color: #ffffff;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.25s;
+}
+
+.footer-link:hover {
+  color: #DECF95;
+}
+
+.footer-social-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Footer grid ── */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* ── Responsive — breakpoint 992px ── */
+@media (max-width: 992px) {
+  .navbar-desktop-links {
+    display: none;
+  }
+
+  .sidebar {
+    width: 100vw;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
