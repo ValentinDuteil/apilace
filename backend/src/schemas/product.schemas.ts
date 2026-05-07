@@ -30,6 +30,7 @@ export const CreateProductSchema = z.object({
   slug: z.string().min(1, { error: 'Le slug est requis' })
     .regex(/^[a-z0-9-]+$/, { error: 'Le slug ne peut contenir que des minuscules, chiffres et tirets' }),
   description: z.string().optional(),
+  tagline: z.string().optional(),
   price: z.number().positive({ error: 'Le prix doit être positif' }),
   isActive: z.boolean().optional(),
   sizes: z.array(ProductSizeSchema).min(1, { error: 'Au moins une taille est requise' }),
