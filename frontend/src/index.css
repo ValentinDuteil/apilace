@@ -16,19 +16,13 @@ body {
   color: #212529;
 }
 
-/* ── Navbar ── */
-.navbar-desktop-links {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-
 /* ── Navbar links ── */
 .navbar-nav-link {
   font-family: 'CenturySchoolbook', serif;
-  font-size: 14px;
+  font-size: 1rem;
   color: rgba(0, 0, 0, 0.5);
   text-decoration: none;
+  padding: 0.5rem;
 }
 
 .navbar-nav-link.active {
@@ -37,11 +31,18 @@ body {
 
 .navbar-external-link {
   font-family: 'CenturySchoolbook', serif;
-  font-size: 14px;
+  font-size: 1rem;
   color: rgba(0, 0, 0, 0.5);
   text-decoration: none;
   display: flex;
   align-items: center;
+}
+
+/* ── Navbar desktop links visibility ── */
+.navbar-desktop-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
 }
 
 /* ── Sidebar ── */
@@ -54,11 +55,11 @@ body {
   background-color: #262626;
   z-index: 200;
   transform: translateX(-100%);
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  padding: 32px;
+  padding: 3rem;
 }
 
 .sidebar--open {
@@ -79,29 +80,16 @@ body {
   pointer-events: all;
 }
 
-@media (max-width: 768px) {
-  .navbar-desktop-links {
-    display: none;
-  }
-
-  .sidebar {
-    width: 100vw;
-  }
+/* ── Sidebar scrollbar ── */
+.sidebar::-webkit-scrollbar {
+  width: 3px;
 }
-
-/* ── Footer ── */
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 48px;
-  max-width: 1200px;
-  margin: 0 auto;
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
 }
-
-@media (max-width: 768px) {
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
 }
 
 /* ── Footer links ── */
@@ -125,4 +113,28 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+/* ── Footer grid ── */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* ── Responsive — breakpoint 992px ── */
+@media (max-width: 992px) {
+  .navbar-desktop-links {
+    display: none;
+  }
+
+  .sidebar {
+    width: 100vw;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
 }

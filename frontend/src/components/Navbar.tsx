@@ -43,15 +43,15 @@ export default function Navbar() {
     <>
       {/* ── Fixed Header ── */}
       <header style={headerStyle}>
-        
+
         {/* Left Section: Menu trigger & Desktop Auth Links */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flex: 1 }}>
           <button
             onClick={open}
             aria-label="Open menu"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#957d4c' }}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#DFCF95' }}
           >
-            <i className="fa-solid fa-bars" style={{ fontSize: '20px' }} />
+            <i className="fa-solid fa-bars" style={{ fontSize: '26px' }} />
           </button>
 
           <nav className="navbar-desktop-links">
@@ -71,8 +71,8 @@ export default function Navbar() {
 
         {/* Center Section: Brand Identity */}
         <Link to="/boutique" style={logoContainerStyle}>
-          <div style={logoBoxStyle}>A</div>
           <span style={logoTextStyle}>Apilace</span>
+          <img src="/img/logo_apilace.png" alt="Apilace" style={logoImgStyle} />
         </Link>
 
         {/* Right Section: Vitrine External Links & Cart */}
@@ -109,7 +109,7 @@ export default function Navbar() {
       {/* ── Navigation Sidebar ── */}
       <div className={`sidebar${isOpen ? ' sidebar--open' : ''}`}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
-          <span style={sidebarTitleStyle}>Apilace</span>
+          <h1 style={sidebarTitleStyle}>Apilace</h1>
           <button onClick={close} aria-label="Close menu" style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#ffffff' }}>
             <i className="fa-solid fa-xmark" style={{ fontSize: '24px' }} />
           </button>
@@ -120,7 +120,7 @@ export default function Navbar() {
           <SidebarExternalLink href="https://apilace.com/#" onClick={close}>Accueil</SidebarExternalLink>
           <SidebarInternalLink to="/boutique" onClick={close}>Boutique</SidebarInternalLink>
           <SidebarInternalLink to="/panier" onClick={close}>Mon panier</SidebarInternalLink>
-          
+
           {!user ? (
             <>
               <SidebarInternalLink to="/connexion" onClick={close}>Connexion</SidebarInternalLink>
@@ -162,7 +162,7 @@ export default function Navbar() {
       </div>
 
       {/* Spacer to prevent content overlapping under fixed header */}
-      <div style={{ height: '72px' }} />
+      <div style={{ height: '105px' }} />
     </>
   )
 }
@@ -174,12 +174,9 @@ function SidebarInternalLink({ to, onClick, children }: { to: string; onClick: (
     <NavLink
       to={to}
       onClick={onClick}
-      style={({ isActive }) => ({
-        ...sidebarLinkStyle,
-        color: isActive ? '#957d4c' : '#ffffff',
-      })}
+      style={sidebarLinkStyle}
     >
-      <i className="fa-solid fa-chevron-right" style={{ fontSize: '10px', color: '#957d4c' }} />
+      <i className="fa-solid fa-chevron-right" style={{ marginRight: '0.5rem' }} />
       {children}
     </NavLink>
   )
@@ -188,7 +185,7 @@ function SidebarInternalLink({ to, onClick, children }: { to: string; onClick: (
 function SidebarExternalLink({ href, onClick, children }: { href: string; onClick: () => void; children: React.ReactNode }) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" onClick={onClick} style={sidebarLinkStyle}>
-      <i className="fa-solid fa-chevron-right" style={{ fontSize: '10px', color: '#957d4c' }} />
+      <i className="fa-solid fa-chevron-right" style={{ marginRight: '0.5rem' }} />
       {children}
     </a>
   )
@@ -197,7 +194,7 @@ function SidebarExternalLink({ href, onClick, children }: { href: string; onClic
 function SidebarButton({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {
   return (
     <button onClick={onClick} style={{ ...sidebarLinkStyle, background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer' }}>
-      <i className="fa-solid fa-chevron-right" style={{ fontSize: '10px', color: '#957d4c' }} />
+      <i className="fa-solid fa-chevron-right" style={{ marginRight: '0.5rem' }} />
       {children}
     </button>
   )
@@ -211,25 +208,35 @@ function SidebarSeparator() {
 
 const headerStyle: React.CSSProperties = {
   position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-  backgroundColor: '#ffffff', height: '72px', display: 'flex',
+  backgroundColor: '#ffffff', height: '60px', display: 'flex',
   alignItems: 'center', padding: '0 24px',
   borderBottom: '1px solid rgba(33, 37, 41, 0.1)',
-  boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+  boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+  overflow: 'visible'
 }
 
 const logoContainerStyle: React.CSSProperties = {
-  textDecoration: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center'
-}
-
-const logoBoxStyle: React.CSSProperties = {
-  width: '38px', height: '38px', border: '2px solid #957d4c', borderRadius: '4px',
-  display: 'flex', alignItems: 'center', justifyContent: 'center',
-  color: '#957d4c', fontWeight: 'bold', marginBottom: '2px'
+  textDecoration: 'none', position: 'relative', display: 'block', width: '150px', height: '40px', alignSelf: 'flex-start', paddingTop: '4px'
 }
 
 const logoTextStyle: React.CSSProperties = {
-  fontFamily: "'CenturySchoolbook', serif", fontSize: '12px',
-  letterSpacing: '3px', color: '#212529', textTransform: 'uppercase'
+  position: 'absolute',
+  width: '150px',
+  left: 0,
+  top: 0,
+  fontFamily: "'CenturySchoolbook', serif",
+  fontSize: '1.5rem',
+  textAlign: 'center',
+  textTransform: 'uppercase',
+  color: '#212529',
+  letterSpacing: '2px',
+}
+
+const logoImgStyle: React.CSSProperties = {
+  height: '65px',
+  position: 'absolute',
+  left: 'calc(50% - 37.79px)',
+  top: '35px',
 }
 
 const cartBadgeStyle: React.CSSProperties = {
@@ -242,13 +249,17 @@ const cartBadgeStyle: React.CSSProperties = {
 const sidebarLinkStyle: React.CSSProperties = {
   fontFamily: "'CenturySchoolbook', serif", color: '#ffffff',
   textDecoration: 'none', padding: '12px 0', display: 'flex',
-  alignItems: 'center', gap: '12px', fontSize: '16px',
-  borderBottom: '1px solid rgba(255,255,255,0.05)'
+  alignItems: 'center', gap: '12px', fontSize: '1.5rem',
+  fontWeight: '300'
 }
 
 const sidebarTitleStyle: React.CSSProperties = {
-  fontFamily: "'CenturySchoolbook', serif", fontSize: '20px',
-  letterSpacing: '4px', color: '#ffffff', textTransform: 'uppercase'
+  fontFamily: "'CenturySchoolbook', serif",
+  fontSize: '3.5rem',
+  fontWeight: '300',
+  letterSpacing: '6px',
+  color: '#ffffff',
+  textTransform: 'uppercase',
 }
 
 const welcomeStyle: React.CSSProperties = {
