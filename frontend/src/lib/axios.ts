@@ -51,7 +51,7 @@ api.interceptors.response.use(
     const originalRequest = error.config
 
     // Only attempt refresh on 401 and if not already retried
-    if (error.response?.status !== 401 || originalRequest._retry) {
+    if (error.response?.status !== 401 || originalRequest._retry || originalRequest._skipRefresh) {
       return Promise.reject(error)
     }
 

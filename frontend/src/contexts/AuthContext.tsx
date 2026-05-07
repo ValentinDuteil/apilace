@@ -14,7 +14,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // On mount — check if a valid session exists by fetching the current user
   // This handles page refreshes where cookies are still valid
   useEffect(() => {
-    api.get<SafeUser>('/auth/me')
+    api.get<SafeUser>('/auth/me', { _skipRefresh: true } as any)
       .then((res) => setUser(res.data))
       .catch(() => setUser(null))
       .finally(() => setIsLoading(false))
