@@ -4,7 +4,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { ProtectedRoute } from './router/ProtectedRoute'
 import { AdminRoute } from './router/AdminRoute'
-// import MainLayout from './layouts/MainLayout'
+import MainLayout from './layouts/MainLayout'
 
 // -- Public pages --
 // import HomePage from './pages/HomePage'
@@ -16,7 +16,7 @@ import { AdminRoute } from './router/AdminRoute'
 // import ForgotPasswordPage from './pages/ForgotPasswordPage'
 // import ResetPasswordPage from './pages/ResetPasswordPage'
 // import LegalPage from './pages/LegalPage'
-// import NotFoundPage from './pages/NotFoundPage'
+import NotFoundPage from './pages/NotFoundPage'
 
 // -- Member pages --
 // import CheckoutPage from './pages/CheckoutPage'
@@ -41,10 +41,10 @@ import { AdminRoute } from './router/AdminRoute'
 export default function App() {
   return (
     <Routes>
-      {/* <Route element={<MainLayout />}> */}
+      <Route element={<MainLayout />}>
 
         {/* Public routes */}
-        {/* <Route path="/" element={<Navigate to="/boutique" replace />} /> */}
+        <Route path="/" element={<Navigate to="/boutique" replace />} />
         {/* <Route path="/boutique" element={<ShopPage />} /> */}
         {/* <Route path="/boutique/:slug" element={<ProductPage />} /> */}
         {/* <Route path="/panier" element={<CartPage />} /> */}
@@ -79,9 +79,9 @@ export default function App() {
         {/* <Route path="/admin/textes-legaux" element={<AdminRoute><AdminLegalPage /></AdminRoute>} /> */}
 
         {/* 404 */}
-        {/* <Route path="*" element={<NotFoundPage />} /> */}
+        <Route path="*" element={<NotFoundPage />} />
 
-      {/* </Route> */}
+      </Route>
     </Routes>
   )
 }
