@@ -57,6 +57,7 @@ export type ProductSection = {
   textSide: TextSide
   title1: string | null
   description1: string | null
+  tagline: string | null
   text2: string | null
   desc2: string | null
   text3: string | null

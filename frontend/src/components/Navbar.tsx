@@ -176,7 +176,6 @@ function SidebarInternalLink({ to, onClick, children }: { to: string; onClick: (
       onClick={onClick}
       style={sidebarLinkStyle}
     >
-      <i className="fa-solid fa-chevron-right" style={{ marginRight: '0.5rem' }} />
       {children}
     </NavLink>
   )
@@ -185,7 +184,6 @@ function SidebarInternalLink({ to, onClick, children }: { to: string; onClick: (
 function SidebarExternalLink({ href, onClick, children }: { href: string; onClick: () => void; children: React.ReactNode }) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" onClick={onClick} style={sidebarLinkStyle}>
-      <i className="fa-solid fa-chevron-right" style={{ marginRight: '0.5rem' }} />
       {children}
     </a>
   )
@@ -194,7 +192,6 @@ function SidebarExternalLink({ href, onClick, children }: { href: string; onClic
 function SidebarButton({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {
   return (
     <button onClick={onClick} style={{ ...sidebarLinkStyle, background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer' }}>
-      <i className="fa-solid fa-chevron-right" style={{ marginRight: '0.5rem' }} />
       {children}
     </button>
   )
@@ -207,16 +204,29 @@ function SidebarSeparator() {
 // ── Style Objects (Internal CSS-in-JS) ────────────────────────────────────────────
 
 const headerStyle: React.CSSProperties = {
-  position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-  backgroundColor: '#ffffff', height: '60px', display: 'flex',
-  alignItems: 'center', padding: '0 8px',
+  position: 'fixed', 
+  top: 0, 
+  left: 0, 
+  right: 0, 
+  zIndex: 100,
+  backgroundColor: '#ffffff', 
+  height: '60px', 
+  display: 'flex',
+  alignItems: 'center', 
+  padding: '0 8px',
   borderBottom: '1px solid rgba(33, 37, 41, 0.1)',
   boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
   overflow: 'visible'
 }
 
 const logoContainerStyle: React.CSSProperties = {
-  textDecoration: 'none', position: 'relative', display: 'block', width: '150px', height: '40px', alignSelf: 'flex-start', paddingTop: '4px'
+  textDecoration: 'none', 
+  position: 'relative', 
+  display: 'block', 
+  width: '150px', 
+  height: '40px', 
+  alignSelf: 'flex-start', 
+  paddingTop: '4px'
 }
 
 const logoTextStyle: React.CSSProperties = {
@@ -239,16 +249,30 @@ const logoImgStyle: React.CSSProperties = {
 }
 
 const cartBadgeStyle: React.CSSProperties = {
-  position: 'absolute', top: '-8px', right: '-8px',
-  backgroundColor: '#957d4c', color: '#fff', borderRadius: '50%',
-  width: '18px', height: '18px', fontSize: '10px',
-  display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold'
+  position: 'absolute', 
+  top: '-8px', 
+  right: '-8px',
+  backgroundColor: '#957d4c', 
+  color: '#fff', 
+  borderRadius: '50%',
+  width: '18px', 
+  height: '18px', 
+  fontSize: '10px',
+  display: 'flex', 
+  alignItems: 'center', 
+  justifyContent: 'center', 
+  fontWeight: 'bold'
 }
 
 const sidebarLinkStyle: React.CSSProperties = {
-  fontFamily: "'CenturySchoolbook', serif", color: '#ffffff',
-  textDecoration: 'none', padding: '12px 0', display: 'flex',
-  alignItems: 'center', gap: '12px', fontSize: '1.5rem',
+  fontFamily: "'CenturySchoolbook', serif", 
+  color: '#ffffff',
+  textDecoration: 'none', 
+  padding: '12px 0', 
+  display: 'flex',
+  alignItems: 'center', 
+  gap: '12px', 
+  fontSize: '1.5rem',
   fontWeight: '300'
 }
 
@@ -262,5 +286,7 @@ const sidebarTitleStyle: React.CSSProperties = {
 }
 
 const welcomeStyle: React.CSSProperties = {
-  fontFamily: "'CenturySchoolbook', serif", fontSize: '14px', color: '#957d4c'
+  fontFamily: "'CenturySchoolbook', serif", 
+  fontSize: '14px', 
+  color: '#957d4c'
 }

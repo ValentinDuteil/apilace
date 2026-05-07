@@ -69,6 +69,7 @@ async function main() {
       name: 'M22 Collection by Apilace®',
       slug: 'm22-collection',
       description: 'Inspirée par le biomimétisme et les structures alvéolaires, la M22 est le reflet de l\'équilibre entre légèreté et robustesse.',
+      tagline: 'Pour les amoureux du biomimétisme',
       price: 15000,
       isActive: true,
       images: {

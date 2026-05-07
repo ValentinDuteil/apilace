@@ -34,6 +34,7 @@ model Product {
   name        String
   slug        String           @unique
   description String?
+  tagline     String?
   price       Decimal          @db.Decimal
   isActive    Boolean          @default(true)
   createdAt   DateTime         @default(now())
