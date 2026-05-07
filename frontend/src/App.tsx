@@ -7,8 +7,7 @@ import { AdminRoute } from './router/AdminRoute'
 import MainLayout from './layouts/MainLayout'
 
 // -- Public pages --
-// import HomePage from './pages/HomePage'
-// import ShopPage from './pages/ShopPage'
+import ShopPage from './pages/ShopPage'
 // import ProductPage from './pages/ProductPage'
 // import CartPage from './pages/CartPage'
 // import LoginPage from './pages/LoginPage'
@@ -45,7 +44,7 @@ export default function App() {
 
         {/* Public routes */}
         <Route path="/" element={<Navigate to="/boutique" replace />} />
-        {/* <Route path="/boutique" element={<ShopPage />} /> */}
+        <Route path="/boutique" element={<ShopPage />} />
         {/* <Route path="/boutique/:slug" element={<ProductPage />} /> */}
         {/* <Route path="/panier" element={<CartPage />} /> */}
         {/* <Route path="/connexion" element={<LoginPage />} /> */}

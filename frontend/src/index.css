@@ -138,3 +138,84 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Shop page ── */
+.shop-item {
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+.shop-item-img {
+  width: 100%;
+  height: 40vh;
+  min-height: 220px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.shop-item:hover .shop-item-img {
+  transform: scale(1.02);
+}
+
+.shop-item-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.4s ease;
+  pointer-events: none;
+}
+
+.shop-item:hover .shop-item-overlay {
+  background: rgba(0, 0, 0, 0.38);
+}
+
+.shop-item-overlay-text {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  text-align: center;
+  color: #ffffff;
+  padding: 0 2rem;
+}
+
+.shop-item:hover .shop-item-overlay-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.shop-item-edit {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.shop-item:hover .shop-item-edit {
+  opacity: 1;
+}
+
+/* ── Shop skeleton ── */
+.shop-skeleton {
+  width: 100%;
+  height: 40vh;
+  min-height: 220px;
+  background: linear-gradient(90deg, #ede9e3 25%, #f5f2ee 50%, #ede9e3 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite ease-in-out;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (max-width: 992px) {
+  .shop-item-img,
+  .shop-skeleton {
+    height: 35vh;
+  }
+}
