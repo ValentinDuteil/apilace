@@ -1,0 +1,222 @@
+/* ── Product sections — full-width overlay layout ── */
+.product-section {
+  position: relative;
+  height: 80vh;
+  overflow: hidden;
+}
+
+.product-section-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-section-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+}
+
+.product-overlay-content {
+  width: 45%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 80px;
+}
+
+.product-overlay-content--left {
+  background: linear-gradient(to right, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.35) 65%, transparent 100%);
+}
+
+.product-overlay-content--right {
+  margin-left: auto;
+  background: linear-gradient(to left, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.35) 65%, transparent 100%);
+}
+
+/* ── Size buttons — light version for dark overlay ── */
+.product-size-btn {
+  padding: 10px 22px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.product-size-btn:hover:not(.product-size-btn--disabled):not(.product-size-btn--selected) {
+  border-color: #DFCF95;
+  color: #DFCF95;
+}
+
+.product-size-btn--selected {
+  border-color: #957d4c;
+  background: #957d4c;
+  color: #ffffff;
+}
+
+.product-size-btn--disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background: linear-gradient(
+    to bottom right,
+    transparent calc(50% - 0.5px),
+    rgba(255, 255, 255, 0.4) calc(50% - 0.5px),
+    rgba(255, 255, 255, 0.4) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px)
+  );
+}
+
+/* ── CTA buttons ── */
+.product-cta-btn {
+  width: 100%;
+  padding: 16px 32px;
+  background: #957d4c;
+  color: #ffffff;
+  border: none;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin-top: 24px;
+  transition: background 0.2s ease;
+}
+
+.product-cta-btn:hover {
+  background: #7d6840;
+}
+
+.product-viewcart-btn {
+  padding: 14px;
+  background: #957d4c;
+  color: #ffffff;
+  border: none;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.product-viewcart-btn:hover {
+  background: #7d6840;
+}
+
+.product-continue-btn {
+  padding: 14px;
+  background: transparent;
+  color: #212529;
+  border: 1px solid rgba(33, 37, 41, 0.25);
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.product-continue-btn:hover {
+  border-color: #957d4c;
+  color: #957d4c;
+}
+
+/* ── Add to cart modal ── */
+.cart-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  z-index: 300;
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+.cart-modal-overlay--open {
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: all;
+}
+
+.cart-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  background: #ffffff;
+  z-index: 301;
+  padding: 48px;
+  width: 480px;
+  max-width: calc(100vw - 32px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.cart-modal--open {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: all;
+}
+
+.cart-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6c757d;
+  font-size: 1.1rem;
+  padding: 4px;
+  transition: color 0.2s ease;
+}
+
+.cart-modal-close:hover {
+  color: #212529;
+}
+
+/* ── Product skeleton ── */
+.product-section-skeleton {
+  width: 100%;
+  height: 80vh;
+  background: linear-gradient(90deg, #ede9e3 25%, #f5f2ee 50%, #ede9e3 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite ease-in-out;
+}
+
+/* ── Responsive ── */
+@media (max-width: 992px) {
+  .product-section {
+    height: auto;
+    overflow: visible;
+  }
+
+  .product-section-img {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: 60vw;
+    object-fit: cover;
+    display: block;
+  }
+
+  .product-section-overlay {
+    position: relative;
+    inset: auto;
+    background: #1a1a1a;
+  }
+
+  .product-overlay-content {
+    width: 100%;
+    padding: 60px 28px 200px;
+    background: none;
+  }
+
+  .product-section-skeleton {
+    height: 60vw;
+  }
+}
