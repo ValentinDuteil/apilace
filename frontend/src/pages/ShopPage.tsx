@@ -5,6 +5,8 @@ import api from '../lib/axios'
 import { useAuth } from '../contexts/AuthContext'
 import type { Product, ProductImage, ProductSize } from '../types/models.types'
 
+import '../styles/ShopPage.css'
+
 type ShopProduct = Product & {
   images: ProductImage[]
   sizes: ProductSize[]
