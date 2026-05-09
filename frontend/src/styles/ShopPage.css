@@ -7,7 +7,7 @@
 
 .shop-item-img {
   width: 100%;
-  height: 40vh;
+  height: 80vh;
   min-height: 220px;
   object-fit: cover;
   display: block;
@@ -59,7 +59,7 @@
 
 .shop-skeleton {
   width: 100%;
-  height: 40vh;
+  height: 80vh;
   min-height: 220px;
   background: linear-gradient(90deg, #ede9e3 25%, #f5f2ee 50%, #ede9e3 75%);
   background-size: 200% 100%;
@@ -69,6 +69,6 @@
 @media (max-width: 992px) {
   .shop-item-img,
   .shop-skeleton {
-    height: 35vh;
+    height: 60vh;
   }
 }
