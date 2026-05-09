@@ -55,7 +55,7 @@ export default function AddToCartModal({ isOpen, onClose, product, selectedSize 
             VOIR MA SÉLECTION
           </button>
           <button type="button" className="product-continue-btn" onClick={onClose}>
-            CONTINUER MES ACHATS
+            ENRICHIR MA SÉLECTION
           </button>
         </div>
       </div>
