@@ -5,6 +5,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { ProtectedRoute } from './router/ProtectedRoute'
 import { AdminRoute } from './router/AdminRoute'
 import MainLayout from './layouts/MainLayout'
+import ScrollToTop from './components/ScrollToTop'
 
 // -- Public pages --
 import ShopPage from './pages/ShopPage'
@@ -39,6 +40,8 @@ import NotFoundPage from './pages/NotFoundPage'
 
 export default function App() {
   return (
+    <>
+    <ScrollToTop />
     <Routes>
       <Route element={<MainLayout />}>
 
@@ -82,5 +85,6 @@ export default function App() {
 
       </Route>
     </Routes>
+    </>
   )
 }
