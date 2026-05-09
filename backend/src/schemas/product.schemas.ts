@@ -5,6 +5,22 @@ import * as z from 'zod'
 const SectionTypeSchema = z.enum(['IMAGE_TEXT', 'PRODUCT_CTA'], { error: 'Type de section invalide' })
 const TextSideSchema = z.enum(['LEFT', 'RIGHT'], { error: 'Côté invalide' })
 
+const SpecItemSchema = z.object({
+  label: z.string(),
+  value: z.string(),
+})
+
+const SpecSectionSchema = z.object({
+  title: z.string(),
+  items: z.array(SpecItemSchema).max(4).optional(),
+  text: z.string().optional(),
+})
+
+const CtaSpecsSchema = z.object({
+  left: z.array(SpecSectionSchema).max(3, { error: 'Maximum 3 sections par colonne' }),
+  right: z.array(SpecSectionSchema).max(3, { error: 'Maximum 3 sections par colonne' }),
+})
+
 const ProductSectionSchema = z.object({
   type: SectionTypeSchema,
   position: z.number().int({ error: 'Position invalide' }),
@@ -18,6 +34,7 @@ const ProductSectionSchema = z.object({
   desc3: z.string().optional(),
   text4: z.string().optional(),
   desc4: z.string().optional(),
+  specs: CtaSpecsSchema.optional(),
 })
 
 const ProductSizeSchema = z.object({

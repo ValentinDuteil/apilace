@@ -150,6 +150,47 @@ async function main() {
         text2: null, desc2: null,
         text3: null, desc3: null,
         text4: null, desc4: null,
+        specs: {
+          left: [
+            {
+              title: 'Boîtier',
+              items: [
+                { label: 'Taille', value: '42mm' },
+                { label: 'Épaisseur', value: '9mm' },
+                { label: 'Étanchéité', value: '5 ATM' },
+              ],
+            },
+            {
+              title: 'Bracelet',
+              items: [
+                { label: 'Taille', value: 'Standard' },
+                { label: 'Matière', value: 'Cuir végétal' },
+              ],
+            },
+            {
+              title: 'Cadran',
+              items: [
+                { label: 'Teinte', value: 'Anthracite' },
+                { label: 'Revêtement', value: 'NAC' },
+                { label: 'Aiguilles', value: 'Acier poli' },
+              ],
+            },
+          ],
+          right: [
+            {
+              title: 'Mécanisme',
+              text: 'Remontage à la main, 42 heures de réserve de marche.',
+            },
+            {
+              title: 'Matériaux',
+              text: 'Acier 316L, verre saphir antireflet double face, cuir végétal tanné en France.',
+            },
+            {
+              title: 'Garantie',
+              text: 'Chaque M22 incarne un achat de confiance, soutenu par un savoir-faire artisanal d\'exception. Garantie à vie.',
+            },
+          ],
+        },
       },
     ]
   })

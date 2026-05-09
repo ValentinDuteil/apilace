@@ -1,8 +1,9 @@
 // Navbar.tsx — Fixed navigation bar for Apilace e-commerce
 // Three states: visitor / member / admin
 // Sidebar logic: 50vw on desktop, full-screen on mobile
+// Smart scroll: hides on scroll down, reveals on scroll up
 
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { useCart } from '../contexts/CartContext'
@@ -24,10 +25,37 @@ const ADMIN_LINKS = [
   { label: 'Points de retrait', to: '/admin/magasins' },
 ]
 
+  const SCROLL_THRESHOLD = 80
+
 export default function Navbar() {
   const { user, logout } = useAuth()
   const { itemCount } = useCart()
   const [isOpen, setIsOpen] = useState(false)
+  const [isHidden, setIsHidden] = useState(false)
+  const lastScrollYRef = useRef(0)
+
+  // Smart scroll — hide on scroll down, reveal on scroll up
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY
+
+      if (currentY <= SCROLL_THRESHOLD) {
+        // Always visible at the top of the page
+        setIsHidden(false)
+      } else if (currentY > lastScrollYRef.current) {
+        // Scrolling down — hide
+        setIsHidden(true)
+      } else {
+        // Scrolling up — reveal
+        setIsHidden(false)
+      }
+
+      lastScrollYRef.current = currentY
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const open = () => setIsOpen(true)
   const close = () => setIsOpen(false)
@@ -42,7 +70,11 @@ export default function Navbar() {
   return (
     <>
       {/* ── Fixed Header ── */}
-      <header style={headerStyle}>
+      <header style={{
+        ...headerStyle,
+        transform: isHidden ? 'translateY(-100%)' : 'translateY(0)',
+        transition: 'transform 0.4s ease',
+      }}>
 
         {/* Left Section: Menu trigger & Desktop Auth Links */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flex: 1 }}>

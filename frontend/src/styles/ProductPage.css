@@ -1,8 +1,35 @@
-/* ── Product sections — full-width overlay layout ── */
+/* ─────────────────────────────────────────────────────────────────────────────
+   ProductPage.css — Styles for product detail page
+   Sections: Hero CTA · Overlay sections · Size buttons · CTA buttons ·
+             Modal · Skeleton · CTA specs · CTA purchase · Responsive
+───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Hero anchor button ── */
+.product-hero-cta {
+  align-self: flex-start;
+  width: fit-content;
+  padding: 14px 32px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.product-hero-cta:hover {
+  border-color: #DFCF95;
+  color: #DFCF95;
+}
+
+/* ── Full-width overlay sections (hero + IMAGE_TEXT) ── */
 .product-section {
   position: relative;
   height: 80vh;
   overflow: hidden;
+  background: #1a1a1a;
 }
 
 .product-section-img {
@@ -38,7 +65,7 @@
   background: linear-gradient(to left, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.35) 65%, transparent 100%);
 }
 
-/* ── Size buttons — light version for dark overlay ── */
+/* ── Size buttons (used in overlay sections and CTA) ── */
 .product-size-btn {
   padding: 10px 22px;
   background: transparent;
@@ -74,7 +101,7 @@
   );
 }
 
-/* ── CTA buttons ── */
+/* ── CTA action buttons ── */
 .product-cta-btn {
   width: 100%;
   padding: 16px 32px;
@@ -126,7 +153,7 @@
   color: #957d4c;
 }
 
-/* ── Add to cart modal ── */
+/* ── Modal (add to cart + size guide) ── */
 .cart-modal-overlay {
   position: fixed;
   inset: 0;
@@ -179,17 +206,144 @@
   color: #212529;
 }
 
-/* ── Product skeleton ── */
+/* ── Loading skeleton ── */
 .product-section-skeleton {
   width: 100%;
   height: 80vh;
-  background: linear-gradient(90deg, #ede9e3 25%, #f5f2ee 50%, #ede9e3 75%);
+  background: linear-gradient(90deg, #1a1a1a 25%, #252525 50%, #1a1a1a 75%);
   background-size: 200% 100%;
   animation: shimmer 1.8s infinite ease-in-out;
 }
 
-/* ── Responsive ── */
+/* ── PRODUCT_CTA section — specs grid ── */
+.product-cta-section {
+  background: #1a1a1a;
+  padding: 80px 100px;
+}
+
+.product-cta-specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px 80px;
+  max-width: 1400px;
+  margin: 0 auto 56px;
+  align-items: start;
+}
+
+.product-cta-spec-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-cta-spec-title {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.product-cta-spec-line {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin-bottom: 18px;
+}
+
+.product-cta-spec-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px 16px;
+}
+
+.product-cta-spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.product-cta-spec-label {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.5px;
+}
+
+.product-cta-spec-value {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.9rem;
+  color: #ffffff;
+}
+
+.product-cta-spec-text {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.75;
+}
+
+/* ── PRODUCT_CTA section — PDF link ── */
+.product-cta-pdf {
+  display: block;
+  text-align: center;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: rgba(223, 207, 149, 0.4);
+  margin: 0 auto 120px;
+  max-width: 1400px;
+  cursor: default;
+}
+
+/* ── PRODUCT_CTA section — purchase zone ── */
+.product-cta-bottom {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.product-cta-sizes-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  margin-bottom: 8px;
+}
+
+.product-cta-size-guide {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.8rem;
+  color: rgba(223, 207, 149, 0.55);
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 10px;
+  transition: color 0.2s ease;
+}
+
+.product-cta-size-guide:hover {
+  color: #DFCF95;
+}
+
+.product-cta-stripe {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+  margin-top: 16px;
+  letter-spacing: 0.5px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Responsive — breakpoint 992px
+───────────────────────────────────────────────────────────────────────────── */
 @media (max-width: 992px) {
+
+  /* Overlay sections (hero + IMAGE_TEXT) */
   .product-section {
     height: auto;
     overflow: visible;
@@ -216,7 +370,26 @@
     background: none;
   }
 
+  /* Skeleton */
   .product-section-skeleton {
     height: 60vw;
+  }
+
+  /* CTA section */
+  .product-cta-section {
+    padding: 60px 24px 80px;
+  }
+
+  .product-cta-specs-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .product-cta-bottom {
+    max-width: 100%;
+  }
+
+  .product-cta-sizes-row {
+    flex-wrap: wrap;
   }
 }

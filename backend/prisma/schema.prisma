@@ -83,6 +83,7 @@ model ProductSection {
   desc3        String?
   text4        String?
   desc4        String?
+  specs        Json?
 
   product      Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
