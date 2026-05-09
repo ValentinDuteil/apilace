@@ -31,6 +31,24 @@ export type SafeUser = {
   updatedAt: string
 }
 
+// ─── CTA Specs ───────────────────────────────────────────────────────────────
+
+export type SpecItem = {
+  label: string
+  value: string
+}
+
+export type SpecSection = {
+  title: string
+  items?: SpecItem[]
+  text?: string
+}
+
+export type CtaSpecs = {
+  left: SpecSection[]
+  right: SpecSection[]
+}
+
 // ─── Product ─────────────────────────────────────────────────────────────────
 
 export type ProductImage = {
@@ -57,13 +75,13 @@ export type ProductSection = {
   textSide: TextSide
   title1: string | null
   description1: string | null
-  tagline: string | null
   text2: string | null
   desc2: string | null
   text3: string | null
   desc3: string | null
   text4: string | null
   desc4: string | null
+  specs: CtaSpecs | null
 }
 
 export type Product = {
@@ -71,6 +89,7 @@ export type Product = {
   name: string
   slug: string
   description: string | null
+  tagline: string | null
   price: string // Decimal serialized as string by Prisma over JSON
   isActive: boolean
   createdAt: string
