@@ -43,7 +43,7 @@ export default function AddToCartModal({ isOpen, onClose, product, selectedSize 
         </div>
 
         <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.9rem', color: '#2d6a4f', marginBottom: '28px', letterSpacing: '0.5px' }}>
-          ✓ Produit ajouté à votre panier
+          ✓ Ajouté à votre sélection
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -52,7 +52,7 @@ export default function AddToCartModal({ isOpen, onClose, product, selectedSize 
             className="product-viewcart-btn"
             onClick={() => { onClose(); navigate('/panier') }}
           >
-            VOIR MON PANIER
+            VOIR MA SÉLECTION
           </button>
           <button type="button" className="product-continue-btn" onClick={onClose}>
             CONTINUER MES ACHATS
