@@ -10,7 +10,7 @@ import ScrollToTop from './components/ScrollToTop'
 // -- Public pages --
 import ShopPage from './pages/ShopPage'
 import ProductPage from './pages/ProductPage'
-// import CartPage from './pages/CartPage'
+import CartPage from './pages/CartPage'
 // import LoginPage from './pages/LoginPage'
 // import RegisterPage from './pages/RegisterPage'
 // import ForgotPasswordPage from './pages/ForgotPasswordPage'
@@ -49,7 +49,7 @@ export default function App() {
         <Route path="/" element={<Navigate to="/boutique" replace />} />
         <Route path="/boutique" element={<ShopPage />} />
         <Route path="/boutique/:slug" element={<ProductPage />} />
-        {/* <Route path="/panier" element={<CartPage />} /> */}
+        <Route path="/panier" element={<CartPage />} />
         {/* <Route path="/connexion" element={<LoginPage />} /> */}
         {/* <Route path="/inscription" element={<RegisterPage />} /> */}
         {/* <Route path="/mot-de-passe-oublie" element={<ForgotPasswordPage />} /> */}

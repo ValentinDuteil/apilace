@@ -11,14 +11,27 @@ async function main() {
 
   // Admin
   await prisma.user.upsert({
-    where: { email: 'admin@apilace.com' },
-    update: {},
-    create: {
-      email: 'admin@apilace.com',
+    where: { email: 'contact@apilace.com' },
+    update: {
+      email: 'contact@apilace.com',
       passwordHash: await argon2.hash('Admin1234!'),
       firstName: 'Louis',
       lastName: 'Desnoyers',
-      phone: '+33600000000',
+      phone: '+33682503749',
+      address: '72 B Avenue Thabaud Boislareine',
+      postalCode: '36230',
+      city: 'Neuvy Saint-Sépulchre',
+      role: 'ADMIN',
+    },
+    create: {
+      email: 'contact@apilace.com',
+      passwordHash: await argon2.hash('Admin1234!'),
+      firstName: 'Louis',
+      lastName: 'Desnoyers',
+      phone: '+33682503749',
+      address: '72 B Avenue Thabaud Boislareine',
+      postalCode: '36230',
+      city: 'Neuvy Saint-Sépulchre',
       role: 'ADMIN',
     }
   })
@@ -43,12 +56,26 @@ async function main() {
   // Magasin
   const store = await prisma.store.upsert({
     where: { id: 1 },
-    update: {},
+    update: {
+      name: 'Neuvy Saint-Sépulchre — Galerie Joséphine',
+      address: '72 B Avenue Thabaud Boislareine',
+      city: 'Neuvy Saint-Sépulchre',
+      postalCode: '36230',
+      openingHours: {
+        lun: '10h-19h',
+        mar: '10h-19h',
+        mer: '10h-19h',
+        jeu: '10h-19h',
+        ven: '10h-19h',
+        sam: '10h-19h',
+        dim: 'Fermé',
+      },
+    },
     create: {
-      name: 'Paris 8e — Galerie Joséphine',
-      address: '12 rue du Faubourg Saint-Honoré',
-      city: 'Paris',
-      postalCode: '75008',
+      name: 'Neuvy Saint-Sépulchre — Galerie Joséphine',
+      address: '72 B Avenue Thabaud Boislareine',
+      city: 'Neuvy Saint-Sépulchre',
+      postalCode: '36230',
       openingHours: {
         lun: '10h-19h',
         mar: '10h-19h',

@@ -1,0 +1,359 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   CartPage.css — Contrat de réservation layout for Apilace
+───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Global layout ── */
+.cart-layout {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+/* ── Header ── */
+.cart-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.cart-title {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: #212529;
+  letter-spacing: 2px;
+}
+
+/* ── Items list ── */
+.cart-items-list {
+  margin-bottom: 80px;
+}
+
+.cart-item-row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 40px 0;
+  border-bottom: 1px solid rgba(33, 37, 41, 0.08);
+}
+
+.cart-item-visual {
+  flex-shrink: 0;
+  width: 150px;
+  height: 150px;
+}
+
+.cart-item-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cart-item-img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #f0ede8;
+}
+
+.cart-item-details {
+  flex: 1;
+}
+
+.cart-item-name {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 1.1rem;
+  color: #212529;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.cart-item-size {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.cart-item-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.cart-item-price {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 1.1rem;
+  color: #212529;
+  letter-spacing: 0.5px;
+}
+
+.cart-item-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #adb5bd;
+  font-size: 0.9rem;
+  padding: 4px;
+  transition: color 0.2s ease;
+}
+
+.cart-item-remove:hover {
+  color: #842029;
+}
+
+/* ── Engagement block (centered, contract-style) ── */
+.cart-engagement {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* Total value row */
+.cart-engagement-total {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px 0;
+  border-top: 1px solid rgba(33, 37, 41, 0.15);
+  border-bottom: 1px solid rgba(33, 37, 41, 0.08);
+  margin-bottom: 28px;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 1rem;
+  color: #212529;
+  letter-spacing: 0.5px;
+}
+
+/* Store selector */
+.cart-store {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.cart-store-label {
+  display: block;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.75rem;
+  color: #6c757d;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.cart-store-select {
+  width: 100%;
+  padding: 12px 40px 12px 16px;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.9rem;
+  color: #212529;
+  border: 1px solid rgba(33, 37, 41, 0.2);
+  background: #ffffff;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23957d4c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.cart-store-select:focus {
+  outline: none;
+  border-color: #957d4c;
+}
+
+/* Deposit highlight */
+.cart-deposit-block {
+  text-align: center;
+  margin-bottom: 32px;
+  width: 100%;
+}
+
+.cart-deposit-label {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.875rem;
+  color: #6c757d;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.cart-deposit-amount {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 2.2rem;
+  color: #957d4c;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.cart-balance-label {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.8rem;
+  color: #adb5bd;
+  letter-spacing: 0.5px;
+}
+
+/* Italic reservation text */
+.cart-reservation-text {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.85rem;
+  color: #6c757d;
+  font-style: italic;
+  text-align: center;
+  line-height: 1.8;
+  margin-bottom: 32px;
+  padding: 24px 0;
+  border-top: 1px solid rgba(33, 37, 41, 0.08);
+  border-bottom: 1px solid rgba(33, 37, 41, 0.08);
+  width: 100%;
+}
+
+/* Terms checkbox */
+.cart-terms {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.cart-terms-label {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.cart-terms-checkbox {
+  margin-top: 3px;
+  accent-color: #957d4c;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.cart-terms-label span {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.8rem;
+  color: #6c757d;
+  line-height: 1.75;
+}
+
+/* Error text */
+.cart-error-text {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.8rem;
+  color: #842029;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.cart-checkout-error {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* CTA */
+.cart-pay-btn {
+  width: 100%;
+  padding: 18px;
+  background: #957d4c;
+  color: #ffffff;
+  border: none;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.9rem;
+  letter-spacing: 3px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  transition: background 0.2s ease;
+}
+
+.cart-pay-btn:hover:not(:disabled) {
+  background: #7d6840;
+}
+
+.cart-pay-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cart-stripe-badge {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.75rem;
+  color: #adb5bd;
+  text-align: center;
+  margin-bottom: 40px;
+  letter-spacing: 0.5px;
+}
+
+/* Enrich link */
+.cart-enrich-link {
+  display: block;
+  text-align: center;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.875rem;
+  color: #6c757d;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.2s ease;
+}
+
+.cart-enrich-link:hover {
+  color: #957d4c;
+}
+
+/* ── Empty state ── */
+.cart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 24px;
+}
+
+.cart-empty-title {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 1.1rem;
+  color: #6c757d;
+  letter-spacing: 1px;
+}
+
+/* ── Loading skeleton ── */
+.cart-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 0 24px;
+}
+
+.cart-skeleton {
+  width: 100%;
+  max-width: 700px;
+  height: 400px;
+  background: linear-gradient(90deg, #f5f2ee 25%, #ede9e3 50%, #f5f2ee 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite ease-in-out;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Responsive — breakpoint 992px
+───────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 992px) {
+  .cart-layout {
+    padding: 48px 16px 60px;
+  }
+
+  .cart-item-row {
+    gap: 20px;
+    padding: 28px 0;
+  }
+
+  .cart-item-visual {
+    width: 90px;
+    height: 90px;
+  }
+
+  .cart-deposit-amount {
+    font-size: 1.8rem;
+  }
+}

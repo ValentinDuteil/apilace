@@ -7,6 +7,8 @@ import { stripe } from '../lib/stripe.js'
 import { NotFoundError, UnprocessableEntityError } from '../utils/AppError.js'
 import type { CreateCheckoutSessionDto } from '../schemas/checkout.schemas.js'
 
+const DEPOSIT_RATE = 0.3
+
 export async function createCheckoutSession(req: Request, res: Response): Promise<void> {
   const { storeId } = req.body as CreateCheckoutSessionDto
   const userId = req.user!.id
@@ -63,9 +65,9 @@ export async function createCheckoutSession(req: Request, res: Response): Promis
     line_items: cart.items.map(item => ({
       price_data: {
         currency: 'eur',
-        unit_amount: Math.round(Number(item.product.price) * 100), // convert to cents
+        unit_amount: Math.round(Number(item.product.price) * DEPOSIT_RATE * 100), // convert to cents
         product_data: {
-          name: `${item.product.name} — Taille ${item.size}`,
+          name: `${item.product.name} — Taille ${item.size} (acompte 30%)`,
           ...(item.product.images[0] && { images: [item.product.images[0].url] }),
         },
       },
