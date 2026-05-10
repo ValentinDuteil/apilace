@@ -7,6 +7,7 @@ import { useCart } from '../contexts/CartContext'
 import type { Store } from '../types/models.types'
 import LoginModal from '../components/LoginModal'
 import '../styles/CartPage.css'
+import type { AxiosError } from 'axios'
 
 const DEPOSIT_RATE = 0.3
 
@@ -72,8 +73,8 @@ export default function CartPage() {
   const memberItems = cart?.items ?? []
   const isEmpty = isVisitor ? localItems.length === 0 : memberItems.length === 0
 
-// Replicate backend rounding logic to ensure visual consistency 
-// with the final Stripe checkout amount.
+  // Replicate backend rounding logic to ensure visual consistency 
+  // with the final Stripe checkout amount.
   const total = isVisitor
     ? localItems.reduce((sum, i) => sum + Number(i.price) * i.quantity, 0)
     : memberItems.reduce((sum, i) => sum + Number(i.product.price) * i.quantity, 0)
@@ -95,8 +96,9 @@ export default function CartPage() {
     try {
       const { data } = await api.post('/checkout/session', { storeId: Number(selectedStoreId) })
       window.location.href = data.url
-    } catch (err: any) {
-      setCheckoutError(err.response?.data?.error || 'Une erreur est survenue. Veuillez réessayer.')
+    } catch (error) {
+      const axiosError = error as AxiosError<{ message: string }>
+      setCheckoutError(axiosError.response?.data?.message ?? 'Une erreur est survenue.')
     } finally {
       setIsCheckingOut(false)
     }
