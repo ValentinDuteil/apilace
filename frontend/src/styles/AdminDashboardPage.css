@@ -1,0 +1,342 @@
+/* ── Admin Dashboard ── */
+
+.admin-order-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid rgba(33, 37, 41, 0.10);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-order-card:hover {
+  border-color: rgba(33, 37, 41, 0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.admin-search-input {
+  width: 100%;
+  padding: 10px 16px 10px 40px;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.9rem;
+  color: #212529;
+  border: 1px solid rgba(33, 37, 41, 0.2);
+  background: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.admin-search-input:focus {
+  border-color: #957d4c;
+}
+
+.admin-filter-select {
+  padding: 10px 14px;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.85rem;
+  color: #212529;
+  border: 1px solid rgba(33, 37, 41, 0.2);
+  background: #ffffff;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.admin-filter-select:focus {
+  border-color: #957d4c;
+}
+
+.admin-status-select {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  border: 1px solid rgba(33, 37, 41, 0.2);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.admin-status-select:focus {
+  border-color: #957d4c;
+}
+
+.admin-status-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-btn-primary {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: #ffffff;
+  background: #957d4c;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.admin-btn-primary:hover {
+  background: #7d6840;
+  color: #ffffff;
+}
+
+.admin-btn-secondary {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: #212529;
+  background: transparent;
+  border: 1px solid rgba(33, 37, 41, 0.3);
+  padding: 8px 12px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.admin-btn-secondary:hover {
+  border-color: #957d4c;
+  color: #957d4c;
+}
+
+.admin-pagination-btn {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.85rem;
+  padding: 8px 14px;
+  border: 1px solid rgba(33, 37, 41, 0.2);
+  background: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  color: #212529;
+}
+
+.admin-pagination-btn:hover:not(:disabled) {
+  border-color: #957d4c;
+  color: #957d4c;
+}
+
+.admin-pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.admin-pagination-btn--active {
+  background: #957d4c;
+  color: #ffffff;
+  border-color: #957d4c;
+}
+
+/* ── Admin shared — detail page ── */
+
+.admin-section-title {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #6c757d;
+  margin-bottom: '20px';
+}
+
+.admin-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.admin-detail-card {
+  background: #f8f9fa;
+  border: 1px solid rgba(33, 37, 41, 0.08);
+  padding: 24px;
+}
+
+.admin-detail-card-title {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #6c757d;
+  margin-bottom: 12px;
+}
+
+.admin-detail-value {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 4px;
+}
+
+.admin-detail-meta {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 2px;
+}
+
+.admin-finance-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.9rem;
+  color: #212529;
+  padding: '8px 0';
+  margin-bottom: 8px;
+}
+
+/* ── Admin danger button ── */
+
+.admin-btn-danger {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: #ffffff;
+  background: #842029;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.admin-btn-danger:hover:not(:disabled) {
+  background: #6a1a21;
+  color: #ffffff;
+}
+
+.admin-btn-danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Admin modals ── */
+
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  z-index: 300;
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+.admin-modal-overlay--open {
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: all;
+}
+
+.admin-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  background: #ffffff;
+  z-index: 301;
+  padding: 40px;
+  width: 520px;
+  max-width: calc(100vw - 32px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.admin-modal--open {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: all;
+}
+
+.admin-modal-title {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #212529;
+  margin-bottom: 16px;
+}
+
+.admin-modal-body {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.9rem;
+  color: #6c757d;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.admin-modal-notice {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.85rem;
+  color: #212529;
+  background: #f5efe0;
+  border-left: 3px solid #957d4c;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.admin-modal-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.9rem;
+  color: #212529;
+  line-height: 1.5;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.admin-modal-checkbox-label input[type="checkbox"] {
+  margin-top: 3px;
+  flex-shrink: 0;
+  accent-color: #957d4c;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.admin-modal-error {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.85rem;
+  color: #842029;
+  background: #f8d7da;
+  padding: 10px 14px;
+  margin-top: 12px;
+}
+
+/* ── Responsive 992px ── */
+@media (max-width: 992px) {
+  .admin-order-card {
+    flex-wrap: wrap;
+  }
+
+  .admin-order-card-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .admin-order-card-right {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* ── Responsive 992px — detail ── */
+
+@media (max-width: 992px) {
+  .admin-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
