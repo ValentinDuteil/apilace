@@ -61,6 +61,8 @@ async function main() {
       address: '72 B Avenue Thabaud Boislareine',
       city: 'Neuvy Saint-Sépulchre',
       postalCode: '36230',
+      email: 'contact@apilace.com',
+      phone: '+33682503749',
       openingHours: {
         lun: '10h-19h',
         mar: '10h-19h',
@@ -76,6 +78,8 @@ async function main() {
       address: '72 B Avenue Thabaud Boislareine',
       city: 'Neuvy Saint-Sépulchre',
       postalCode: '36230',
+      email: 'contact@apilace.com',
+      phone: '+33682503749',
       openingHours: {
         lun: '10h-19h',
         mar: '10h-19h',
