@@ -76,7 +76,7 @@ export default function Navbar() {
         transition: 'transform 0.4s ease',
       }}>
         {/* ── Wrapper centré ── */}
-        <div style={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '1440px', margin: '0 auto', padding: '0 40px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '1440px', margin: '0 auto', padding: '0 40px', height: '100%' }}>
           {/* Left Section: Menu trigger & Desktop Auth Links */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flex: 1 }}>
             <button
@@ -174,11 +174,15 @@ export default function Navbar() {
         {user?.role === 'ADMIN' && (
           <>
             <nav style={{ display: 'flex', flexDirection: 'column' }}>
-              <p style={{ color: '#957d4c', fontSize: '12px', marginBottom: '10px', textTransform: 'uppercase' }}>Administration</p>
               {ADMIN_LINKS.map(link => (
-                <SidebarInternalLink key={link.to} to={link.to} onClick={close}>
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  onClick={close}
+                  style={{ ...sidebarLinkStyle, color: '#957d4c' }}
+                >
                   {link.label}
-                </SidebarInternalLink>
+                </NavLink>
               ))}
             </nav>
             <SidebarSeparator />
@@ -196,7 +200,7 @@ export default function Navbar() {
       </div>
 
       {/* Spacer to prevent content overlapping under fixed header */}
-      <div style={{ height: '105px' }} />
+      <div style={{ height: '115px' }} />
     </>
   )
 }
@@ -232,7 +236,12 @@ function SidebarButton({ onClick, children }: { onClick: () => void; children: R
 }
 
 function SidebarSeparator() {
-  return <div style={{ height: '1px', backgroundColor: '#957d4c', margin: '20px 0', opacity: 0.3 }} />
+  return <div style={{
+    height: '1px',
+    background: 'linear-gradient(to right, #262626, #957d4c 50%, #262626)',
+    margin: '20px 0',
+    flexShrink: 0,
+  }} />
 }
 
 // ── Style Objects (Internal CSS-in-JS) ────────────────────────────────────────────
@@ -244,7 +253,7 @@ const headerStyle: React.CSSProperties = {
   right: 0,
   zIndex: 100,
   backgroundColor: '#ffffff',
-  height: '60px',
+  height: '70px',
   display: 'flex',
   alignItems: 'center',
   padding: '0',
