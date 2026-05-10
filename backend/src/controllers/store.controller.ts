@@ -3,7 +3,7 @@
 
 import { Request, Response } from 'express'
 import { prisma } from '../lib/prisma.js'
-import { NotFoundError } from '../utils/AppError.js'
+import { NotFoundError, UnprocessableEntityError } from '../utils/AppError.js'
 import type { CreateStoreDto, UpdateStoreDto } from '../schemas/store.schemas.js'
 
 export async function getStores(_req: Request, res: Response): Promise<void> {
@@ -51,9 +51,18 @@ export async function updateStore(req: Request, res: Response): Promise<void> {
 export async function deleteStore(req: Request, res: Response): Promise<void> {
   const id = parseInt(req.params.id as string)
 
-  const store = await prisma.store.findUnique({ where: { id } })
+  const store = await prisma.store.findUnique({ 
+    where: { id },
+    include: { _count: { select: { orders: true } } }, 
+  })
   if (!store) throw new NotFoundError('Point de retrait introuvable')
 
+  if (store._count.orders > 0) {
+    throw new UnprocessableEntityError(
+      `Impossible de supprimer : ${store._count.orders} commande(s) sont liées à ce point de retrait. Désactivez-le à la place.`
+    )
+  }
+  
   // Soft delete — preserves store data for existing orders (PAID/READY)
   await prisma.store.update({ where: { id }, data: { isActive: false } })
 
