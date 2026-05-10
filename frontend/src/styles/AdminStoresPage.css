@@ -1,0 +1,119 @@
+/* ── Admin Stores ── */
+
+.admin-store-card {
+  display: flex;
+  gap: 32px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid rgba(33, 37, 41, 0.10);
+  transition: border-color 0.2s ease;
+}
+
+.admin-store-card:hover {
+  border-color: rgba(33, 37, 41, 0.25);
+}
+
+.admin-store-hours {
+  flex-shrink: 0;
+  min-width: 240px;
+}
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+}
+
+.admin-form-label {
+  display: block;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #6c757d;
+  margin-bottom: 6px;
+}
+
+.admin-form-input {
+  width: 100%;
+  padding: 10px 14px;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.9rem;
+  color: #212529;
+  border: 1px solid rgba(33, 37, 41, 0.2);
+  background: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.admin-form-input:focus {
+  border-color: #957d4c;
+}
+
+.admin-hours-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(33, 37, 41, 0.05);
+}
+
+.admin-hours-input {
+  width: 108px;
+  padding: 8px 10px;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.85rem;
+  color: #212529;
+  border: 1px solid rgba(33, 37, 41, 0.2);
+  background: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.admin-hours-input:focus {
+  border-color: #957d4c;
+}
+
+.admin-store-delete-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(149, 125, 76, 0.3);
+  font-size: 0.9rem;
+  padding: 4px;
+  transition: color 0.2s ease;
+  line-height: 1;
+}
+
+.admin-store-delete-btn:hover {
+  color: #957d4c;
+}
+
+/* ── Responsive 992px ── */
+@media (max-width: 992px) {
+  .admin-store-card {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .admin-store-hours {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .admin-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-hours-row {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .admin-hours-input {
+    width: 90px;
+  }
+}
