@@ -25,7 +25,7 @@ const ADMIN_LINKS = [
   { label: 'Points de retrait', to: '/admin/magasins' },
 ]
 
-  const SCROLL_THRESHOLD = 80
+const SCROLL_THRESHOLD = 80
 
 export default function Navbar() {
   const { user, logout } = useAuth()
@@ -75,63 +75,65 @@ export default function Navbar() {
         transform: isHidden ? 'translateY(-100%)' : 'translateY(0)',
         transition: 'transform 0.4s ease',
       }}>
+        {/* ── Wrapper centré ── */}
+        <div style={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '1440px', margin: '0 auto', padding: '0 40px' }}>
+          {/* Left Section: Menu trigger & Desktop Auth Links */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flex: 1 }}>
+            <button
+              onClick={open}
+              aria-label="Open menu"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#DFCF95' }}
+            >
+              <i className="fa-solid fa-bars" style={{ fontSize: '26px' }} />
+            </button>
 
-        {/* Left Section: Menu trigger & Desktop Auth Links */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flex: 1 }}>
-          <button
-            onClick={open}
-            aria-label="Open menu"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#DFCF95' }}
-          >
-            <i className="fa-solid fa-bars" style={{ fontSize: '26px' }} />
-          </button>
+            <nav className="navbar-desktop-links">
+              <NavLink to="/boutique" className="navbar-nav-link">Boutique</NavLink>
+              {!user ? (
+                <>
+                  <NavLink to="/inscription" className="navbar-nav-link">Inscription</NavLink>
+                  <NavLink to="/connexion" className="navbar-nav-link">Connexion</NavLink>
+                </>
+              ) : (
+                <span style={welcomeStyle}>
+                  Bienvenue {user.firstName ? `${user.firstName} !` : '!'}
+                </span>
+              )}
+            </nav>
+          </div>
 
-          <nav className="navbar-desktop-links">
-            <NavLink to="/boutique" className="navbar-nav-link">Boutique</NavLink>
-            {!user ? (
-              <>
-                <NavLink to="/inscription" className="navbar-nav-link">Inscription</NavLink>
-                <NavLink to="/connexion" className="navbar-nav-link">Connexion</NavLink>
-              </>
-            ) : (
-              <span style={welcomeStyle}>
-                Bienvenue {user.firstName ? `${user.firstName} !` : '!'}
-              </span>
-            )}
-          </nav>
-        </div>
-
-        {/* Center Section: Brand Identity */}
-        <Link to="/boutique" style={logoContainerStyle}>
-          <span style={logoTextStyle}>Apilace</span>
-          <img src="/img/logo_apilace.png" alt="Apilace" style={logoImgStyle} />
-        </Link>
-
-        {/* Right Section: Vitrine External Links & Cart */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flex: 1, justifyContent: 'flex-end' }}>
-          {/* No inline gap/display here: letting CSS .navbar-desktop-links handle consistency */}
-          <nav className="navbar-desktop-links">
-            <a href="https://custom.apilace.com/" target="_blank" rel="noopener noreferrer" className="navbar-external-link">
-              <i className="fa-regular fa-clock" style={{ marginRight: '6px' }} />
-              Configurateur
-            </a>
-            <a href="https://apilace.com/pages/actualites" target="_blank" rel="noopener noreferrer" className="navbar-external-link">
-              Actualités
-            </a>
-            <a href="https://apilace.com/pages/contact" target="_blank" rel="noopener noreferrer" className="navbar-external-link">
-              Contact
-            </a>
-          </nav>
-
-          {/* Cart Widget */}
-          <Link to="/panier" style={{ position: 'relative', textDecoration: 'none', color: '#DFCF95' }}>
-            <i className="fa-solid fa-cart-shopping" style={{ fontSize: '18px' }} />
-            {itemCount > 0 && (
-              <span style={cartBadgeStyle}>
-                {itemCount > 9 ? '9+' : itemCount}
-              </span>
-            )}
+          {/* Center Section: Brand Identity */}
+          <Link to="/boutique" style={logoContainerStyle}>
+            <span style={logoTextStyle}>Apilace</span>
+            <img src="/img/logo_apilace.png" alt="Apilace" style={logoImgStyle} />
           </Link>
+
+          {/* Right Section: Vitrine External Links & Cart */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flex: 1, justifyContent: 'flex-end' }}>
+            {/* No inline gap/display here: letting CSS .navbar-desktop-links handle consistency */}
+            <nav className="navbar-desktop-links">
+              <a href="https://custom.apilace.com/" target="_blank" rel="noopener noreferrer" className="navbar-external-link">
+                <i className="fa-regular fa-clock" style={{ marginRight: '6px' }} />
+                Configurateur
+              </a>
+              <a href="https://apilace.com/pages/actualites" target="_blank" rel="noopener noreferrer" className="navbar-external-link">
+                Actualités
+              </a>
+              <a href="https://apilace.com/pages/contact" target="_blank" rel="noopener noreferrer" className="navbar-external-link">
+                Contact
+              </a>
+            </nav>
+
+            {/* Cart Widget */}
+            <Link to="/panier" style={{ position: 'relative', textDecoration: 'none', color: '#DFCF95' }}>
+              <i className="fa-solid fa-cart-shopping" style={{ fontSize: '18px' }} />
+              {itemCount > 0 && (
+                <span style={cartBadgeStyle}>
+                  {itemCount > 9 ? '9+' : itemCount}
+                </span>
+              )}
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -236,28 +238,28 @@ function SidebarSeparator() {
 // ── Style Objects (Internal CSS-in-JS) ────────────────────────────────────────────
 
 const headerStyle: React.CSSProperties = {
-  position: 'fixed', 
-  top: 0, 
-  left: 0, 
-  right: 0, 
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
   zIndex: 100,
-  backgroundColor: '#ffffff', 
-  height: '60px', 
+  backgroundColor: '#ffffff',
+  height: '60px',
   display: 'flex',
-  alignItems: 'center', 
-  padding: '0 8px',
+  alignItems: 'center',
+  padding: '0',
   borderBottom: '1px solid rgba(33, 37, 41, 0.1)',
   boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
   overflow: 'visible'
 }
 
 const logoContainerStyle: React.CSSProperties = {
-  textDecoration: 'none', 
-  position: 'relative', 
-  display: 'block', 
-  width: '150px', 
-  height: '40px', 
-  alignSelf: 'flex-start', 
+  textDecoration: 'none',
+  position: 'relative',
+  display: 'block',
+  width: '150px',
+  height: '40px',
+  alignSelf: 'flex-start',
   paddingTop: '4px'
 }
 
@@ -281,29 +283,29 @@ const logoImgStyle: React.CSSProperties = {
 }
 
 const cartBadgeStyle: React.CSSProperties = {
-  position: 'absolute', 
-  top: '-8px', 
+  position: 'absolute',
+  top: '-8px',
   right: '-8px',
-  backgroundColor: '#957d4c', 
-  color: '#fff', 
+  backgroundColor: '#957d4c',
+  color: '#fff',
   borderRadius: '50%',
-  width: '18px', 
-  height: '18px', 
+  width: '18px',
+  height: '18px',
   fontSize: '10px',
-  display: 'flex', 
-  alignItems: 'center', 
-  justifyContent: 'center', 
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   fontWeight: 'bold'
 }
 
 const sidebarLinkStyle: React.CSSProperties = {
-  fontFamily: "'CenturySchoolbook', serif", 
+  fontFamily: "'CenturySchoolbook', serif",
   color: '#ffffff',
-  textDecoration: 'none', 
-  padding: '12px 0', 
+  textDecoration: 'none',
+  padding: '12px 0',
   display: 'flex',
-  alignItems: 'center', 
-  gap: '12px', 
+  alignItems: 'center',
+  gap: '12px',
   fontSize: '1.5rem',
   fontWeight: '300'
 }
@@ -318,7 +320,7 @@ const sidebarTitleStyle: React.CSSProperties = {
 }
 
 const welcomeStyle: React.CSSProperties = {
-  fontFamily: "'CenturySchoolbook', serif", 
-  fontSize: '14px', 
+  fontFamily: "'CenturySchoolbook', serif",
+  fontSize: '14px',
   color: '#957d4c'
 }

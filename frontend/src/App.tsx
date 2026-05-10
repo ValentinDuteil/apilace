@@ -10,8 +10,8 @@ import ScrollToTop from './components/ScrollToTop'
 // -- Public pages --
 import ShopPage from './pages/ShopPage'
 import ProductPage from './pages/ProductPage'
-// import CartPage from './pages/CartPage'
-// import LoginPage from './pages/LoginPage'
+import CartPage from './pages/CartPage'
+import LoginPage from './pages/LoginPage'
 // import RegisterPage from './pages/RegisterPage'
 // import ForgotPasswordPage from './pages/ForgotPasswordPage'
 // import ResetPasswordPage from './pages/ResetPasswordPage'
@@ -19,8 +19,7 @@ import ProductPage from './pages/ProductPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 // -- Member pages --
-// import CheckoutPage from './pages/CheckoutPage'
-// import CheckoutSuccessPage from './pages/CheckoutSuccessPage'
+import CheckoutSuccessPage from './pages/CheckoutSuccessPage'
 // import AccountPage from './pages/AccountPage'
 // import OrdersPage from './pages/OrdersPage'
 // import OrderDetailPage from './pages/OrderDetailPage'
@@ -49,8 +48,8 @@ export default function App() {
         <Route path="/" element={<Navigate to="/boutique" replace />} />
         <Route path="/boutique" element={<ShopPage />} />
         <Route path="/boutique/:slug" element={<ProductPage />} />
-        {/* <Route path="/panier" element={<CartPage />} /> */}
-        {/* <Route path="/connexion" element={<LoginPage />} /> */}
+        <Route path="/panier" element={<CartPage />} />
+        <Route path="/connexion" element={<LoginPage />} />
         {/* <Route path="/inscription" element={<RegisterPage />} /> */}
         {/* <Route path="/mot-de-passe-oublie" element={<ForgotPasswordPage />} /> */}
         {/* <Route path="/reinitialisation/:token" element={<ResetPasswordPage />} /> */}
@@ -59,8 +58,7 @@ export default function App() {
         {/* <Route path="/confidentialite" element={<LegalPage type="RGPD" />} /> */}
 
         {/* Member routes */}
-        {/* <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} /> */}
-        {/* <Route path="/checkout/success" element={<ProtectedRoute><CheckoutSuccessPage /></ProtectedRoute>} /> */}
+        <Route path="/checkout/success" element={<ProtectedRoute><CheckoutSuccessPage /></ProtectedRoute>} />
         {/* <Route path="/mon-compte" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} /> */}
         {/* <Route path="/mon-compte/commandes" element={<ProtectedRoute><OrdersPage /></ProtectedRoute>} /> */}
         {/* <Route path="/mon-compte/commandes/:id" element={<ProtectedRoute><OrderDetailPage /></ProtectedRoute>} /> */}

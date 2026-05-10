@@ -1,14 +1,18 @@
-// LoginPage.tsx — Standalone login page
+// LoginModal.tsx — Login modal triggered from CartPage when user is not authenticated
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { useCart } from '../contexts/CartContext'
 
-export default function LoginPage() {
+interface LoginModalProps {
+  isOpen: boolean
+  onClose: () => void
+  onSuccess?: () => void
+}
+
+export default function LoginModal({ isOpen, onClose, onSuccess }: LoginModalProps) {
   const { login } = useAuth()
   const { mergeAndClearLocal } = useCart()
-  const navigate = useNavigate()
-
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -22,7 +26,8 @@ export default function LoginPage() {
       await login(email, password, async () => {
         await mergeAndClearLocal()
       })
-      navigate('/boutique')
+      onClose()
+      onSuccess?.()
     } catch {
       setError('Email ou mot de passe incorrect.')
     } finally {
@@ -35,11 +40,19 @@ export default function LoginPage() {
   }
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', padding: '40px 24px' }}>
-      <div style={{ width: '100%', maxWidth: '400px' }}>
-        <h1 style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '2rem', fontWeight: 400, color: '#212529', letterSpacing: '1px', textAlign: 'center', marginBottom: '40px' }}>
-          Connexion
-        </h1>
+    <>
+      <div
+        className={`cart-modal-overlay${isOpen ? ' cart-modal-overlay--open' : ''}`}
+        onClick={onClose}
+      />
+      <div className={`cart-modal${isOpen ? ' cart-modal--open' : ''}`}>
+        <button type="button" className="cart-modal-close" onClick={onClose} aria-label="Fermer">
+          <i className="fa-solid fa-xmark" />
+        </button>
+
+        <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.75rem', color: '#6c757d', letterSpacing: '3px', marginBottom: '32px' }}>
+          CONNEXION
+        </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px' }}>
           <input
@@ -61,7 +74,7 @@ export default function LoginPage() {
         </div>
 
         {error && (
-          <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.875rem', color: '#842029', marginBottom: '16px', textAlign: 'center' }}>
+          <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.875rem', color: '#842029', marginBottom: '16px' }}>
             {error}
           </p>
         )}
@@ -71,20 +84,27 @@ export default function LoginPage() {
           className="login-modal-btn"
           onClick={handleSubmit}
           disabled={isLoading}
-          style={{ marginBottom: '20px' }}
         >
           {isLoading ? 'Connexion...' : 'SE CONNECTER'}
         </button>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Link to="/mot-de-passe-oublie" style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.8rem', color: '#6c757d', textDecoration: 'none' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+          <Link
+            to="/mot-de-passe-oublie"
+            onClick={onClose}
+            style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.8rem', color: '#6c757d', textDecoration: 'none' }}
+          >
             Mot de passe oublié ?
           </Link>
-          <Link to="/inscription" style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.8rem', color: '#957d4c', textDecoration: 'none' }}>
+          <Link
+            to="/inscription"
+            onClick={onClose}
+            style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.8rem', color: '#957d4c', textDecoration: 'none' }}
+          >
             Créer un compte →
           </Link>
         </div>
       </div>
-    </div>
+    </>
   )
 }

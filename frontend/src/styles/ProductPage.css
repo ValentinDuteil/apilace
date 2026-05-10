@@ -153,59 +153,6 @@
   color: #957d4c;
 }
 
-/* ── Modal (add to cart + size guide) ── */
-.cart-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0);
-  z-index: 300;
-  pointer-events: none;
-  transition: background 0.3s ease;
-}
-
-.cart-modal-overlay--open {
-  background: rgba(0, 0, 0, 0.5);
-  pointer-events: all;
-}
-
-.cart-modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.95);
-  background: #ffffff;
-  z-index: 301;
-  padding: 48px;
-  width: 480px;
-  max-width: calc(100vw - 32px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.cart-modal--open {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-  pointer-events: all;
-}
-
-.cart-modal-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #6c757d;
-  font-size: 1.1rem;
-  padding: 4px;
-  transition: color 0.2s ease;
-}
-
-.cart-modal-close:hover {
-  color: #212529;
-}
-
 /* ── Loading skeleton ── */
 .product-section-skeleton {
   width: 100%;
