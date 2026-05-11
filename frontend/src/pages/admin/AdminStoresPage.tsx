@@ -548,7 +548,7 @@ export default function AdminStoresPage() {
                 }}>
                   {label}
                 </span>
-                <div style={{ flex: 1, display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <div style={{ flex: 1, display: 'flex', gap: '8px', alignItems: 'center', justifyContent: 'center' }}>
                   <input className="admin-hours-input" type="time"
                     value={form.openingHours[key].open1}
                     onChange={e => setDayHours(key, 'open1', e.target.value)} />
@@ -557,7 +557,7 @@ export default function AdminStoresPage() {
                     value={form.openingHours[key].close1}
                     onChange={e => setDayHours(key, 'close1', e.target.value)} />
                 </div>
-                <div style={{ flex: 1, display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <div style={{ flex: 1, display: 'flex', gap: '8px', alignItems: 'center', justifyContent: 'center' }}>
                   <input className="admin-hours-input" type="time"
                     value={form.openingHours[key].open2}
                     onChange={e => setDayHours(key, 'open2', e.target.value)} />
