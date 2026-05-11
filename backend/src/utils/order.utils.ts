@@ -11,7 +11,13 @@ export async function getOrderOrThrow(id: number, userId?: number): Promise<Orde
   const order = await prisma.order.findUnique({
     where: { id },
     include: {
-      items: { include: { product: true } },
+      items: {
+        include: {
+          product: {
+            include: { images: { where: { isPrimary: true }, take: 1 } }
+          }
+        }
+      },
       store: true,
       user: true,
     },

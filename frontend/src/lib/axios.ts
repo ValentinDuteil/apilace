@@ -87,4 +87,16 @@ api.interceptors.response.use(
   }
 )
 
+// Extend Axios config to support custom flags used by interceptors
+declare module 'axios' {
+  export interface AxiosRequestConfig {
+    _skipRefresh?: boolean
+    _retry?: boolean
+  }
+  export interface InternalAxiosRequestConfig {
+    _skipRefresh?: boolean
+    _retry?: boolean
+  }
+}
+
 export default api

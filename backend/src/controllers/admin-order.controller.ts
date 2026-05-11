@@ -10,6 +10,7 @@ import type { UpdateOrderStatusDto } from '../schemas/order.schemas.js'
 export async function getAdminOrders(req: Request, res: Response): Promise<void> {
   const status = req.query.status as string | undefined
   const storeId = req.query.storeId ? parseInt(req.query.storeId as string) : undefined
+  const search = req.query.search as string | undefined
   const page = parseInt(req.query.page as string) || 1
   const limit = parseInt(req.query.limit as string) || 10
   const skip = (page - 1) * limit
@@ -17,6 +18,13 @@ export async function getAdminOrders(req: Request, res: Response): Promise<void>
   const where = {
     ...(status && { status: status as any }),
     ...(storeId && { storeId }),
+    ...(search && {
+      OR: [
+        ...(!isNaN(parseInt(search)) ? [{ id: parseInt(search) }] : []),
+        { user: { firstName: { contains: search, mode: 'insensitive' as const } } },
+        { user: { lastName: { contains: search, mode: 'insensitive' as const } } },
+      ],
+    }),
   }
 
   const [orders, total] = await prisma.$transaction([

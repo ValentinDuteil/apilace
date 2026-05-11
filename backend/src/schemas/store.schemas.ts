@@ -41,6 +41,8 @@ export const CreateStoreSchema = z.object({
   address:      z.string().min(1, { error: "L'adresse est requise" }),
   city:         z.string().min(1, { error: 'La ville est requise' }),
   postalCode:   z.string().min(1, { error: 'Le code postal est requis' }),
+  email:        z.string().email({ error: 'Email invalide' }).optional(),
+  phone:        z.string().optional(),
   openingHours: OpeningHoursSchema,
 })
 

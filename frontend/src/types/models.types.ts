@@ -120,6 +120,8 @@ export type Store = {
   address: string
   city: string
   postalCode: string
+  email: string | null
+  phone: string | null
   openingHours: OpeningHours
   isActive: boolean
   createdAt: string
@@ -202,4 +204,22 @@ export interface CartContextValue {
   updateLocalItem: (productId: number, size: string, quantity: number) => void
   clearLocalCart: () => void
   mergeAndClearLocal: () => Promise<void>
+}
+
+// ─── Admin ───────────────────────────────────────────────────────────────────
+
+export type AdminOrder = Order & {
+  user: SafeUser
+}
+
+export type DashboardStats = {
+  totalRevenue: number
+  orderCountByStatus: Record<OrderStatus, number>
+}
+
+// ─── API Errors ──────────────────────────────────────────────────────────────
+
+export type ApiValidationError = {
+  message: string
+  details?: { champ: string; message: string }[]
 }

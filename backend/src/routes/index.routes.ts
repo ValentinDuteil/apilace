@@ -11,6 +11,7 @@ import cartRoutes from './cart.routes.js'
 import userRoutes from './user.routes.js'
 import orderRoutes from './order.routes.js'
 import checkoutRoutes from './checkout.routes.js'
+import adminDashboardRoutes from './admin-dashboard.routes.js'
 import adminOrderRoutes from './admin-order.routes.js'
 
 import { publicStoreRouter, adminStoreRouter } from './store.routes.js'
@@ -29,7 +30,7 @@ router.use('/orders', requireAuth, csrfProtection, orderRoutes)
 router.use('/checkout', requireAuth, csrfProtection, checkoutRoutes)
 
 // Admin routes
-router.use('/admin/users', requireAuth, requireAdmin, csrfProtection, userRoutes)
+router.use('/admin/dashboard', requireAuth, requireAdmin, csrfProtection, adminDashboardRoutes)
 router.use('/admin/stores', requireAuth, requireAdmin, csrfProtection, adminStoreRouter)
 router.use('/admin/products', requireAuth, requireAdmin, csrfProtection, adminProductRouter)
 router.use('/admin/orders', requireAuth, requireAdmin, csrfProtection, adminOrderRoutes)

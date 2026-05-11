@@ -94,6 +94,8 @@ model Store {
   address      String
   city         String
   postalCode   String
+  email        String?
+  phone        String?
   openingHours Json
   isActive     Boolean  @default(true)
   createdAt    DateTime @default(now())

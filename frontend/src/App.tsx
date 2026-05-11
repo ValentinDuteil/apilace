@@ -12,8 +12,7 @@ import ShopPage from './pages/ShopPage'
 import ProductPage from './pages/ProductPage'
 import CartPage from './pages/CartPage'
 import LoginPage from './pages/LoginPage'
-// import RegisterPage from './pages/RegisterPage'
-// import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import RegisterPage from './pages/RegisterPage'
 // import ResetPasswordPage from './pages/ResetPasswordPage'
 // import LegalPage from './pages/LegalPage'
 import NotFoundPage from './pages/NotFoundPage'
@@ -21,18 +20,14 @@ import NotFoundPage from './pages/NotFoundPage'
 // -- Member pages --
 import CheckoutSuccessPage from './pages/CheckoutSuccessPage'
 // import AccountPage from './pages/AccountPage'
-// import OrdersPage from './pages/OrdersPage'
 // import OrderDetailPage from './pages/OrderDetailPage'
-// import AccountSettingsPage from './pages/AccountSettingsPage'
 
 // -- Admin pages --
-// import AdminDashboardPage from './pages/admin/AdminDashboardPage'
+import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 // import AdminProductsPage from './pages/admin/AdminProductsPage'
 // import AdminProductFormPage from './pages/admin/AdminProductFormPage'
-// import AdminOrdersPage from './pages/admin/AdminOrdersPage'
-// import AdminOrderDetailPage from './pages/admin/AdminOrderDetailPage'
-// import AdminStoresPage from './pages/admin/AdminStoresPage'
-// import AdminStoreFormPage from './pages/admin/AdminStoreFormPage'
+import AdminOrderDetailPage from './pages/admin/AdminOrderDetailPage'
+import AdminStoresPage from './pages/admin/AdminStoresPage'
 // import AdminUsersPage from './pages/admin/AdminUsersPage'
 // import AdminExportsPage from './pages/admin/AdminExportsPage'
 // import AdminLegalPage from './pages/admin/AdminLegalPage'
@@ -50,8 +45,7 @@ export default function App() {
         <Route path="/boutique/:slug" element={<ProductPage />} />
         <Route path="/panier" element={<CartPage />} />
         <Route path="/connexion" element={<LoginPage />} />
-        {/* <Route path="/inscription" element={<RegisterPage />} /> */}
-        {/* <Route path="/mot-de-passe-oublie" element={<ForgotPasswordPage />} /> */}
+        <Route path="/inscription" element={<RegisterPage />} />
         {/* <Route path="/reinitialisation/:token" element={<ResetPasswordPage />} /> */}
         {/* <Route path="/mentions-legales" element={<LegalPage type="MENTIONS_LEGALES" />} /> */}
         {/* <Route path="/cgv" element={<LegalPage type="CGV" />} /> */}
@@ -60,20 +54,15 @@ export default function App() {
         {/* Member routes */}
         <Route path="/checkout/success" element={<ProtectedRoute><CheckoutSuccessPage /></ProtectedRoute>} />
         {/* <Route path="/mon-compte" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} /> */}
-        {/* <Route path="/mon-compte/commandes" element={<ProtectedRoute><OrdersPage /></ProtectedRoute>} /> */}
         {/* <Route path="/mon-compte/commandes/:id" element={<ProtectedRoute><OrderDetailPage /></ProtectedRoute>} /> */}
-        {/* <Route path="/mon-compte/parametres" element={<ProtectedRoute><AccountSettingsPage /></ProtectedRoute>} /> */}
 
         {/* Admin routes */}
-        {/* <Route path="/admin" element={<AdminRoute><AdminDashboardPage /></AdminRoute>} /> */}
+        <Route path="/admin" element={<AdminRoute><AdminDashboardPage /></AdminRoute>} />
         {/* <Route path="/admin/produits" element={<AdminRoute><AdminProductsPage /></AdminRoute>} /> */}
         {/* <Route path="/admin/produits/nouveau" element={<AdminRoute><AdminProductFormPage /></AdminRoute>} /> */}
         {/* <Route path="/admin/produits/:id/modifier" element={<AdminRoute><AdminProductFormPage /></AdminRoute>} /> */}
-        {/* <Route path="/admin/commandes" element={<AdminRoute><AdminOrdersPage /></AdminRoute>} /> */}
-        {/* <Route path="/admin/commandes/:id" element={<AdminRoute><AdminOrderDetailPage /></AdminRoute>} /> */}
-        {/* <Route path="/admin/magasins" element={<AdminRoute><AdminStoresPage /></AdminRoute>} /> */}
-        {/* <Route path="/admin/magasins/nouveau" element={<AdminRoute><AdminStoreFormPage /></AdminRoute>} /> */}
-        {/* <Route path="/admin/magasins/:id/modifier" element={<AdminRoute><AdminStoreFormPage /></AdminRoute>} /> */}
+        <Route path="/admin/commandes/:id" element={<AdminRoute><AdminOrderDetailPage /></AdminRoute>} />
+        <Route path="/admin/magasins" element={<AdminRoute><AdminStoresPage /></AdminRoute>} />
         {/* <Route path="/admin/utilisateurs" element={<AdminRoute><AdminUsersPage /></AdminRoute>} /> */}
         {/* <Route path="/admin/exports" element={<AdminRoute><AdminExportsPage /></AdminRoute>} /> */}
         {/* <Route path="/admin/textes-legaux" element={<AdminRoute><AdminLegalPage /></AdminRoute>} /> */}
