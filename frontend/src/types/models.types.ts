@@ -7,11 +7,22 @@ export type Role = 'MEMBER' | 'ADMIN'
 
 export type OrderStatus = 'PENDING' | 'PAID' | 'READY' | 'COLLECTED' | 'CANCELLED' | 'REFUNDED'
 
+export const STATUS_CONFIG: Record<OrderStatus, { label: string; dot: string; color: string; bg: string }> = {
+  PENDING:   { label: 'Paiement en cours de vérification', dot: '#adb5bd', color: '#6c757d',  bg: 'rgba(173,181,189,0.08)' },
+  PAID:      { label: 'Commande confirmée',                dot: '#c9a96e', color: '#957d4c',  bg: 'rgba(201,169,110,0.08)' },
+  READY:     { label: 'Mis à disposition en boutique',     dot: '#957d4c', color: '#6b5a3e',  bg: 'rgba(149,125,76,0.12)'  },
+  COLLECTED: { label: 'Acquisition récupérée',             dot: '#4a3f2f', color: '#4a3f2f',  bg: 'rgba(74,63,47,0.08)'    },
+  CANCELLED: { label: 'Annulée',                           dot: '#4a1d1d', color: '#4a1d1d',  bg: 'rgba(74,29,29,0.06)'    },
+  REFUNDED:  { label: 'Remboursée',                        dot: '#b8a070', color: '#7a6040',  bg: 'rgba(184,160,112,0.10)' },
+}
+
 export type SectionType = 'IMAGE_TEXT' | 'PRODUCT_CTA'
 
 export type TextSide = 'LEFT' | 'RIGHT'
 
 export type LegalType = 'CGV' | 'RGPD' | 'MENTIONS_LEGALES'
+
+
 
 // ─── Auth ────────────────────────────────────────────────────────────────────
 
@@ -29,6 +40,11 @@ export type SafeUser = {
   isDeleted: boolean
   createdAt: string
   updatedAt: string
+}
+
+export type SafeUserWithStats = SafeUser & {
+  orderCount: number
+  totalSpent: number
 }
 
 // ─── CTA Specs ───────────────────────────────────────────────────────────────
@@ -188,6 +204,7 @@ export interface AuthContextValue {
   isLoading: boolean
   login: (email: string, password: string, onSuccess?: () => Promise<void>) => Promise<void>
   logout: () => Promise<void>
+  refreshUser: () => Promise<void>
 }
 
 export interface CartContextValue {
