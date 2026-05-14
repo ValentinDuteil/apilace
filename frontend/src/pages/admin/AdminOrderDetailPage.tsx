@@ -6,26 +6,9 @@ import type { AxiosError } from 'axios'
 import api from '../../lib/axios'
 import type { AdminOrder, OrderStatus } from '../../types/models.types'
 import '../../styles/AdminDashboardPage.css'
+import StatusBadge from '../../components/StatusBadge'
 
 // ─── Constants ───────────────────────────────────────────────────────────────
-
-const STATUS_LABELS: Record<OrderStatus, string> = {
-  PENDING: 'En attente',
-  PAID: 'Payé',
-  READY: 'Prêt',
-  COLLECTED: 'Retiré',
-  CANCELLED: 'Annulé',
-  REFUNDED: 'Remboursé',
-}
-
-const STATUS_STYLES: Record<OrderStatus, { background: string; color: string }> = {
-  PENDING: { background: '#f8f9fa', color: '#6c757d' },
-  PAID: { background: '#d1ecf1', color: '#0c5460' },
-  READY: { background: '#d4edda', color: '#155724' },
-  COLLECTED: { background: '#e8f4e8', color: '#2d6a4f' },
-  CANCELLED: { background: '#f8d7da', color: '#721c24' },
-  REFUNDED: { background: '#fff3cd', color: '#856404' },
-}
 
 type ModalType = 'ready' | 'collected' | 'refund' | null
 
@@ -161,7 +144,7 @@ export default function AdminOrderDetailPage() {
   const balance = Number(order.totalAmount) * 0.7
   const firstItem = order.items[0]
   const productName = firstItem?.product?.name ?? '—'
-  const productSlug = (firstItem?.product as any)?.slug ?? ''
+  const productSlug = firstItem?.product?.slug ?? ''
 
   const canMakeReady = order.status === 'PAID'
   const canMarkCollected = order.status === 'READY'
@@ -196,14 +179,7 @@ export default function AdminOrderDetailPage() {
           }}>
             Commande #{order.id}
           </h1>
-          <span style={{
-            ...STATUS_STYLES[order.status],
-            fontFamily: 'CenturySchoolbook, serif',
-            fontSize: '0.85rem',
-            padding: '6px 14px',
-          }}>
-            {STATUS_LABELS[order.status]}
-          </span>
+          <StatusBadge status={order.status} />
         </div>
         <p style={{
           fontFamily: 'CenturySchoolbook, serif',
@@ -257,7 +233,7 @@ export default function AdminOrderDetailPage() {
         </p>
         <div style={{ marginBottom: '40px' }}>
           {order.items.map(item => {
-            const imgUrl = (item.product as any)?.images?.[0]?.url ?? null
+            const imgUrl = item.product?.images?.[0]?.url ?? null
             return (
               <div key={item.id} style={{
                 display: 'flex', alignItems: 'center', gap: '16px',
