@@ -34,5 +34,6 @@ router.use('/admin/dashboard', requireAuth, requireAdmin, csrfProtection, adminD
 router.use('/admin/stores', requireAuth, requireAdmin, csrfProtection, adminStoreRouter)
 router.use('/admin/products', requireAuth, requireAdmin, csrfProtection, adminProductRouter)
 router.use('/admin/orders', requireAuth, requireAdmin, csrfProtection, adminOrderRoutes)
+router.use('/admin/users', requireAuth, requireAdmin, csrfProtection, userRoutes)
 
 export default router

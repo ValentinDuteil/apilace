@@ -18,20 +18,46 @@ export async function getUsers(req: Request, res: Response): Promise<void> {
   const limit = parseInt(req.query.limit as string) || 5
   const skip = (page - 1) * limit
 
+  const search = req.query.search as string | undefined
+  const role = req.query.role as string | undefined
+
+  const where = {
+    isDeleted: false,
+    ...(role ? { role: role as 'MEMBER' | 'ADMIN' } : {}),
+    ...(search ? {
+      OR: [
+        { firstName: { contains: search, mode: 'insensitive' as const } },
+        { lastName: { contains: search, mode: 'insensitive' as const } },
+        { email: { contains: search, mode: 'insensitive' as const } },
+      ],
+    } : {}),
+  }
+
   // prisma.$transaction runs both queries atomically — if one fails, both are rolled back
   // Here we use it to fetch users and count them in a single round-trip to the database
-  const [users, total] = await prisma.$transaction([
+  const [usersRaw, total] = await prisma.$transaction([
     prisma.user.findMany({
-      where: { isDeleted: false },
+      where,
       skip,
       take: limit,
       orderBy: { createdAt: 'desc' },
+      include: {
+        _count: { select: { orders: true } },
+        orders: { select: { totalAmount: true } },
+      },
     }),
-    prisma.user.count({ where: { isDeleted: false } }),
+    prisma.user.count({ where }),
   ])
 
+  // Map raw user data to include order count and total spent, and exclude sensitive fields
+  const users = usersRaw.map(({ _count, orders, passwordHash: _, ...user }) => ({
+    ...user,
+    orderCount: _count.orders,
+    totalSpent: orders.reduce((sum, o) => sum + Number(o.totalAmount), 0),
+  }))
+
   res.status(200).json({
-    data: users.map(toSafeUser),
+    data: users,
     pagination: {
       total,
       page,
