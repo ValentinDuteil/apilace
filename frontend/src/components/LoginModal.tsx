@@ -74,7 +74,7 @@ export default function LoginModal({ isOpen, onClose, onSuccess }: LoginModalPro
         </div>
 
         {error && (
-          <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.875rem', color: '#842029', marginBottom: '16px' }}>
+          <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.875rem', color: '#212529', marginBottom: '16px' }}>
             {error}
           </p>
         )}
