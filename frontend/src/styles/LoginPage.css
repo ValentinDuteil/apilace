@@ -1,0 +1,21 @@
+/* ── Forgot password link ── */
+
+.login-page-forgot {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.8rem;
+  color: #6c757d;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.login-page-forgot:hover:not(:disabled) {
+  color: #212529;
+}
+
+.login-page-forgot:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
