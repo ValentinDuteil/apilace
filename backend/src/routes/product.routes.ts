@@ -13,12 +13,17 @@ import {
   getAdminProducts,
   getAdminProductById,
   createProduct,
-  updateProduct,
   toggleProduct,
   deleteProduct,
   addProductImage,
   deleteProductImage,
 } from '../controllers/product.controller.js'
+
+// Admin-specific handlers — Full Sync update + standalone image upload
+import {
+  updateProduct,
+  uploadProductImage,
+} from '../controllers/admin-product.controller.js'
 
 const router = Router()
 
@@ -30,6 +35,7 @@ router.get('/:slug', getProductBySlug)
 // Admin
 export const adminProductRouter = Router()
 adminProductRouter.get('/', getAdminProducts)
+adminProductRouter.post('/upload-image', csrfProtection, upload.single('image'), uploadProductImage)
 adminProductRouter.get('/:id', getAdminProductById)
 adminProductRouter.post('/', csrfProtection, upload.array('images', 10), validate(CreateProductSchema), createProduct)
 adminProductRouter.patch('/:id', csrfProtection, validate(UpdateProductSchema), updateProduct)

@@ -74,6 +74,7 @@ model ProductSection {
   type         SectionType
   position     Int          @default(0)
   imageUrl     String?
+  mirrorBackground Boolean      @default(false)
   textSide     TextSide     @default(LEFT)
   title1       String?
   description1 String?

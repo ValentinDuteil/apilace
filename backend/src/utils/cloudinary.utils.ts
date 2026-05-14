@@ -22,7 +22,7 @@ export async function verifyImageBuffer(buffer: Buffer): Promise<void> {
 export async function uploadToCloudinary(buffer: Buffer): Promise<string> {
   return new Promise((resolve, reject) => {
     cloudinary.uploader.upload_stream(
-      { folder: CLOUDINARY_FOLDER, resource_type: 'image', format: 'webp' },
+      { folder: CLOUDINARY_FOLDER, resource_type: 'image', format: 'webp', quality: 'auto' },
       (error, result) => {
         if (error || !result) return reject(error)
         resolve(result.secure_url)
