@@ -1,0 +1,41 @@
+/* ── Account Page ── */
+
+.account-order-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid rgba(33, 37, 41, 0.10);
+  background: #ffffff;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.account-order-card:hover {
+  border-color: rgba(33, 37, 41, 0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.account-delete-zone {
+  border: 1px solid rgba(33, 37, 41, 0.15);
+  background: #f8f9fa;
+  padding: 24px;
+}
+
+.account-success-msg {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.85rem;
+  color: #2d6a4f;
+  background: #e8f4e8;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* ── Responsive 992px ── */
+@media (max-width: 992px) {
+  .account-order-card {
+    flex-wrap: wrap;
+  }
+}
