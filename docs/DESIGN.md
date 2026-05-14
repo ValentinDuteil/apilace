@@ -1,9 +1,9 @@
 # Design System — Apilace E-Commerce
 
-> **Version :** 1.0
-> **Date :** Avril 2026
+> **Version :** 3.0
+> **Date :** Mai 2026
 > **Auteur :** Valentin
-> **Statut :** MVP
+> **Statut :** MVP - Mis à jour post-audit CSS S5
 
 ---
 
@@ -25,21 +25,21 @@
 
 Le design system du nouveau service e-commerce doit assurer une **cohérence totale** avec le site vitrine existant ([apilace.com](https://www.apilace.com)), développé avec Bootstrap 5 et une police custom `CenturySchoolbook`.
 
-L'objectif est de transposer fidèlement cette identité dans un thème **Chakra UI** pour React, sans introduire de rupture visuelle entre les deux surfaces.
+L'objectif est de transposer fidèlement cette identité via CSS et JSX pour React, sans introduire de rupture visuelle entre les deux surfaces.
 
 ### Stack visuelle du site existant (référence)
 
 | Élément | Valeur |
 |---|---|
-| Framework CSS | Bootstrap 5.0.2 |
+| Framework CSS | CSS global (`index.css`) + CSS page-specific + inline styles |
 | Police | `CenturySchoolbook` (TTF custom, serif) |
-| Icônes | Font Awesome 6 |
+| Icônes | Font Awesome 7.2.0 |
 | Slider | Swiper 9 |
 | Couleur brand | `#957d4c` — or chaud ("doré") |
 | Corps texte | `#212529` |
 | Fond pages | `#ffffff` |
 | Sections claires | `#f8f9fa` |
-| Footer | Fond sombre — `#1a1a1a` |
+| Footer | Fond doré sombre — #957d4c |
 
 ### Principes directeurs
 
@@ -84,7 +84,7 @@ L'objectif est de transposer fidèlement cette identité dans un thème **Chakra
 | Rôle | Hex | Justification |
 |---|---|---|
 | Succès | `#2d6a4f` | Vert naturel — sobriété luxe |
-| Erreur | `#842029` | Rouge sombre — non agressif |
+| Erreur | `#212529` | Gris sombre — non agressif |
 | Warning | `#856404` | Ambre sombre — cohérent avec le doré |
 | Info | `#084298` | Bleu sobre |
 
@@ -92,12 +92,12 @@ L'objectif est de transposer fidèlement cette identité dans un thème **Chakra
 
 | Statut | Couleur fond | Couleur texte |
 |---|---|---|
-| `PENDING` | `#f8f9fa` | `#6c757d` |
-| `PAID` | `#d1ecf1` | `#0c5460` |
-| `READY` | `#d4edda` | `#155724` |
-| `COLLECTED` | `#e8f4e8` | `#2d6a4f` |
-| `CANCELLED` | `#f8d7da` | `#721c24` |
-| `REFUNDED` | `#fff3cd` | `#856404` |
+| `PENDING` | rgba(173,181,189,0.08) | #6c757d |
+| `PAID` | rgba(201,169,110,0.08) | #957d4c |
+| `READY` | rgba(149,125,76,0.12) | `#6b5a3e |
+| `COLLECTED` | rgba(74,63,47,0.08) | #4a3f2f |
+| `CANCELLED` | rgba(74,29,29,0.06) | #4a1d1d |
+| `REFUNDED` | rgba(184,160,112,0.10) | #7a6040 |
 
 ### Bordures
 
@@ -152,217 +152,30 @@ Labels UI  : 1.4
 
 ---
 
-## 4. Tokens Chakra UI
+## 4. Chakra UI — Suppression
 
-### `frontend/src/theme/index.ts`
+Chakra UI est en cours de désinstallation. Les nouvelles pages n'utilisent plus Chakra.
+Les 3 pages admin qui l'utilisent encore (modals + toasts) seront migrées en Phase 5.
 
-```typescript
-import { extendTheme } from '@chakra-ui/react'
-
-const theme = extendTheme({
-  colors: {
-    brand: {
-      50:  '#fdf6eb',
-      100: '#f5efe0',
-      200: '#e8d5b0',
-      300: '#d4b87a',
-      400: '#b89a5e',
-      500: '#957d4c',   // Couleur principale — "Doré Apilace"
-      600: '#7d6840',
-      700: '#665535',
-      800: '#4d3f28',
-      900: '#342a1a',
-    },
-    neutral: {
-      50:  '#ffffff',
-      100: '#f8f9fa',
-      200: '#f0ede8',
-      300: '#dee2e6',
-      400: '#ced4da',
-      500: '#adb5bd',
-      600: '#6c757d',
-      700: '#495057',
-      800: '#343a40',
-      900: '#212529',
-    },
-    dark: {
-      footer: '#1a1a1a',
-    }
-  },
-
-  fonts: {
-    heading: "'CenturySchoolbook', 'Times New Roman', serif",
-    body:    "'CenturySchoolbook', 'Times New Roman', serif",
-    mono:    "SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-  },
-
-  fontSizes: {
-    xs:  '12px',
-    sm:  '13px',
-    md:  '14px',
-    lg:  '16px',
-    xl:  '18px',
-    '2xl': '22px',
-    '3xl': '28px',
-    '4xl': '36px',
-    '5xl': '48px',
-  },
-
-  styles: {
-    global: {
-      body: {
-        bg: '#ffffff',
-        color: '#212529',
-        fontFamily: "'CenturySchoolbook', 'Times New Roman', serif",
-      },
-      '::selection': {
-        bg: '#957d4c',
-        color: 'white',
-      },
-    }
-  },
-
-  components: {
-    Button: {
-      variants: {
-        primary: {
-          bg: '#957d4c',
-          color: 'white',
-          fontWeight: '600',
-          _hover: { bg: '#7d6840' },
-          _active: { bg: '#665535' },
-        },
-        outline: {
-          color: '#957d4c',
-          border: '1px solid #957d4c',
-          _hover: { bg: '#f5efe0' },
-        },
-        ghost: {
-          color: '#957d4c',
-          _hover: { bg: '#f5efe0' },
-        },
-      },
-      defaultProps: { variant: 'primary' }
-    },
-
-    Input: {
-      variants: {
-        filled: {
-          field: {
-            bg: '#f0ede8',
-            border: '1px solid transparent',
-            _hover: { bg: '#e8e3dc' },
-            _focus: {
-              bg: '#f8f9fa',
-              borderColor: '#957d4c',
-              boxShadow: 'none',
-            },
-          }
-        }
-      },
-      defaultProps: { variant: 'filled' }
-    },
-
-    Select: {
-      variants: {
-        filled: {
-          field: {
-            bg: '#f0ede8',
-            _focus: { borderColor: '#957d4c' },
-          }
-        }
-      },
-      defaultProps: { variant: 'filled' }
-    },
-
-    Card: {
-      baseStyle: {
-        container: {
-          bg: '#ffffff',
-          border: '1px solid rgba(33, 37, 41, 0.10)',
-          borderRadius: '8px',
-          overflow: 'hidden',
-          transition: 'all 0.15s ease',
-          _hover: {
-            border: '1px solid rgba(33, 37, 41, 0.25)',
-            transform: 'translateY(-2px)',
-            boxShadow: '0 4px 12px rgba(33, 37, 41, 0.12)',
-          }
-        }
-      }
-    },
-
-    Badge: {
-      variants: {
-        order: (props: { colorScheme: string }) => ({
-          bg: `${props.colorScheme}.100`,
-          color: `${props.colorScheme}.800`,
-          borderRadius: '999px',
-          px: 3,
-          py: 1,
-          fontSize: '12px',
-          fontWeight: '600',
-        })
-      }
-    }
-  },
-
-  radii: {
-    none: '0',
-    sm:   '4px',
-    md:   '6px',
-    lg:   '8px',
-    xl:   '12px',
-    full: '9999px',
-  },
-
-  shadows: {
-    card:    '0 1px 3px rgba(33, 37, 41, 0.08)',
-    product: '0 2px 8px rgba(33, 37, 41, 0.10)',
-    nav:     '0 2px 8px rgba(33, 37, 41, 0.08)',
-  }
-})
-
-export default theme
-```
-
----
+Règle : ne plus importer de composants Chakra dans aucun nouveau fichier.
 
 ## 5. Composants clés
 
-### Carte Produit
+### ProductPage
 
-```
-┌─────────────────────────────────┐
-│                                 │
-│   [Photo produit 300px]         │  ← object-fit: cover, hover overlay
-│   [Hover: "Voir le produit →"]  │
-│                                 │
-├─────────────────────────────────┤
-│ Nom de la montre                │  ← CenturySchoolbook 18px 600
-│ 1 290 €                         │  ← CenturySchoolbook 22px 700 brand.500
-│                                 │
-│ [Taille: S  M  L  Standard]     │  ← Selector de taille (pill buttons)
-│                                 │
-│ [Ajouter au panier         →]   │  ← Button primary full-width
-└─────────────────────────────────┘
-```
-
-**États de la carte :**
-- `default` : fond blanc, bordure subtile
-- `hover` : légère élévation, bordure renforcée
-- `out-of-stock` : overlay semi-transparent "Épuisé", bouton désactivé
-- `inactive` : non visible en boutique (admin uniquement)
+Page éditoriale immersive — sections plein écran avec overlays sombres, animations reveal,
+typographie or/blanc. Voir `ProductPage.tsx` + `ProductPage.css`.
+Ne pas modifier l'identité visuelle de cette page.
 
 ### Badge Statut de Commande
 
 ```
-● EN ATTENTE    → fond #f8f9fa,  texte #6c757d
-● PAYÉE         → fond #d1ecf1,  texte #0c5460
-● PRÊTE         → fond #d4edda,  texte #155724
-● RÉCUPÉRÉE     → fond #e8f4e8,  texte #2d6a4f
-● ANNULÉE       → fond #f8d7da,  texte #721c24
-● REMBOURSÉE    → fond #fff3cd,  texte #856404
+● EN ATTENTE    → fond rgba(173,181,189,0.08),  texte #6c757d
+● PAYÉE         → fond rgba(201,169,110,0.08),  texte #957d4c
+● PRÊTE         → fond rgba(149,125,76,0.12),  texte #6b5a3e
+● RÉCUPÉRÉE     → fond rgba(74,63,47,0.08),  texte #4a3f2f
+● ANNULÉE       → fond rgba(74,29,29,0.06),  texte #4a1d1d
+● REMBOURSÉE    → fond rgba(184,160,112,0.10),  texte #7a6040
 ```
 
 ### Navbar — états connecté / déconnecté
@@ -433,34 +246,42 @@ transition: opacity 0.2s ease;      /* Apparition/disparition modales */
 
 ## 7. Responsive
 
-### Breakpoints (Chakra UI — defaults)
+## 7. Responsive
 
-```
-sm  : 480px   → Mobile large
-md  : 768px   → Tablette
-lg  : 992px   → Desktop petit
-xl  : 1280px  → Desktop standard
-2xl : 1536px  → Desktop large
-```
+### Breakpoint unique : 992px
 
-### Comportement par breakpoint
+Tout le projet utilise un seul breakpoint à **992px** (cohérence avec le site vitrine Bootstrap).
 
-**Mobile (< 768px)**
-- Navbar → burger menu (slide-in overlay)
-- Boutique → 1 colonne de produits
-- Checkout → étapes empilées verticalement
-- Panier → drawer latéral plein écran
+| Viewport | Comportement |
+|---|---|
+| > 992px | Navbar liens visibles, sidebar 50vw, footer 3 colonnes |
+| < 992px | Navbar liens masqués → burger, sidebar 100vw, footer 1 colonne |
 
-**Tablette (768px – 992px)**
-- Boutique → 2 colonnes
-- Dashboard Admin → tableaux avec scroll horizontal
+### Comportement par composant
 
-**Desktop (> 992px)**
-- Boutique → 3–4 colonnes
-- Admin → sidebar fixe gauche (240px) + contenu principal
-- Fiche produit → layout 2 colonnes (galerie gauche, infos droite)
+**Navbar** : liens desktop masqués sous 992px, burger `#DFCF95` affiché
+
+**Sidebar** : `50vw` desktop → `100vw` mobile, animation `translateX`
+
+**Footer** : grid 3 colonnes → 1 colonne
+
+**CartPage** : padding réduit, image produit `90px` → `150px` desktop
+
+**ProductPage** : sections plein écran → image au-dessus + texte en dessous sur fond `#1a1a1a`
+
+**AdminStoresPage** : card horizontale → empilée verticalement, form grid 2 col → 1 col
+
+**AdminUsersPage** : grid 2 colonnes → 1 colonne
+
+**AccountPage** : order cards `flex-wrap`
+
+**OrderDetailPage** : bouton annulation `width: 100%`
+
+### À implémenter (Phase 5 — polish)
+- ShopPage : responsive colonnes catalogue
+- Pages admin : tableaux avec scroll horizontal
 
 ---
 
 *Document de référence design — Apilace E-Commerce*
-*Dernière mise à jour : Avril 2026 — v1.0*
+*Dernière mise à jour : Mai 2026 — v3.0*
