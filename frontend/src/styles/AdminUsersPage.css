@@ -1,0 +1,78 @@
+/* ── Users grid ── */
+.admin-users-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+/* ── User card ── */
+.admin-user-card {
+  background: rgba(149, 125, 76, 0.07);
+  border: 1px solid rgba(149, 125, 76, 0.22);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-user-card-name {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #212529;
+}
+
+.admin-user-card-separator {
+  height: 1px;
+  background: rgba(149, 125, 76, 0.15);
+}
+
+.admin-user-card-meta {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.admin-user-role-select {
+  width: fit-content;
+  padding: 6px 12px;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.85rem;
+  color: #212529;
+  border: 1px solid rgba(149, 125, 76, 0.30);
+  background: #ffffff;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.admin-user-role-select:focus {
+  border-color: #957d4c;
+}
+
+.admin-user-card-btn {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  background: #957d4c;
+  color: #ffffff;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-decoration: none;
+  margin-top: auto;
+  transition: background 0.2s ease;
+}
+
+.admin-user-card-btn:hover {
+  background: #7d6840;
+  color: #ffffff;
+}
+
+/* ── Responsive — breakpoint 992px ── */
+@media (max-width: 992px) {
+  .admin-users-grid {
+    grid-template-columns: 1fr;
+  }
+}
