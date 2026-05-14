@@ -25,6 +25,7 @@ const ProductSectionSchema = z.object({
   type: SectionTypeSchema,
   position: z.number().int({ error: 'Position invalide' }),
   imageUrl: z.string().url({ error: 'URL invalide' }).optional(),
+  mirrorBackground: z.boolean().optional(), 
   textSide: TextSideSchema.optional(),
   title1: z.string().optional(),
   description1: z.string().optional(),
