@@ -1,8 +1,6 @@
-/* ─────────────────────────────────────────────────────────────────────────────
-   ProductPage.css — Styles for product detail page
-   Sections: Hero CTA · Overlay sections · Size buttons · CTA buttons ·
-             Modal · Skeleton · CTA specs · CTA purchase · Responsive
-───────────────────────────────────────────────────────────────────────────── */
+/* ── ProductPage.css — Styles for product detail page
+      Sections: Hero CTA · Overlay sections · Size buttons · CTA buttons ·
+                Modal · Skeleton · CTA specs · CTA purchase · Responsive ── */
 
 /* ── Hero anchor button ── */
 .product-hero-cta {
@@ -118,39 +116,6 @@
 
 .product-cta-btn:hover {
   background: #7d6840;
-}
-
-.product-viewcart-btn {
-  padding: 14px;
-  background: #957d4c;
-  color: #ffffff;
-  border: none;
-  font-family: 'CenturySchoolbook', serif;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.product-viewcart-btn:hover {
-  background: #7d6840;
-}
-
-.product-continue-btn {
-  padding: 14px;
-  background: transparent;
-  color: #212529;
-  border: 1px solid rgba(33, 37, 41, 0.25);
-  font-family: 'CenturySchoolbook', serif;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease;
-}
-
-.product-continue-btn:hover {
-  border-color: #957d4c;
-  color: #957d4c;
 }
 
 /* ── Loading skeleton ── */

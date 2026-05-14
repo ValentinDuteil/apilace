@@ -68,7 +68,7 @@ export async function createCheckoutSession(req: Request, res: Response): Promis
         unit_amount: Math.round(Number(item.product.price) * DEPOSIT_RATE * 100), // convert to cents
         product_data: {
           name: `${item.product.name} — Taille ${item.size} (acompte 30%)`,
-          ...(item.product.images[0] && { images: [item.product.images[0].url] }),
+          ...(item.product.images[0]?.url.startsWith('http') && { images: [item.product.images[0].url] }),
         },
       },
       quantity: item.quantity,

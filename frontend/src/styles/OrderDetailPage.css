@@ -1,0 +1,23 @@
+/* ── Cancel button ── */
+.order-cancel-btn {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: #212529;
+  background: transparent;
+  border: 1px solid rgba(33, 37, 41, 0.25);
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.order-cancel-btn:hover {
+  border-color: #212529;
+}
+
+/* ── Responsive — breakpoint 992px ── */
+@media (max-width: 992px) {
+  .order-cancel-btn {
+    width: 100%;
+  }
+}

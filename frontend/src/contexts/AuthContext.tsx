@@ -20,8 +20,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       .finally(() => setIsLoading(false))
   }, [])
 
-  async function login(email: string, password: string): Promise<void> {
+  async function login(email: string, password: string, onSuccess?: () => Promise<void>): Promise<void> {
     await api.post('/auth/login', { email, password })
+    const res = await api.get<SafeUser>('/auth/me')
+    setUser(res.data)
+    if (onSuccess) await onSuccess()
+  }
+
+  //refreshUser — fetch the user anew without changing the sessiion
+  async function refreshUser(): Promise<void> {
     const res = await api.get<SafeUser>('/auth/me')
     setUser(res.data)
   }
@@ -32,7 +39,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, logout, refreshUser }}>
       {children}
     </AuthContext.Provider>
   )

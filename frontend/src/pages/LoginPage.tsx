@@ -2,10 +2,12 @@
 
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import api from '../lib/axios'
 import type { AxiosError } from 'axios'
 import { useAuth } from '../contexts/AuthContext'
 import { useCart } from '../contexts/CartContext'
 import type { ApiValidationError } from '../types/models.types'
+import '../styles/LoginPage.css'
 
 // ─── Sub-component ───────────────────────────────────────────────────────────
 
@@ -24,15 +26,17 @@ function FieldError({ message }: { message?: string }) {
 // ─── Component ───────────────────────────────────────────────────────────────
 
 export default function LoginPage() {
-  const { login }              = useAuth()
+  const { login } = useAuth()
   const { mergeAndClearLocal } = useCart()
-  const navigate               = useNavigate()
+  const navigate = useNavigate()
 
-  const [email,       setEmail]       = useState('')
-  const [password,    setPassword]    = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [globalError, setGlobalError] = useState<string | null>(null)
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
-  const [isLoading,   setIsLoading]   = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [forgotSuccess, setForgotSuccess] = useState(false)
+  const [isForgotLoading, setIsForgotLoading] = useState(false)
 
   function clearFieldError(champ: string) {
     setFieldErrors(prev => {
@@ -72,6 +76,20 @@ export default function LoginPage() {
   function handleKeyDown(e: React.KeyboardEvent) {
     if (e.key === 'Enter') handleSubmit()
   }
+
+  async function handleForgotPassword() {
+  if (!email) { setGlobalError('Veuillez saisir votre adresse email.'); return }
+  setGlobalError(null)
+  setIsForgotLoading(true)
+  try {
+    await api.post('/auth/forgot-password', { email })
+    setForgotSuccess(true)
+  } catch {
+    setGlobalError('Une erreur est survenue. Veuillez réessayer.')
+  } finally {
+    setIsForgotLoading(false)
+  }
+}
 
   // ─── Render ────────────────────────────────────────────────────────────────
 
@@ -119,7 +137,7 @@ export default function LoginPage() {
         {globalError && (
           <p style={{
             fontFamily: 'CenturySchoolbook, serif',
-            fontSize: '0.875rem', color: '#842029',
+            fontSize: '0.875rem', color: '#212529',
             marginBottom: '16px', textAlign: 'center',
           }}>
             {globalError}
@@ -137,19 +155,26 @@ export default function LoginPage() {
         </button>
 
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Link
-            to="/mot-de-passe-oublie"
-            style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.8rem', color: '#6c757d', textDecoration: 'none' }}
-          >
-            Mot de passe oublié ?
-          </Link>
-          <Link
-            to="/inscription"
-            style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.8rem', color: '#957d4c', textDecoration: 'none' }}
-          >
-            Créer un compte →
-          </Link>
-        </div>
+  {forgotSuccess
+    ? <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.8rem', color: '#2d6a4f' }}>
+        Email envoyé ✓
+      </p>
+    : <button
+        type="button"
+        className="login-page-forgot"
+        onClick={handleForgotPassword}
+        disabled={isForgotLoading}
+      >
+        {isForgotLoading ? 'Envoi...' : 'Mot de passe oublié ?'}
+      </button>
+  }
+  <Link
+    to="/inscription"
+    style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.8rem', color: '#957d4c', textDecoration: 'none' }}
+  >
+    Créer un compte →
+  </Link>
+</div>
 
       </div>
     </div>

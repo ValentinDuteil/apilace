@@ -1,6 +1,7 @@
 // CheckoutSuccessPage.tsx — Post-payment confirmation page
 // Stripe redirects here after successful checkout
 import { Link } from 'react-router-dom'
+import '../styles/CheckoutSuccessPage.css'
 
 export default function CheckoutSuccessPage() {
   return (
@@ -22,13 +23,15 @@ export default function CheckoutSuccessPage() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', maxWidth: '320px' }}>
         <Link
-          to="/mon-compte/commandes"
+          to="/mon-compte/"
+          className="checkout-success-btn-primary"
           style={{ display: 'block', padding: '16px', background: '#957d4c', color: '#ffffff', fontFamily: 'CenturySchoolbook, serif', fontSize: '0.85rem', letterSpacing: '2px', textDecoration: 'none', textAlign: 'center', transition: 'background 0.2s ease' }}
         >
           VOIR MES COMMANDES
         </Link>
         <Link
           to="/boutique"
+          className="checkout-success-btn-secondary"
           style={{ display: 'block', padding: '16px', background: 'transparent', color: '#6c757d', fontFamily: 'CenturySchoolbook, serif', fontSize: '0.85rem', letterSpacing: '1px', textDecoration: 'none', textAlign: 'center', border: '1px solid rgba(33,37,41,0.15)' }}
         >
           Enrichir ma sélection

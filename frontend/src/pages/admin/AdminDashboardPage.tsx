@@ -4,6 +4,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../../lib/axios'
+import { STATUS_CONFIG } from '../../types/models.types'
 import type { AdminOrder, DashboardStats, OrderStatus, Store } from '../../types/models.types'
 import '../../styles/AdminDashboardPage.css'
 import type { AxiosError } from 'axios'
@@ -11,24 +12,6 @@ import type { AxiosError } from 'axios'
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const LIMIT = 10
-
-const STATUS_LABELS: Record<OrderStatus, string> = {
-  PENDING: 'En attente',
-  PAID: 'Payé',
-  READY: 'Prêt',
-  COLLECTED: 'Retiré',
-  CANCELLED: 'Annulé',
-  REFUNDED: 'Remboursé',
-}
-
-const STATUS_STYLES: Record<OrderStatus, { background: string; color: string }> = {
-  PENDING: { background: '#f8f9fa', color: '#6c757d' },
-  PAID: { background: '#d1ecf1', color: '#0c5460' },
-  READY: { background: '#d4edda', color: '#155724' },
-  COLLECTED: { background: '#e8f4e8', color: '#2d6a4f' },
-  CANCELLED: { background: '#f8d7da', color: '#721c24' },
-  REFUNDED: { background: '#fff3cd', color: '#856404' },
-}
 
 // Only forward transitions — no backwards, no terminal states
 const VALID_TRANSITIONS: Partial<Record<OrderStatus, OrderStatus[]>> = {
@@ -229,8 +212,8 @@ export default function AdminDashboardPage() {
           <p style={{
             fontFamily: 'CenturySchoolbook, serif',
             fontSize: '0.85rem',
-            color: '#842029',
-            background: '#f8d7da',
+            color: '#212529',
+            background: 'rgba(33,37,41,0.05)',
             padding: '10px 16px',
             marginBottom: '16px',
           }}>
@@ -262,8 +245,8 @@ export default function AdminDashboardPage() {
             onChange={e => setStatusFilter(e.target.value)}
           >
             <option value="">Par statut</option>
-            {(Object.keys(STATUS_LABELS) as OrderStatus[]).map(s => (
-              <option key={s} value={s}>{STATUS_LABELS[s]}</option>
+            {(Object.keys(STATUS_CONFIG) as OrderStatus[]).map(s => (
+              <option key={s} value={s}>{STATUS_CONFIG[s].label}</option>
             ))}
           </select>
 
@@ -369,22 +352,21 @@ export default function AdminDashboardPage() {
                         value={order.status}
                         disabled={updatingOrderId === order.id}
                         onChange={e => handleStatusChange(order.id, e.target.value as OrderStatus)}
-                        style={STATUS_STYLES[order.status]}
+                        style={{ background: STATUS_CONFIG[order.status].bg, color: STATUS_CONFIG[order.status].color }}
                       >
-                        <option value={order.status}>{STATUS_LABELS[order.status]}</option>
+                        <option value={order.status}>{STATUS_CONFIG[order.status].label}</option>
                         {validNext.map(s => (
-                          <option key={s} value={s}>{STATUS_LABELS[s]}</option>
+                          <option key={s} value={s}>{STATUS_CONFIG[s].label}</option>
                         ))}
                       </select>
                     ) : (
                       <span style={{
-                        ...STATUS_STYLES[order.status],
+                        background: STATUS_CONFIG[order.status].bg,
+                        color: STATUS_CONFIG[order.status].color,
                         fontFamily: 'CenturySchoolbook, serif',
-                        fontSize: '0.8rem',
-                        padding: '6px 10px',
-                        display: 'inline-block',
+                        fontSize: '0.8rem', padding: '6px 10px', display: 'inline-block',
                       }}>
-                        {STATUS_LABELS[order.status]}
+                        {STATUS_CONFIG[order.status].label}
                       </span>
                     )}
 

@@ -1,0 +1,31 @@
+/* ── CTA buttons ── */
+
+.checkout-success-btn-primary {
+  padding: 16px;
+  background: #957d4c;
+  color: #ffffff;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  transition: background 0.2s ease;
+}
+
+.checkout-success-btn-primary:hover {
+  background: #7d6840;
+}
+
+.checkout-success-btn-secondary {
+  padding: 16px;
+  background: transparent;
+  color: #6c757d;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  border: 1px solid rgba(33, 37, 41, 0.15);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.checkout-success-btn-secondary:hover {
+  border-color: rgba(33, 37, 41, 0.3);
+  color: #212529;
+}

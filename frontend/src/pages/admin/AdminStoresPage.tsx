@@ -115,7 +115,7 @@ function FieldError({ message }: { message?: string }) {
   return (
     <p style={{
       fontFamily: 'CenturySchoolbook, serif',
-      fontSize: '0.78rem', color: '#842029', marginTop: '4px',
+      fontSize: '0.78rem', color: '#212529', marginTop: '4px',
     }}>
       {message}
     </p>
@@ -340,7 +340,7 @@ export default function AdminStoresPage() {
                       {!store.isActive && (
                         <span style={{
                           fontFamily: 'CenturySchoolbook, serif', fontSize: '0.75rem',
-                          background: '#f8d7da', color: '#721c24', padding: '2px 8px',
+                          background: 'rgba(33,37,41,0.08)', color: '#212529', padding: '2px 8px',
                         }}>
                           Désactivé
                         </span>
@@ -440,7 +440,7 @@ export default function AdminStoresPage() {
                 value={form.name}
                 onChange={e => { setField('name', e.target.value); clearFieldError('name') }}
                 placeholder="Manufacture Horlogère..."
-                style={{ borderColor: fieldErrors.name ? '#842029' : undefined }}
+                style={{ borderColor: fieldErrors.name ? 'rgba(33,37,41,0.6)' : undefined }}
               />
               <FieldError message={fieldErrors.name} />
             </div>
@@ -452,7 +452,7 @@ export default function AdminStoresPage() {
                 value={form.address}
                 onChange={e => { setField('address', e.target.value); clearFieldError('address') }}
                 placeholder="12 rue de la Paix"
-                style={{ borderColor: fieldErrors.address ? '#842029' : undefined }}
+                style={{ borderColor: fieldErrors.address ? 'rgba(33,37,41,0.6)' : undefined }}
               />
               <FieldError message={fieldErrors.address} />
             </div>
@@ -464,7 +464,7 @@ export default function AdminStoresPage() {
                 value={form.phone}
                 onChange={e => { setField('phone', e.target.value); clearFieldError('phone') }}
                 placeholder="06 00 00 00 00"
-                style={{ borderColor: fieldErrors.phone ? '#842029' : undefined }}
+                style={{ borderColor: fieldErrors.phone ? 'rgba(33,37,41,0.6)' : undefined }}
               />
               <FieldError message={fieldErrors.phone} />
             </div>
@@ -476,7 +476,7 @@ export default function AdminStoresPage() {
                 value={form.postalCode}
                 onChange={e => { setField('postalCode', e.target.value); clearFieldError('postalCode') }}
                 placeholder="75001"
-                style={{ borderColor: fieldErrors.postalCode ? '#842029' : undefined }}
+                style={{ borderColor: fieldErrors.postalCode ? 'rgba(33,37,41,0.6)' : undefined }}
               />
               <FieldError message={fieldErrors.postalCode} />
             </div>
@@ -488,7 +488,7 @@ export default function AdminStoresPage() {
                 value={form.email}
                 onChange={e => { setField('email', e.target.value); clearFieldError('email') }}
                 placeholder="contact@partenaire.fr"
-                style={{ borderColor: fieldErrors.email ? '#842029' : undefined }}
+                style={{ borderColor: fieldErrors.email ? 'rgba(33,37,41,0.6)' : undefined }}
               />
               <FieldError message={fieldErrors.email} />
             </div>
@@ -500,7 +500,7 @@ export default function AdminStoresPage() {
                 value={form.city}
                 onChange={e => { setField('city', e.target.value); clearFieldError('city') }}
                 placeholder="Paris"
-                style={{ borderColor: fieldErrors.city ? '#842029' : undefined }}
+                style={{ borderColor: fieldErrors.city ? 'rgba(33,37,41,0.6)' : undefined }}
               />
               <FieldError message={fieldErrors.city} />
             </div>
