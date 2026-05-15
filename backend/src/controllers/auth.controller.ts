@@ -12,6 +12,7 @@ import type { RegisterDto, LoginDto, UpdateProfileDto, UpdatePasswordDto } from 
 import type { User } from '@prisma/client'
 import type { SafeUser } from '../types/models.types.js'
 import { getCallerRole } from '../utils/auth.utils.js'
+import { sendPasswordReset } from '../utils/email.utils.js'
 
 const ACCESS_TOKEN_EXPIRY = '7d'
 const REFRESH_TOKEN_EXPIRY_MS = 7 * 24 * 60 * 60 * 1000
@@ -215,8 +216,8 @@ export async function forgotPassword(req: Request, res: Response): Promise<void>
     data: { userId: user.id, tokenHash: hashToken(rawToken), expiresAt: new Date(Date.now() + RESET_TOKEN_EXPIRY_MS) },
   })
 
-  // TODO (S4) — send reset email via Resend with link: /reinitialisation/${rawToken}
-  console.log(`[DEV] Reset token for ${email}: ${rawToken}`)
+  // Send reset email — fail-safe, a Resend error will not throw here
+  await sendPasswordReset(email, { firstName: user.firstName, resetToken: rawToken })
 
   res.status(200).json(genericResponse)
 }

@@ -4,8 +4,10 @@
 import { Request, Response } from 'express'
 import { prisma } from '../lib/prisma.js'
 import { UnprocessableEntityError } from '../utils/AppError.js'
+import { stripe } from '../lib/stripe.js'
 import { getOrderOrThrow } from '../utils/order.utils.js'
 import type { UpdateOrderStatusDto } from '../schemas/order.schemas.js'
+import { sendOrderReady, sendRefundConfirmation } from '../utils/email.utils.js'
 
 export async function getAdminOrders(req: Request, res: Response): Promise<void> {
   const status = req.query.status as string | undefined
@@ -72,7 +74,15 @@ export async function updateOrderStatus(req: Request, res: Response): Promise<vo
 
   const updated = await prisma.order.update({ where: { id }, data: { status } })
 
-  // TODO (S4) — send email to client via Resend when status changes to READY
+  // Notify the client when their watch is ready for pickup
+  if (status === 'READY') {
+    await sendOrderReady(order.user.email, {
+      orderId: id,
+      firstName: order.user.firstName,
+      store: order.store,
+    })
+  }
+
   res.status(200).json(updated)
 }
 
@@ -89,8 +99,8 @@ export async function refundOrder(req: Request, res: Response): Promise<void> {
     throw new UnprocessableEntityError('Aucun paiement Stripe associé à cette commande')
   }
 
-  // TODO (S3) — trigger Stripe refund via stripePaymentIntentId
-  // TODO (S4) — send refund confirmation email to client via Resend
+  // Call Stripe first — if it fails, DB stays untouched
+  await stripe.refunds.create({ payment_intent: order.stripePaymentIntentId })
 
   // Restore stock for each order item in the same transaction
   await prisma.$transaction([
@@ -102,6 +112,13 @@ export async function refundOrder(req: Request, res: Response): Promise<void> {
       })
     ),
   ])
+
+  // Notify the client of their refund — fail-safe, a Resend error will not throw here
+  await sendRefundConfirmation(order.user.email, {
+    orderId: id,
+    firstName: order.user.firstName,
+    totalAmount: Number(order.totalAmount),
+  })
 
   res.status(200).json({ message: 'Commande remboursée et stock restauré' })
 }
