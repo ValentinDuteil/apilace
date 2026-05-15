@@ -88,6 +88,7 @@ export type ProductSection = {
   type: SectionType
   position: number
   imageUrl: string | null
+  mirrorBackground: boolean
   textSide: TextSide
   title1: string | null
   description1: string | null
