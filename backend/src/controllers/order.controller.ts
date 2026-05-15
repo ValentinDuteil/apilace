@@ -6,6 +6,7 @@ import { prisma } from '../lib/prisma.js'
 import { UnprocessableEntityError } from '../utils/AppError.js'
 import { getOrderOrThrow } from '../utils/order.utils.js'
 import { isWithinDays } from '../utils/date.utils.js'
+import { sendCancellationNotification, sendInvoiceRequest } from '../utils/email.utils.js'
 
 const CANCELLABLE_STATUSES = ['PAID', 'READY']
 const CANCELLATION_DELAY_DAYS = 14
@@ -44,14 +45,20 @@ if (!isWithinDays(order.createdAt, CANCELLATION_DELAY_DAYS)) {
 
   await prisma.order.update({ where: { id }, data: { status: 'CANCELLED' } })
 
-  // TODO (S4) — notify admin via Resend that a cancellation was requested
+  // Notify admin of the cancellation — fail-safe, a Resend error will not throw here
+  const clientName = [order.user.firstName, order.user.lastName].filter(Boolean).join(' ') || order.user.email
+  await sendCancellationNotification({ orderId: id, clientEmail: order.user.email, clientName })
+
   res.status(200).json({ message: 'Commande annulée' })
 }
 
 export async function requestInvoice(req: Request, res: Response): Promise<void> {
   const id = parseInt(req.params.id as string)
-  await getOrderOrThrow(id, req.user!.id)
+  const order = await getOrderOrThrow(id, req.user!.id)
 
-  // TODO (S4) — send invoice request email to admin via Resend
+  // Notify admin of the invoice request — fail-safe, a Resend error will not throw here
+  const clientName = [order.user.firstName, order.user.lastName].filter(Boolean).join(' ') || order.user.email
+  await sendInvoiceRequest({ orderId: id, clientEmail: order.user.email, clientName })
+
   res.status(200).json({ message: 'Demande de facture envoyée' })
 }

@@ -4,6 +4,7 @@
 import { Request, Response } from 'express'
 import { prisma } from '../lib/prisma.js'
 import { NotFoundError } from '../utils/AppError.js'
+import { sendOrderConfirmation } from '../utils/email.utils.js'
 
 export async function handleStripeWebhook(req: Request, res: Response): Promise<void> {
   const event = req.stripeEvent!
@@ -35,8 +36,9 @@ async function handleCheckoutSessionCompleted(
   const order = await prisma.order.findUnique({
     where: { stripeSessionId },
     include: {
-      items: true,
+      items: { include: { product: { select: { name: true } } } },
       user: { include: { cart: true } },
+      store: true,
     },
   })
 
@@ -70,5 +72,22 @@ async function handleCheckoutSessionCompleted(
     ),
   ])
 
-  // TODO (S4) — send confirmation email to client + admin via Resend
+  // Send confirmation email — fail-safe, a Resend error will not throw here
+  await sendOrderConfirmation(order.user.email, {
+    orderId: order.id,
+    firstName: order.user.firstName,
+    items: order.items.map(item => ({
+      productName: item.product.name,
+      size: item.size,
+      quantity: item.quantity,
+      unitPrice: Number(item.unitPrice),
+    })),
+    totalAmount: Number(order.totalAmount),
+    store: {
+      name: order.store.name,
+      address: order.store.address,
+      city: order.store.city,
+      postalCode: order.store.postalCode,
+    },
+  })
 }
