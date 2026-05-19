@@ -100,15 +100,21 @@ export async function createProduct(req: Request, res: Response): Promise<void> 
     data: {
       name: data.name,
       slug: data.slug,
+      tagline: data.tagline,
       description: data.description,
       price: data.price,
       isActive: data.isActive ?? true,
       images: { create: imageData },
       sizes: { create: data.sizes },
-      sections: data.sections ? { create: data.sections } : undefined,
+      sections: data.sections ? {
+        create: data.sections.map(s => ({
+          ...s,
+          textSide: s.textSide ?? 'LEFT',
+        }))
+      } : undefined,
     },
-    include: { images: true, sizes: true, sections: true },
-  })
+      include: { images: true, sizes: true, sections: true },
+    })
 
   res.status(201).json(product)
 }
@@ -192,18 +198,26 @@ export async function addProductImage(req: Request, res: Response): Promise<void
   await verifyImageBuffer(file.buffer)
   const url = await uploadToCloudinary(file.buffer)
 
+  const image = await prisma.$transaction(async (tx) => {
+    // Demote any existing primary image
+    await tx.productImage.updateMany({
+      where: { productId: id, isPrimary: true },
+      data: { isPrimary: false },
+    })
+
   const lastImage = await prisma.productImage.findFirst({
     where: { productId: id },
     orderBy: { position: 'desc' },
   })
-
-  const image = await prisma.productImage.create({
-    data: {
-      productId: id,
-      url,
-      isPrimary: false,
-      position: lastImage ? lastImage.position + 1 : 0,
-    },
+  // New upload always becomes primary — it's the hero the admin just chose
+  return tx.productImage.create({
+      data: {
+        productId: id,
+        url,
+        isPrimary: true,
+        position: lastImage ? lastImage.position + 1 : 0,
+      },
+    })
   })
 
   res.status(201).json(image)
