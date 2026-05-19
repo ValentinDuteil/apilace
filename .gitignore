@@ -145,4 +145,6 @@ dist
 cookies.txt
 
 # Metadata windows files
-*.Identifier
+*.Identifiertest_apilace.sh
+test_results.txt
+*:Zone.Identifier

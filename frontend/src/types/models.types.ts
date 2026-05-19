@@ -88,6 +88,7 @@ export type ProductSection = {
   type: SectionType
   position: number
   imageUrl: string | null
+  mirrorBackground: boolean
   textSide: TextSide
   title1: string | null
   description1: string | null
@@ -232,6 +233,18 @@ export type AdminOrder = Order & {
 export type DashboardStats = {
   totalRevenue: number
   orderCountByStatus: Record<OrderStatus, number>
+}
+
+// ─── Admin Draft Types ────────────────────────────────────────────────────────
+// UI-only types used in the admin product builder (AdminProductFormPage + ProductSectionEditor)
+// DraftSection stays local to AdminProductFormPage — it carries UI-only flags (textMode, _imagePreview)
+// DraftSize is shared here because ProductSectionEditor receives it as a prop
+ 
+export type DraftSize = {
+  // Stable React key — generated with crypto.randomUUID(), never sent to the API
+  _draftId: string
+  size: string
+  stock: number
 }
 
 // ─── API Errors ──────────────────────────────────────────────────────────────

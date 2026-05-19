@@ -1,0 +1,591 @@
+/* ProductSectionEditor.css — Admin overrides and ghost input styles
+   Imports ProductPage.css for visual fidelity — only delta styles live here
+ 
+   Key principle: admin-ghost-input does NOT set color — specific classes from
+   ProductPage.css (product-cta-spec-label, -value, -title) and inline styles
+   in ImageTextEditor take precedence cleanly through the normal CSS cascade */
+ 
+/* ─── Section wrapper ─────────────────────────────────────────────────────── */
+.section-editor {
+  width: 100%;
+}
+ 
+.section-editor-wrap {
+  position: relative;
+  isolation: isolate;
+}
+ 
+/* Reduce min-height in admin — 100vh sections are too tall to edit comfortably */
+.section-editor-wrap .product-section {
+  min-height: 65vh;
+}
+ 
+/* ─── Controls bar ────────────────────────────────────────────────────────── */
+.section-editor-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+ 
+.section-editor-wrap:hover .section-editor-controls {
+  opacity: 1;
+  pointer-events: all;
+}
+ 
+.section-editor-controls-left,
+.section-editor-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+ 
+/* ─── Control buttons ─────────────────────────────────────────────────────── */
+.section-editor-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease;
+  backdrop-filter: blur(4px);
+}
+ 
+.section-editor-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+}
+ 
+.section-editor-btn--active {
+  background: rgba(149, 125, 76, 0.7);
+  border-color: #957d4c;
+  color: #ffffff;
+}
+ 
+.section-editor-btn--active:hover {
+  background: rgba(149, 125, 76, 0.9);
+}
+ 
+.section-editor-btn--danger:hover {
+  background: rgba(74, 29, 29, 0.7);
+  border-color: rgba(74, 29, 29, 0.8);
+}
+ 
+.section-editor-type-badge {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  padding: 4px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  margin-right: 4px;
+}
+ 
+/* ─── Add-below button ────────────────────────────────────────────────────── */
+/* Centered at the bottom edge of each SortableSection                        */
+/* Revealed on section hover — inserts a new IMAGE_TEXT section below         */
+.section-editor-add-below-btn {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 30;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.88);
+  border: 1px solid rgba(149, 125, 76, 0.4);
+  color: rgba(149, 125, 76, 0.7);
+  font-size: 0.72rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.2s ease, border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+ 
+.section-editor-wrap:hover .section-editor-add-below-btn {
+  opacity: 1;
+}
+ 
+.section-editor-add-below-btn:hover {
+  border-color: #957d4c;
+  color: #ffffff;
+  background: rgba(149, 125, 76, 0.5);
+}
+ 
+/* ─── Empty state ─────────────────────────────────────────────────────────── */
+/* Shown between DnD context and CTA when no IMAGE_TEXT sections exist        */
+.section-editor-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 40px;
+  background: #1a1a1a;
+}
+ 
+.section-editor-empty-add {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: 1px dashed rgba(149, 125, 76, 0.2);
+  border-radius: 4px;
+  padding: 32px 56px;
+  color: rgba(149, 125, 76, 0.5);
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+ 
+.section-editor-empty-add i {
+  font-size: 1.1rem;
+}
+ 
+.section-editor-empty-add:hover {
+  border-color: #957d4c;
+  color: #957d4c;
+}
+ 
+/* ─── Ghost inputs ────────────────────────────────────────────────────────── */
+/* color intentionally absent — specific classes and inline styles take over:  */
+/*   ImageTextEditor: explicit color via style prop                            */
+/*   CTA specs: product-cta-spec-title/label/value from ProductPage.css       */
+.admin-ghost-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  padding: 2px 0;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  border-radius: 0;
+}
+ 
+.admin-ghost-input:hover {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+ 
+.admin-ghost-input:focus {
+  border-bottom-color: #DFCF95;
+  background: rgba(255, 255, 255, 0.04);
+}
+ 
+.admin-ghost-input::placeholder {
+  color: rgba(255, 255, 255, 0.22);
+  font-style: italic;
+}
+ 
+/* Textarea variant — auto-resizes via JS, no manual resize handle */
+.admin-ghost-textarea {
+  resize: none;
+  overflow: hidden;
+  display: block;
+}
+ 
+/* ─── Key/value pairs in IMAGE_TEXT ──────────────────────────────────────── */
+.section-editor-pair {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+ 
+.section-editor-pair .admin-ghost-input {
+  border-bottom-color: transparent;
+}
+ 
+.section-editor-pair .admin-ghost-input:hover {
+  border-bottom-color: rgba(255, 255, 255, 0.10);
+}
+ 
+.section-editor-pair .admin-ghost-input:focus {
+  border-bottom-color: #DFCF95;
+}
+ 
+/* ─── Empty image placeholder ─────────────────────────────────────────────── */
+.section-editor-img-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #2a2a2a;
+  color: rgba(255, 255, 255, 0.25);
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.5px;
+  text-align: center;
+  padding: 0 40px;
+}
+ 
+.section-editor-img-empty i {
+  font-size: 2rem;
+  opacity: 0.4;
+}
+ 
+/* ─── CTA section admin overrides ────────────────────────────────────────── */
+.section-editor-cta {
+  background: #111111;
+}
+ 
+/* Force auto height on the grid and spec blocks — prevents content clipping  */
+/* when spec blocks contain long free text synced from textMode sections       */
+.section-editor-cta .product-cta-specs-grid {
+  height: auto !important;
+  max-height: none !important;
+  align-items: start;
+}
+ 
+.section-editor-cta .product-cta-spec-section {
+  height: auto !important;
+  overflow: visible !important;
+}
+ 
+.section-editor-cta .admin-ghost-input {
+  display: inline-block;
+  width: 100%;
+}
+ 
+/* ─── Spec blocks — sortable wrapper ─────────────────────────────────────── */
+.section-editor-spec-sortable {
+  position: relative;
+  padding-left: 22px;
+  height: auto;
+}
+ 
+/* Drag handle — revealed on spec block hover */
+.section-editor-spec-drag-handle {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 18px;
+  height: 18px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.15);
+  font-size: 0.65rem;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+ 
+.section-editor-spec-sortable:hover .section-editor-spec-drag-handle {
+  opacity: 1;
+}
+ 
+.section-editor-spec-drag-handle:hover {
+  color: rgba(255, 255, 255, 0.55);
+}
+ 
+/* ─── Spec blocks ─────────────────────────────────────────────────────────── */
+.section-editor-spec-block {
+  position: relative;
+}
+ 
+.section-editor-spec-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+ 
+.section-editor-spec-remove {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.15s ease;
+  border-radius: 50%;
+}
+ 
+.section-editor-spec-remove:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.section-editor-spec-mode-btn {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  font-size: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.15s ease;
+  border-radius: 2px;
+}
+
+.section-editor-spec-mode-btn:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.section-editor-spec-mode-btn--active {
+  color: #957d4c;
+}
+
+.section-editor-spec-mode-btn--active:hover {
+  color: #DFCF95;
+}
+ 
+.section-editor-spec-item-row {
+  align-items: center;
+}
+ 
+/* Free text block — GhostTextarea applies auto-resize via scrollHeight       */
+/* color set explicitly since admin-ghost-input no longer inherits            */
+.section-editor-spec-freetext {
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.75;
+  min-height: 48px;
+}
+ 
+/* ─── Spec empty cell / add controls ─────────────────────────────────────── */
+.section-editor-spec-empty {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 24px;
+}
+ 
+.section-editor-spec-add-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.3);
+  padding: 16px 20px;
+  cursor: pointer;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+  width: 100%;
+}
+ 
+.section-editor-spec-add-block:hover {
+  border-color: rgba(149, 125, 76, 0.4);
+  color: #957d4c;
+}
+ 
+.section-editor-spec-add-item {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.25);
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  padding: 6px 0;
+  text-align: left;
+  transition: color 0.15s ease;
+}
+ 
+.section-editor-spec-add-item:hover {
+  color: #957d4c;
+}
+ 
+/* ─── CTA sync bar ────────────────────────────────────────────────────────── */
+.section-editor-sync-bar {
+  padding: 16px 0 0;
+  display: flex;
+  justify-content: flex-end;
+}
+ 
+.section-editor-sync-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.72rem;
+  color: rgba(149, 125, 76, 0.7);
+  background: none;
+  border: 1px solid rgba(149, 125, 76, 0.2);
+  border-radius: 2px;
+  padding: 7px 14px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+ 
+.section-editor-sync-btn:hover {
+  border-color: rgba(149, 125, 76, 0.5);
+  color: #957d4c;
+}
+ 
+/* ─── Sizes module ────────────────────────────────────────────────────────── */
+.section-editor-sizes-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+ 
+.section-editor-size-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: border-color 0.15s ease;
+}
+ 
+.section-editor-size-chip:focus-within {
+  border-color: rgba(223, 207, 149, 0.3);
+}
+ 
+.section-editor-size-chip-name {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.5px;
+  min-width: 28px;
+}
+ 
+.section-editor-size-stock {
+  width: 44px !important;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.65) !important;
+  font-size: 0.875rem !important;
+  -moz-appearance: textfield;
+}
+ 
+.section-editor-size-stock::-webkit-outer-spin-button,
+.section-editor-size-stock::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+ 
+.section-editor-size-chip-unit {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+}
+ 
+.section-editor-size-chip-remove {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.18);
+  cursor: pointer;
+  font-size: 0.68rem;
+  padding: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s ease;
+}
+ 
+.section-editor-size-chip-remove:hover {
+  color: rgba(255, 160, 160, 0.65);
+}
+ 
+.section-editor-size-add {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.25);
+  background: none;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  padding: 8px 14px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+ 
+.section-editor-size-add:hover {
+  border-color: rgba(149, 125, 76, 0.35);
+  color: #957d4c;
+}
+ 
+.section-editor-sizes-error {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.72rem;
+  color: rgba(255, 180, 180, 0.75);
+  margin: 0 0 16px;
+  letter-spacing: 0.3px;
+  text-align: center;
+}
+ 
+/* ─── CTA save button ─────────────────────────────────────────────────────── */
+/* Replaces the old decorative "AJOUTER À MA SÉLECTION" div                  */
+/* Full-width, gold, interactive — matches brand but clearly admin-context    */
+.section-editor-cta-save-btn {
+  display: block;
+  width: 100%;
+  padding: 16px 32px;
+  background: #957d4c;
+  color: #ffffff;
+  border: none;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.82rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s ease, opacity 0.15s ease;
+}
+ 
+.section-editor-cta-save-btn:hover:not(:disabled) {
+  background: #7d6840;
+}
+ 
+.section-editor-cta-save-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

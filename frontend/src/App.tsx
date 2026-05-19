@@ -24,8 +24,8 @@ import OrderDetailPage from './pages/OrderDetailPage'
 
 // -- Admin pages --
 import AdminDashboardPage from './pages/admin/AdminDashboardPage'
-// import AdminProductsPage from './pages/admin/AdminProductsPage'
-// import AdminProductFormPage from './pages/admin/AdminProductFormPage'
+import AdminProductsPage from './pages/admin/AdminProductsPage'
+import AdminProductFormPage from './pages/admin/AdminProductFormPage'
 import AdminOrderDetailPage from './pages/admin/AdminOrderDetailPage'
 import AdminStoresPage from './pages/admin/AdminStoresPage'
 import AdminUsersPage from './pages/admin/AdminUsersPage'
@@ -58,9 +58,9 @@ export default function App() {
 
         {/* Admin routes */}
         <Route path="/admin" element={<AdminRoute><AdminDashboardPage /></AdminRoute>} />
-        {/* <Route path="/admin/produits" element={<AdminRoute><AdminProductsPage /></AdminRoute>} /> */}
-        {/* <Route path="/admin/produits/nouveau" element={<AdminRoute><AdminProductFormPage /></AdminRoute>} /> */}
-        {/* <Route path="/admin/produits/:id/modifier" element={<AdminRoute><AdminProductFormPage /></AdminRoute>} /> */}
+        <Route path="/admin/produits" element={<AdminRoute><AdminProductsPage /></AdminRoute>} />
+        <Route path="/admin/produits/nouveau" element={<AdminRoute><AdminProductFormPage /></AdminRoute>} />
+        <Route path="/admin/produits/:id/modifier" element={<AdminRoute><AdminProductFormPage /></AdminRoute>} />
         <Route path="/admin/commandes/:id" element={<AdminRoute><AdminOrderDetailPage /></AdminRoute>} />
         <Route path="/admin/magasins" element={<AdminRoute><AdminStoresPage /></AdminRoute>} />
         <Route path="/admin/utilisateurs" element={<AdminRoute><AdminUsersPage /></AdminRoute>} />

@@ -24,18 +24,18 @@ const CtaSpecsSchema = z.object({
 const ProductSectionSchema = z.object({
   type: SectionTypeSchema,
   position: z.number().int({ error: 'Position invalide' }),
-  imageUrl: z.string().url({ error: 'URL invalide' }).optional(),
-  mirrorBackground: z.boolean().optional(), 
-  textSide: TextSideSchema.optional(),
-  title1: z.string().optional(),
-  description1: z.string().optional(),
-  text2: z.string().optional(),
-  desc2: z.string().optional(),
-  text3: z.string().optional(),
-  desc3: z.string().optional(),
-  text4: z.string().optional(),
-  desc4: z.string().optional(),
-  specs: CtaSpecsSchema.optional(),
+  imageUrl: z.string().nullish(),
+  mirrorBackground: z.boolean().default(false),   // ← manquant
+  textSide: TextSideSchema.nullish(),  
+  title1: z.string().nullish(),
+  description1: z.string().nullish(),
+  text2: z.string().nullish(),
+  desc2: z.string().nullish(),
+  text3: z.string().nullish(),
+  desc3: z.string().nullish(),
+  text4: z.string().nullish(),
+  desc4: z.string().nullish(),
+  specs: CtaSpecsSchema.nullish(),
 })
 
 const ProductSizeSchema = z.object({

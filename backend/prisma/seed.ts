@@ -96,6 +96,7 @@ async function main() {
   const product = await prisma.product.upsert({
     where: { slug: 'm22-collection' },
     update: {
+      price: 15000,
       tagline: 'Pour les amoureux du biomimétisme',
       images: {
         deleteMany: {},
