@@ -1,0 +1,572 @@
+/* AdminProductFormPage.css — WYSIWYG product editor
+   Dark background throughout (#1a1a1a) — mirrors the public ProductPage
+   Ghost inputs: transparent by default, gold border-bottom on focus only
+   Floating gear panel replaces the sticky bar */
+ 
+/* ─── Page container ──────────────────────────────────────────────────────── */
+.ap-form {
+  background: #1a1a1a;
+  min-height: 100vh;
+  font-family: 'CenturySchoolbook', serif;
+}
+ 
+/* ─── Floating action panel — backdrop ───────────────────────────────────── */
+.ap-form__panel-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
+}
+ 
+/* ─── Floating action panel — slide-in from right ────────────────────────── */
+.ap-form__panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  width: 280px;
+  background: rgba(10, 10, 10, 0.97);
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(16px);
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+ 
+.ap-form__panel--open {
+  transform: translateX(0);
+}
+ 
+/* ─── Panel sections ──────────────────────────────────────────────────────── */
+/* Each logical block is separated by a subtle border */
+.ap-form__panel-section {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+ 
+.ap-form__panel-section--top {
+  padding-top: 28px;
+}
+ 
+/* ─── Panel back link ─────────────────────────────────────────────────────── */
+.ap-form__panel-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: color 0.15s ease;
+}
+ 
+.ap-form__panel-back:hover {
+  color: #957d4c;
+}
+ 
+/* ─── Panel labels ────────────────────────────────────────────────────────── */
+.ap-form__panel-label {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.62rem;
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+ 
+/* ─── Panel slug ──────────────────────────────────────────────────────────── */
+.ap-form__panel-slug {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+ 
+.ap-form__panel-slug-prefix {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
+ 
+.ap-form__panel-slug-value {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.3px;
+  word-break: break-all;
+}
+ 
+.ap-form__panel-slug-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  outline: none;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+  padding: 2px 0;
+  min-width: 0;
+  transition: border-color 0.15s ease;
+}
+ 
+.ap-form__panel-slug-input:focus {
+  border-bottom-color: #957d4c;
+}
+ 
+.ap-form__panel-slug-input::placeholder {
+  color: rgba(255, 255, 255, 0.18);
+}
+ 
+/* ─── Panel active toggle ─────────────────────────────────────────────────── */
+.ap-form__panel-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+}
+ 
+.ap-form__panel-toggle-track {
+  position: relative;
+  width: 32px;
+  height: 18px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+ 
+.ap-form__panel-toggle--on .ap-form__panel-toggle-track {
+  background: rgba(149, 125, 76, 0.35);
+  border-color: rgba(149, 125, 76, 0.5);
+}
+ 
+.ap-form__panel-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+ 
+.ap-form__panel-toggle--on .ap-form__panel-toggle-thumb {
+  transform: translateX(14px);
+  background: #957d4c;
+}
+ 
+.ap-form__panel-toggle-label {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.3px;
+  transition: color 0.15s ease;
+}
+ 
+.ap-form__panel-toggle--on .ap-form__panel-toggle-label {
+  color: rgba(149, 125, 76, 0.85);
+}
+ 
+/* ─── Panel save button ───────────────────────────────────────────────────── */
+/* Extends admin-btn-primary from index.css */
+.ap-form__panel-save {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+ 
+/* ─── Panel feedback ──────────────────────────────────────────────────────── */
+.ap-form__panel-feedback {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  border-radius: 2px;
+  padding: 10px 12px;
+}
+ 
+.ap-form__panel-feedback i {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+ 
+.ap-form__panel-feedback--error {
+  background: rgba(74, 29, 29, 0.4);
+  color: rgba(255, 180, 180, 0.9);
+  border: 1px solid rgba(74, 29, 29, 0.45);
+}
+ 
+.ap-form__panel-feedback--success {
+  background: rgba(45, 106, 79, 0.2);
+  color: rgba(160, 220, 180, 0.9);
+  border: 1px solid rgba(45, 106, 79, 0.3);
+}
+ 
+/* ─── Gear FAB ────────────────────────────────────────────────────────────── */
+/* Anchored bottom-right — always visible above all content                   */
+/* Clin d'œil horlogerie — gear icon echoes the watchmaking craft             */
+.ap-form__fab {
+  position: fixed;
+  right: 24px;
+  bottom: 28px;
+  z-index: 1000;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(12, 12, 12, 0.92);
+  border: 1px solid rgba(149, 125, 76, 0.35);
+  color: rgba(149, 125, 76, 0.7);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+ 
+.ap-form__fab:hover {
+  background: rgba(20, 20, 20, 0.96);
+  border-color: #957d4c;
+  color: #957d4c;
+}
+ 
+/* Gear rotates 90° when the panel is open */
+.ap-form__fab--open .fa-gear {
+  transform: rotate(90deg);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  color: rgba(255, 255, 255, 0.6);
+}
+ 
+.ap-form__fab .fa-gear {
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+ 
+/* ─── Hero editor ─────────────────────────────────────────────────────────── */
+.ap-form__hero {
+  position: relative;
+  width: 100%;
+  min-height: 80vh;
+  overflow: hidden;
+  background: #111111;
+}
+ 
+.ap-form__hero-skeleton {
+  min-height: 80vh;
+  background: linear-gradient(90deg, #161616 25%, #1e1e1e 50%, #161616 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+ 
+.ap-form__hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+ 
+.ap-form__hero-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: rgba(255, 255, 255, 0.13);
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  text-align: center;
+  padding: 0 40px;
+}
+ 
+.ap-form__hero-empty i {
+  font-size: 3rem;
+  opacity: 0.25;
+}
+ 
+/* Camera button — top-right corner, revealed on hero hover */
+.ap-form__hero-upload-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.15s ease, border-color 0.15s ease;
+  backdrop-filter: blur(4px);
+}
+ 
+.ap-form__hero:hover .ap-form__hero-upload-btn {
+  opacity: 1;
+}
+ 
+.ap-form__hero-upload-btn:hover {
+  background: rgba(149, 125, 76, 0.55);
+  border-color: #957d4c;
+  color: #ffffff;
+}
+ 
+.ap-form__hero-upload-btn:disabled {
+  opacity: 0.35 !important;
+  cursor: not-allowed;
+}
+ 
+/* Hero overlay — gradient mirrors public ProductPage HeroSection */
+.ap-form__hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.68) 0%,
+    rgba(0, 0, 0, 0.42) 55%,
+    rgba(0, 0, 0, 0.08) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: 64px 7%;
+}
+ 
+.ap-form__hero-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  width: 100%;
+}
+ 
+/* ─── Ghost inputs ────────────────────────────────────────────────────────── */
+/* Transparent by default — only a gold border appears on focus               */
+/* No visible border at rest to preserve the WYSIWYG illusion                 */
+.ap-form__ghost {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'CenturySchoolbook', serif;
+  color: inherit;
+  padding: 4px 0;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  border-radius: 0;
+}
+ 
+.ap-form__ghost:hover {
+  border-bottom-color: rgba(255, 255, 255, 0.10);
+}
+ 
+.ap-form__ghost:focus {
+  border-bottom-color: #DFCF95;
+  background: rgba(255, 255, 255, 0.025);
+}
+ 
+.ap-form__ghost::placeholder {
+  color: rgba(255, 255, 255, 0.18);
+  font-style: italic;
+}
+ 
+/* Name — 2.5rem, matches HeroSection on public page */
+.ap-form__ghost--name {
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: 2px;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+ 
+/* Tagline */
+.ap-form__ghost--tagline {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+ 
+/* Price */
+.ap-form__ghost-price-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+ 
+.ap-form__ghost--price {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #DFCF95;
+  letter-spacing: 1px;
+  width: auto;
+  flex: 1;
+  max-width: 200px;
+  -moz-appearance: textfield;
+}
+ 
+.ap-form__ghost--price::-webkit-outer-spin-button,
+.ap-form__ghost--price::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+ 
+.ap-form__ghost-price-suffix {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 1rem;
+  color: rgba(223, 207, 149, 0.65);
+  flex-shrink: 0;
+}
+ 
+/* Description */
+.ap-form__ghost--description {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.7;
+  resize: none;
+  overflow: hidden;
+  display: block;
+}
+ 
+/* Error message below a ghost input */
+.ap-form__ghost-error {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.72rem;
+  color: rgba(255, 180, 180, 0.75);
+  margin: 4px 0 8px;
+  letter-spacing: 0.3px;
+}
+ 
+/* Hero CTA button — decorative preview, non-interactive */
+.ap-form__hero-cta-preview {
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.35);
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  padding: 12px 24px;
+  pointer-events: none;
+  opacity: 0.45;
+  align-self: flex-start;
+}
+ 
+/* ─── Description zone ────────────────────────────────────────────────────── */
+.ap-form__description-zone {
+  background: #151515;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 20px 7% 28px;
+}
+ 
+.ap-form__description-header {
+  margin-bottom: 10px;
+}
+ 
+/* Contextual badge — tells the admin where this text appears on the site */
+.ap-form__description-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.68rem;
+  color: rgba(149, 125, 76, 0.65);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: 1px solid rgba(149, 125, 76, 0.2);
+  border-radius: 2px;
+  padding: 3px 8px;
+}
+ 
+.ap-form__description-badge i {
+  font-size: 0.6rem;
+}
+ 
+/* ─── Sections locked (create mode) ──────────────────────────────────────── */
+.ap-form__sections-locked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 72px 40px;
+  color: rgba(255, 255, 255, 0.15);
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.875rem;
+  text-align: center;
+  border-top: 1px dashed rgba(255, 255, 255, 0.05);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+}
+ 
+.ap-form__sections-locked i {
+  font-size: 2rem;
+  opacity: 0.25;
+}
+ 
+.ap-form__sections-locked p {
+  margin: 0;
+}
+ 
+/* ─── Responsive 992px ────────────────────────────────────────────────────── */
+@media (max-width: 992px) {
+  /* Panel goes full-width on mobile */
+  .ap-form__panel {
+    width: 100%;
+  }
+ 
+  /* FAB slightly smaller, stays bottom-right */
+  .ap-form__fab {
+    right: 16px;
+    bottom: 20px;
+    width: 46px;
+    height: 46px;
+    font-size: 1rem;
+  }
+ 
+  .ap-form__hero-overlay {
+    padding: 40px 5%;
+  }
+ 
+  .ap-form__ghost--name {
+    font-size: 1.7rem;
+  }
+ 
+  .ap-form__ghost--tagline {
+    font-size: 0.875rem;
+  }
+ 
+  .ap-form__description-zone {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
