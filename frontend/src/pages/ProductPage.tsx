@@ -66,7 +66,12 @@ function ImageTextSection({ section }: { section: ProductSection }) {
       ref={ref}
       className={`product-section reveal-up${isVisible ? ' reveal-up--visible' : ''}`}>
       {section.imageUrl && (
-        <img src={section.imageUrl} alt={section.title1 ?? ''} className="product-section-img" />
+        <img
+          src={section.imageUrl}
+          alt={section.title1 ?? ''}
+          className="product-section-img"
+          style={section.mirrorBackground ? { transform: 'scaleX(-1)' } : undefined}
+        />
       )}
       <div className="product-section-overlay">
         <div className={`product-overlay-content product-overlay-content--${textOnLeft ? 'left' : 'right'}`}>
