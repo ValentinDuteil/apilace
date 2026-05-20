@@ -148,3 +148,4 @@ cookies.txt
 *.Identifiertest_apilace.sh
 test_results.txt
 *:Zone.Identifier
+.pnpm-store/
