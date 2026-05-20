@@ -72,7 +72,7 @@ export default function ResetPasswordPage() {
 
     setIsLoading(true)
     try {
-      await api.post('/auth/reset-password', { token, newPassword })
+      await api.post('/auth/reset-password', { token, password: newPassword, confirmPassword })
       navigate('/connexion')
     } catch (error) {
       const axiosError = error as AxiosError<ApiValidationError>
@@ -119,7 +119,7 @@ export default function ResetPasswordPage() {
               className="login-modal-input"
               style={{ borderColor: fieldErrors.newPassword ? '#212529' : undefined }}
             />
-            <FieldError message={fieldErrors.newPassword} />
+            <FieldError message={fieldErrors.password} />
             {(showRules || newPassword) && (
               <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 {PASSWORD_RULES.map((rule, i) => {
