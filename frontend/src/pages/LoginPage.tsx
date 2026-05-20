@@ -78,18 +78,18 @@ export default function LoginPage() {
   }
 
   async function handleForgotPassword() {
-  if (!email) { setGlobalError('Veuillez saisir votre adresse email.'); return }
-  setGlobalError(null)
-  setIsForgotLoading(true)
-  try {
-    await api.post('/auth/forgot-password', { email })
-    setForgotSuccess(true)
-  } catch {
-    setGlobalError('Une erreur est survenue. Veuillez réessayer.')
-  } finally {
-    setIsForgotLoading(false)
+    if (!email) { setGlobalError('Veuillez saisir votre adresse email.'); return }
+    setGlobalError(null)
+    setIsForgotLoading(true)
+    try {
+      await api.post('/auth/forgot-password', { email })
+      setForgotSuccess(true)
+    } catch {
+      setGlobalError('Une erreur est survenue. Veuillez réessayer.')
+    } finally {
+      setIsForgotLoading(false)
+    }
   }
-}
 
   // ─── Render ────────────────────────────────────────────────────────────────
 
@@ -154,29 +154,45 @@ export default function LoginPage() {
           {isLoading ? 'Connexion...' : 'SE CONNECTER'}
         </button>
 
+        {/* ─── Google OAuth separator ─────────────────────────────── */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', margin: '4px 0 16px' }}>
+          <div style={{ flex: 1, height: '1px', background: 'rgba(33,37,41,0.10)' }} />
+          <span style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.78rem', color: '#adb5bd' }}>ou</span>
+          <div style={{ flex: 1, height: '1px', background: 'rgba(33,37,41,0.10)' }} />
+        </div>
+
+        <a
+          href={`${import.meta.env.VITE_API_URL}/auth/google`}
+          className="login-modal-btn--outline"
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', textDecoration: 'none', marginBottom: '20px' }}
+        >
+          <i className="fa-brands fa-google" style={{ fontSize: '0.9rem' }} />
+          Continuer avec Google
+        </a>
+
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-  {forgotSuccess
-    ? <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.8rem', color: '#2d6a4f' }}>
-        Email envoyé ✓
-      </p>
-    : <button
-        type="button"
-        className="login-page-forgot"
-        onClick={handleForgotPassword}
-        disabled={isForgotLoading}
-      >
-        {isForgotLoading ? 'Envoi...' : 'Mot de passe oublié ?'}
-      </button>
-  }
-  <Link
-    to="/inscription"
-    style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.8rem', color: '#957d4c', textDecoration: 'none' }}
-  >
-    Créer un compte →
-  </Link>
-</div>
+          {forgotSuccess
+            ? <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.8rem', color: '#2d6a4f' }}>
+              Email envoyé ✓
+            </p>
+            : <button
+              type="button"
+              className="login-page-forgot"
+              onClick={handleForgotPassword}
+              disabled={isForgotLoading}
+            >
+              {isForgotLoading ? 'Envoi...' : 'Mot de passe oublié ?'}
+            </button>
+          }
+          <Link
+            to="/inscription"
+            style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.8rem', color: '#957d4c', textDecoration: 'none' }}
+          >
+            Créer un compte →
+          </Link>
+        </div>
 
       </div>
-    </div>
+    </div >
   )
 }

@@ -14,6 +14,8 @@ import CartPage from './pages/CartPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import ResetPasswordPage from './pages/ResetPasswordPage'
+//Google OAuth callback page (after redirect from Google)
+import OAuthCallbackPage from './pages/OAuthCallbackPage'
 // import LegalPage from './pages/LegalPage'
 import NotFoundPage from './pages/NotFoundPage'
 
@@ -47,6 +49,7 @@ export default function App() {
         <Route path="/connexion" element={<LoginPage />} />
         <Route path="/inscription" element={<RegisterPage />} />
         <Route path="/reinitialisation/:token" element={<ResetPasswordPage />} />
+        <Route path="/oauth/callback" element={<OAuthCallbackPage />} />
         {/* <Route path="/mentions-legales" element={<LegalPage type="MENTIONS_LEGALES" />} /> */}
         {/* <Route path="/cgv" element={<LegalPage type="CGV" />} /> */}
         {/* <Route path="/confidentialite" element={<LegalPage type="RGPD" />} /> */}
