@@ -27,6 +27,10 @@ import {
   forgotPassword,
   resetPassword,
 } from '../controllers/auth.controller.js'
+import { 
+  redirectToGoogle, 
+  handleGoogleCallback 
+} from '../controllers/googleOAuth.controller.js'
 
 const router = Router()
 
@@ -37,6 +41,9 @@ router.post('/logout', logout)
 router.post('/refresh', refresh)
 router.post('/forgot-password', authRateLimit, validate(ForgotPasswordSchema), forgotPassword)
 router.post('/reset-password', authRateLimit, validate(ResetPasswordSchema), resetPassword)
+// Google OAuth — no body validation, no CSRF (GET redirects)
+router.get('/google', redirectToGoogle)
+router.get('/google/callback', handleGoogleCallback)
 
 // Protected
 router.get('/me', requireAuth, me)
