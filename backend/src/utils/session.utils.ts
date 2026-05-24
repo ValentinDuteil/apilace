@@ -53,3 +53,8 @@ export async function createRefreshToken(userId: number): Promise<string> {
 export function signAccessToken(userId: number, role: string): string {
   return jwt.sign({ id: userId, role }, process.env.JWT_SECRET!, { expiresIn: ACCESS_TOKEN_EXPIRY })
 }
+
+// Generates a cryptographically secure random hex token (256 bits of entropy)
+export function generateRandomToken(): string {
+  return crypto.randomBytes(32).toString('hex')
+}

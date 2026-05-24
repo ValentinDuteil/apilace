@@ -4,7 +4,6 @@
 
 import { Request, Response } from 'express'
 import { OAuth2Client } from 'google-auth-library'
-import crypto from 'crypto'
 import { prisma } from '../lib/prisma.js'
 import { UnauthorizedError } from '../utils/AppError.js'
 import {
@@ -12,6 +11,7 @@ import {
   createRefreshToken,
   signAccessToken,
   getBaseCookieOptions,
+  generateRandomToken,
 } from '../utils/session.utils.js'
 
 const OAUTH_STATE_EXPIRY_MS = 5 * 60 * 1000 // 5 minutes — single-use CSRF token
@@ -27,7 +27,7 @@ function buildOAuth2Client(): OAuth2Client {
 // ─── Step 1 : Redirect to Google ─────────────────────────────────────────────
 
 export async function redirectToGoogle(req: Request, res: Response): Promise<void> {
-  const state = crypto.randomBytes(32).toString('hex')
+  const state = generateRandomToken()
 
   // Store state in a short-lived HttpOnly cookie to verify on callback (anti-CSRF)
   res.cookie('oauth_state', state, {
