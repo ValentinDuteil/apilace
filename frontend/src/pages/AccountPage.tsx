@@ -95,6 +95,12 @@ export default function AccountPage() {
   const [isDeleting, setIsDeleting] = useState(false)
   const [deleteError, setDeleteError] = useState<string | null>(null)
 
+  // ── Newsletter state ──
+  const [isSubscribed, setIsSubscribed] = useState(false)
+  const [isNewsletterLoading, setIsNewsletterLoading] = useState(true)
+  const [newsletterSuccess, setNewsletterSuccess] = useState<string | null>(null)
+  const [newsletterError, setNewsletterError] = useState<string | null>(null)
+
   const newPasswordValid = PASSWORD_RULES.every(r => r.test(pwdForm.newPassword))
   const passwordsMatch = pwdForm.confirmNewPassword === '' || pwdForm.newPassword === pwdForm.confirmNewPassword
 
@@ -118,6 +124,14 @@ export default function AccountPage() {
       .then(res => setOrders(res.data))
       .catch(console.error)
       .finally(() => setIsLoadingOrders(false))
+  }, [])
+
+  // Fetch newsletter subscription status on mount
+  useEffect(() => {
+    api.get<{ isSubscribed: boolean }>('/newsletter/status')
+      .then(res => setIsSubscribed(res.data.isSubscribed))
+      .catch(console.error)
+      .finally(() => setIsNewsletterLoading(false))
   }, [])
 
   // ── Profile handlers ──────────────────────────────────────────────────────
@@ -222,6 +236,29 @@ export default function AccountPage() {
       const axiosError = error as AxiosError<{ message: string }>
       setDeleteError(axiosError.response?.data?.message ?? 'Une erreur est survenue.')
       setIsDeleting(false)
+    }
+  }
+
+  // ── Newsletter handler ────────────────────────────────────────────────────
+
+  async function handleNewsletterToggle() {
+    setNewsletterError(null)
+    setNewsletterSuccess(null)
+    const next = !isSubscribed
+    setIsSubscribed(next) // optimistic update
+
+    try {
+      if (next) {
+        await api.post('/newsletter/subscribe', { email: user!.email })
+        setNewsletterSuccess('Inscription confirmée ✓')
+      } else {
+        await api.delete('/newsletter/unsubscribe')
+        setNewsletterSuccess('Désinscription confirmée ✓')
+      }
+      setTimeout(() => setNewsletterSuccess(null), 3000)
+    } catch {
+      setIsSubscribed(!next) // revert on error
+      setNewsletterError('Une erreur est survenue.')
     }
   }
 
@@ -369,104 +406,159 @@ export default function AccountPage() {
           </div>
         </div>
 
+        {/* Conditional separator — password section only */}
+        {user?.hasPassword && (
+          <>
+            <Separator />
+
+            {/* ══ SECTION 2 — Change Password ══ */}
+            <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+              <h2 style={{
+                fontFamily: 'CenturySchoolbook, serif',
+                fontSize: '1.4rem', fontWeight: 400,
+                color: '#212529', marginBottom: '32px', textAlign: 'center',
+              }}>
+                Changer de mot de passe
+              </h2>
+
+              {pwdSuccess && <p className="account-success-msg">Mot de passe modifié ✓</p>}
+              {pwdGlobalError && (
+                <p style={{
+                  fontFamily: 'CenturySchoolbook, serif',
+                  fontSize: '0.875rem', color: '#842029',
+                  marginBottom: '16px', textAlign: 'center',
+                }}>
+                  {pwdGlobalError}
+                </p>
+              )}
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '24px' }}>
+
+                <div>
+                  <input
+                    type="password"
+                    value={pwdForm.oldPassword}
+                    onChange={e => { setPwdForm(p => ({ ...p, oldPassword: e.target.value })); clearPwdFieldError('oldPassword') }}
+                    placeholder="Ancien mot de passe"
+                    className="login-modal-input"
+                    style={{ borderColor: pwdFieldErrors.oldPassword ? '#842029' : undefined }}
+                  />
+                  <FieldError message={pwdFieldErrors.oldPassword} />
+                </div>
+
+                <div>
+                  <input
+                    type="password"
+                    value={pwdForm.newPassword}
+                    onChange={e => { setPwdForm(p => ({ ...p, newPassword: e.target.value })); clearPwdFieldError('newPassword') }}
+                    onFocus={() => setShowPwdRules(true)}
+                    placeholder="Nouveau mot de passe"
+                    className="login-modal-input"
+                    style={{ borderColor: pwdFieldErrors.newPassword ? '#842029' : undefined }}
+                  />
+                  <FieldError message={pwdFieldErrors.newPassword} />
+                  {(showPwdRules || pwdForm.newPassword) && (
+                    <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      {PASSWORD_RULES.map((rule, i) => {
+                        const ok = rule.test(pwdForm.newPassword)
+                        return (
+                          <p key={i} style={{
+                            fontFamily: 'CenturySchoolbook, serif',
+                            fontSize: '0.78rem',
+                            color: ok ? '#2d6a4f' : '#adb5bd',
+                            display: 'flex', alignItems: 'center', gap: '6px',
+                            transition: 'color 0.2s ease',
+                          }}>
+                            <i className={`fa-solid ${ok ? 'fa-circle-check' : 'fa-circle'}`} style={{ fontSize: '0.65rem' }} />
+                            {rule.label}
+                          </p>
+                        )
+                      })}
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <input
+                    type="password"
+                    value={pwdForm.confirmNewPassword}
+                    onChange={e => setPwdForm(p => ({ ...p, confirmNewPassword: e.target.value }))}
+                    placeholder="Confirmer le nouveau mot de passe"
+                    className="login-modal-input"
+                    style={{ borderColor: !passwordsMatch ? '#842029' : undefined }}
+                  />
+                  {!passwordsMatch && <FieldError message="Les mots de passe ne correspondent pas." />}
+                </div>
+
+              </div>
+
+              <div style={{ textAlign: 'center' }}>
+                <button
+                  type="button"
+                  className="login-modal-btn"
+                  onClick={handlePasswordSubmit}
+                  disabled={isUpdatingPwd}
+                >
+                  {isUpdatingPwd ? 'Modification...' : 'Modifier le mot de passe'}
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+
         <Separator />
 
-        {/* ══ SECTION 2 — Change Password ══ */}
+        {/* ══ SECTION 3 — Préférences de communication ══ */}
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <h2 style={{
             fontFamily: 'CenturySchoolbook, serif',
             fontSize: '1.4rem', fontWeight: 400,
             color: '#212529', marginBottom: '32px', textAlign: 'center',
           }}>
-            Changer de mot de passe
+            Préférences de communication
           </h2>
-
-          {pwdSuccess && <p className="account-success-msg">Mot de passe modifié ✓</p>}
-          {pwdGlobalError && (
-            <p style={{
-              fontFamily: 'CenturySchoolbook, serif',
-              fontSize: '0.875rem', color: '#842029',
-              marginBottom: '16px', textAlign: 'center',
-            }}>
-              {pwdGlobalError}
-            </p>
-          )}
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '24px' }}>
-
-            <div>
-              <input
-                type="password"
-                value={pwdForm.oldPassword}
-                onChange={e => { setPwdForm(p => ({ ...p, oldPassword: e.target.value })); clearPwdFieldError('oldPassword') }}
-                placeholder="Ancien mot de passe"
-                className="login-modal-input"
-                style={{ borderColor: pwdFieldErrors.oldPassword ? '#842029' : undefined }}
-              />
-              <FieldError message={pwdFieldErrors.oldPassword} />
-            </div>
-
-            <div>
-              <input
-                type="password"
-                value={pwdForm.newPassword}
-                onChange={e => { setPwdForm(p => ({ ...p, newPassword: e.target.value })); clearPwdFieldError('newPassword') }}
-                onFocus={() => setShowPwdRules(true)}
-                placeholder="Nouveau mot de passe"
-                className="login-modal-input"
-                style={{ borderColor: pwdFieldErrors.newPassword ? '#842029' : undefined }}
-              />
-              <FieldError message={pwdFieldErrors.newPassword} />
-              {(showPwdRules || pwdForm.newPassword) && (
-                <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  {PASSWORD_RULES.map((rule, i) => {
-                    const ok = rule.test(pwdForm.newPassword)
-                    return (
-                      <p key={i} style={{
-                        fontFamily: 'CenturySchoolbook, serif',
-                        fontSize: '0.78rem',
-                        color: ok ? '#2d6a4f' : '#adb5bd',
-                        display: 'flex', alignItems: 'center', gap: '6px',
-                        transition: 'color 0.2s ease',
-                      }}>
-                        <i className={`fa-solid ${ok ? 'fa-circle-check' : 'fa-circle'}`} style={{ fontSize: '0.65rem' }} />
-                        {rule.label}
-                      </p>
-                    )
-                  })}
-                </div>
+          {isNewsletterLoading ? (
+            <div style={{
+              height: '52px', maxWidth: '400px', margin: '0 auto',
+              background: 'linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%)',
+              backgroundSize: '200% 100%', animation: 'shimmer 1.5s infinite',
+            }} />
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+              <label style={{
+                display: 'flex', alignItems: 'flex-start', gap: '12px',
+                cursor: 'pointer', maxWidth: '400px',
+              }}>
+                <input
+                  type="checkbox"
+                  checked={isSubscribed}
+                  onChange={handleNewsletterToggle}
+                  style={{ marginTop: '3px', accentColor: '#957d4c', cursor: 'pointer' }}
+                />
+                <span style={{
+                  fontFamily: 'CenturySchoolbook, serif',
+                  fontSize: '0.875rem', color: '#212529', lineHeight: 1.6,
+                }}>
+                  Recevoir les actualités et nouveautés Apilace
+                </span>
+              </label>
+              {newsletterSuccess && (
+                <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.82rem', color: '#2d6a4f' }}>
+                  {newsletterSuccess}
+                </p>
+              )}
+              {newsletterError && (
+                <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.82rem', color: '#842029' }}>
+                  {newsletterError}
+                </p>
               )}
             </div>
-
-            <div>
-              <input
-                type="password"
-                value={pwdForm.confirmNewPassword}
-                onChange={e => setPwdForm(p => ({ ...p, confirmNewPassword: e.target.value }))}
-                placeholder="Confirmer le nouveau mot de passe"
-                className="login-modal-input"
-                style={{ borderColor: !passwordsMatch ? '#842029' : undefined }}
-              />
-              {!passwordsMatch && <FieldError message="Les mots de passe ne correspondent pas." />}
-            </div>
-
-          </div>
-
-          <div style={{ textAlign: 'center' }}>
-            <button
-              type="button"
-              className="login-modal-btn"
-              onClick={handlePasswordSubmit}
-              disabled={isUpdatingPwd}
-            >
-              {isUpdatingPwd ? 'Modification...' : 'Modifier le mot de passe'}
-            </button>
-          </div>
+          )}
         </div>
 
         <Separator />
 
-        {/* ══ SECTION 3 — Orders ══ */}
+        {/* ══ SECTION 4 — Orders ══ */}
 
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <h2 style={{
@@ -579,7 +671,7 @@ export default function AccountPage() {
 
         <Separator />
 
-        {/* == SECTION 4 — Account Deletion == */}
+        {/* == SECTION 5 — Account Deletion == */}
 
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <h2 style={{
@@ -627,16 +719,10 @@ export default function AccountPage() {
         <button className="cart-modal-close" onClick={() => setShowProfileModal(false)}>
           <i className="fa-solid fa-xmark" />
         </button>
-        <p style={{
-          fontFamily: 'CenturySchoolbook, serif',
-          fontSize: '1.1rem', color: '#212529', marginBottom: '16px',
-        }}>
+        <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '1.1rem', color: '#212529', marginBottom: '16px' }}>
           Confirmer les modifications ?
         </p>
-        <p style={{
-          fontFamily: 'CenturySchoolbook, serif',
-          fontSize: '0.9rem', color: '#6c757d', marginBottom: '24px',
-        }}>
+        <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.9rem', color: '#6c757d', marginBottom: '24px' }}>
           Vos informations personnelles seront mises à jour.
         </p>
         <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
@@ -659,7 +745,7 @@ export default function AccountPage() {
         </div>
       </div>
 
-      {/* ── Modal : suppression compte ──────────────────────────────── */}
+      {/* ── Modal : Account deletion ──────────────────────────────── */}
       <div
         className={`cart-modal-overlay${showDeleteModal ? ' cart-modal-overlay--open' : ''}`}
         onClick={() => !isDeleting && setShowDeleteModal(false)}
@@ -668,22 +754,15 @@ export default function AccountPage() {
         <button className="cart-modal-close" onClick={() => setShowDeleteModal(false)}>
           <i className="fa-solid fa-xmark" />
         </button>
-        <p style={{
-          fontFamily: 'CenturySchoolbook, serif',
-          fontSize: '1.1rem', color: '#212529', marginBottom: '16px',
-        }}>
+        <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '1.1rem', color: '#212529', marginBottom: '16px' }}>
           Supprimer votre compte ?
         </p>
-        <p style={{
-          fontFamily: 'CenturySchoolbook, serif',
-          fontSize: '0.9rem', color: '#6c757d', lineHeight: 1.6, marginBottom: '16px',
-        }}>
+        <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.9rem', color: '#6c757d', lineHeight: 1.6, marginBottom: '16px' }}>
           Cette action est irréversible. Toutes vos données personnelles seront anonymisées.
         </p>
         <label style={{
           display: 'flex', alignItems: 'flex-start', gap: '12px',
-          fontFamily: 'CenturySchoolbook, serif',
-          fontSize: '0.9rem', color: '#212529',
+          fontFamily: 'CenturySchoolbook, serif', fontSize: '0.9rem', color: '#212529',
           cursor: 'pointer', marginBottom: '8px',
         }}>
           <input

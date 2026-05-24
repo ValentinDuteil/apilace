@@ -30,6 +30,7 @@ export type SafeUser = {
   id: number
   email: string
   googleId: string | null
+  hasPassword: boolean
   firstName: string | null
   lastName: string | null
   phone: string | null

@@ -17,7 +17,7 @@ import type {
 
 // ─── Auth ────────────────────────────────────────────────────────────────────
 
-export type SafeUser = Omit<User, 'passwordHash'>
+export type SafeUser = Omit<User, 'passwordHash'> & { hasPassword: boolean }
 
 // ─── Product ─────────────────────────────────────────────────────────────────
 
