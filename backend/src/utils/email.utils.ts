@@ -18,6 +18,7 @@ import { resend } from '../lib/resend.js'
 const FROM = `Apilace <${process.env.RESEND_FROM_EMAIL ?? 'noreply@apilace.com'}>`
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? 'contact@apilace.com'
 const FRONTEND_URL = process.env.FRONTEND_URL ?? 'http://localhost:5178'
+const BACKEND_URL = process.env.BACKEND_URL ?? 'http://localhost:3008'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -379,5 +380,38 @@ export async function sendInvoiceRequest(data: InvoiceRequestData): Promise<void
     })
   } catch (error) {
     console.error(`[email] sendInvoiceRequest failed for order #${data.orderId}:`, error)
+  }
+}
+
+// ─── 7. Newsletter subscription confirmation — sent to subscriber ─────────────
+
+export async function sendNewsletterConfirmation(to: string, unsubscribeToken: string): Promise<void> {
+  const unsubscribeLink = `${BACKEND_URL}/api/newsletter/unsubscribe?token=${unsubscribeToken}`
+
+  const body = `
+    <p style="margin:0 0 6px;font-size:20px;color:#212529;">Bienvenue dans l'univers Apilace.</p>
+    <p style="margin:0 0 32px;font-size:14px;color:#6c757d;line-height:1.6;">
+      Vous êtes désormais abonné à notre newsletter. Nous vous tiendrons informé en exclusivité
+      de nos nouveautés, événements et actualités horlogères.
+    </p>
+
+    ${divider()}
+
+    <p style="margin:0;font-size:12px;color:#adb5bd;text-align:center;line-height:1.6;">
+      Vous recevez cet email car vous vous êtes inscrit sur apilace.com.<br>
+      <a href="${unsubscribeLink}" style="color:#adb5bd;text-decoration:underline;">
+        Se désinscrire
+      </a>
+    </p>`
+
+  try {
+    await resend.emails.send({
+      from: FROM,
+      to,
+      subject: 'Apilace — Confirmation d\'inscription à la newsletter',
+      html: baseLayout('Inscription newsletter', body),
+    })
+  } catch (error) {
+    console.error(`[email] sendNewsletterConfirmation failed for ${to}:`, error)
   }
 }
