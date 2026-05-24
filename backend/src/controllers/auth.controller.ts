@@ -7,7 +7,6 @@ import {
   Response
 } from 'express'
 import * as argon2 from 'argon2'
-import crypto from 'crypto'
 import { prisma } from '../lib/prisma.js'
 import {
   UnauthorizedError,
@@ -30,14 +29,15 @@ import {
   clearAuthCookies,
   createRefreshToken,
   signAccessToken,
+  generateRandomToken
 } from '../utils/session.utils.js'
 
 const RESET_TOKEN_EXPIRY_MS = 15 * 60 * 1000
 
 // Strips passwordHash before sending user data to the client
 function toSafeUser(user: User): SafeUser {
-  const { passwordHash: _, ...safeUser } = user
-  return safeUser
+  const { passwordHash, ...safeUser } = user
+  return { ...safeUser, hasPassword: !!passwordHash }
 }
 
 export async function register(req: Request, res: Response): Promise<void> {
@@ -175,7 +175,7 @@ export async function forgotPassword(req: Request, res: Response): Promise<void>
     data: { isUsed: true },
   })
 
-  const rawToken = crypto.randomBytes(32).toString('hex')
+  const rawToken = generateRandomToken()
 
   await prisma.passwordResetToken.create({
     data: { userId: user.id, tokenHash: hashToken(rawToken), expiresAt: new Date(Date.now() + RESET_TOKEN_EXPIRY_MS) },
