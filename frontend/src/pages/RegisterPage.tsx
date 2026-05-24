@@ -12,8 +12,8 @@ import type { ApiValidationError } from '../types/models.types'
 
 const PASSWORD_RULES = [
   { label: '8 caractères minimum', test: (v: string) => v.length >= 8 },
-  { label: 'Une majuscule',        test: (v: string) => /[A-Z]/.test(v) },
-  { label: 'Un chiffre',           test: (v: string) => /[0-9]/.test(v) },
+  { label: 'Une majuscule', test: (v: string) => /[A-Z]/.test(v) },
+  { label: 'Un chiffre', test: (v: string) => /[0-9]/.test(v) },
   { label: 'Un caractère spécial', test: (v: string) => /[^a-zA-Z0-9]/.test(v) },
 ]
 
@@ -34,21 +34,22 @@ function FieldError({ message }: { message?: string }) {
 // ─── Component ───────────────────────────────────────────────────────────────
 
 export default function RegisterPage() {
-  const { login }              = useAuth()
+  const { login } = useAuth()
   const { mergeAndClearLocal } = useCart()
-  const navigate               = useNavigate()
+  const navigate = useNavigate()
 
-  const [firstName,       setFirstName]       = useState('')
-  const [lastName,        setLastName]        = useState('')
-  const [email,           setEmail]           = useState('')
-  const [password,        setPassword]        = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [isLoading,       setIsLoading]       = useState(false)
-  const [showRules,       setShowRules]       = useState(false)
-  const [globalError,     setGlobalError]     = useState<string | null>(null)
-  const [fieldErrors,     setFieldErrors]     = useState<Record<string, string>>({})
+  const [newsletterOptIn, setNewsletterOptIn] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [showRules, setShowRules] = useState(false)
+  const [globalError, setGlobalError] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
 
-  const passwordValid  = PASSWORD_RULES.every(rule => rule.test(password))
+  const passwordValid = PASSWORD_RULES.every(rule => rule.test(password))
   const passwordsMatch = confirmPassword === '' || password === confirmPassword
 
   // Clear a specific field error when the user starts correcting it
@@ -84,6 +85,10 @@ export default function RegisterPage() {
       await api.post('/auth/register', { email, password, firstName, lastName })
       await login(email, password, async () => { await mergeAndClearLocal() })
       navigate('/boutique')
+      // Fire-and-forget — newsletter subscription failure must never block registration
+      if (newsletterOptIn) {
+        api.post('/newsletter/subscribe', { email }).catch(() => { })
+      }
     } catch (err) {
       const axiosError = err as AxiosError<ApiValidationError>
       const details = axiosError.response?.data?.details
@@ -126,7 +131,7 @@ export default function RegisterPage() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px' }}>
 
-          {/* Prénom + Nom */}
+          {/* First Name & Last Name */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
             <div>
               <input
@@ -168,7 +173,7 @@ export default function RegisterPage() {
             <FieldError message={fieldErrors.email} />
           </div>
 
-          {/* Mot de passe + indicateurs */}
+          {/* Password + Rules */}
           <div>
             <input
               type="password"
@@ -205,7 +210,7 @@ export default function RegisterPage() {
             )}
           </div>
 
-          {/* Confirmation mot de passe — côté client uniquement */}
+          {/* Frontend confirmation password */}
           <div>
             <input
               type="password"
@@ -222,6 +227,25 @@ export default function RegisterPage() {
           </div>
 
         </div>
+
+        {/* ─── Newsletter opt-in ──────────────────────────────────────── */}
+        <label style={{
+          display: 'flex', alignItems: 'flex-start', gap: '10px',
+          cursor: 'pointer', marginBottom: '8px',
+        }}>
+          <input
+            type="checkbox"
+            checked={newsletterOptIn}
+            onChange={e => setNewsletterOptIn(e.target.checked)}
+            style={{ marginTop: '3px', accentColor: '#957d4c', cursor: 'pointer' }}
+          />
+          <span style={{
+            fontFamily: 'CenturySchoolbook, serif',
+            fontSize: '0.82rem', color: '#6c757d', lineHeight: 1.5,
+          }}>
+            Je souhaite recevoir les actualités et nouveautés Apilace
+          </span>
+        </label>
 
         {globalError && (
           <p style={{
