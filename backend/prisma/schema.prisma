@@ -181,6 +181,7 @@ model Newsletter {
   email        String   @unique
   isActive     Boolean  @default(true)
   subscribedAt DateTime @default(now())
+  unsubscribeToken String   @unique
 }
 
 model Message {
