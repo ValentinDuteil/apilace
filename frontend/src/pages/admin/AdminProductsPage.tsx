@@ -62,7 +62,7 @@ export default function AdminProductsPage() {
     <div className="ap-products">
 
       <div className="ap-products__header">
-        <h1 className="ap-products__title">Produits</h1>
+        <h1 className="ap-products__title" style={{ fontSize: '3rem' }}>Produits</h1>
         <Link to="/admin/produits/nouveau" className="admin-btn-primary">
           <i className="fa-solid fa-plus" style={{ marginRight: '8px' }} />
           Nouveau produit

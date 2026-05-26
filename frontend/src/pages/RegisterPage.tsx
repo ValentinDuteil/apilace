@@ -123,7 +123,7 @@ export default function RegisterPage() {
 
         <h1 style={{
           fontFamily: 'CenturySchoolbook, serif',
-          fontSize: '2rem', fontWeight: 400, color: '#212529',
+          fontSize: '3rem', fontWeight: 400, color: '#212529',
           letterSpacing: '1px', textAlign: 'center', marginBottom: '40px',
         }}>
           Créer un compte

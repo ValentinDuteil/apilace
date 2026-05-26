@@ -268,12 +268,12 @@ export default function AccountPage() {
     <>
       <div style={{ height: '115px' }} />
 
-      <div style={{ padding: '48px 24px 80px' }}>
+      <div style={{ padding: '0px 24px 80px' }}>
 
         {/* ── Title ── */}
         <h1 style={{
           fontFamily: 'CenturySchoolbook, serif',
-          fontSize: '2rem', fontWeight: 400,
+          fontSize: '3rem', fontWeight: 400,
           textAlign: 'center', color: '#212529', marginBottom: '48px',
         }}>
           Mes informations

@@ -96,13 +96,13 @@ export default function LoginPage() {
   return (
     <div style={{
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      minHeight: '60vh', padding: '40px 24px',
+      minHeight: '60vh', padding: '0px 24px',
     }}>
       <div style={{ width: '100%', maxWidth: '400px' }}>
 
         <h1 style={{
           fontFamily: 'CenturySchoolbook, serif',
-          fontSize: '2rem', fontWeight: 400, color: '#212529',
+          fontSize: '3rem', fontWeight: 400, color: '#212529',
           letterSpacing: '1px', textAlign: 'center', marginBottom: '40px',
         }}>
           Connexion

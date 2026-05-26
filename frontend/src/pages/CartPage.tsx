@@ -121,7 +121,7 @@ export default function CartPage() {
     <div className="cart-layout">
       {/* ── Header ── */}
       <div className="cart-header">
-        <h1 className="cart-title">Votre Sélection</h1>
+        <h1 className="cart-title" style={{ fontSize: '3rem' }}>Votre Sélection</h1>
       </div>
 
       {/* ── Items ── */}

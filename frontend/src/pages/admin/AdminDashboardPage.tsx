@@ -130,12 +130,12 @@ export default function AdminDashboardPage() {
     <>
       <div style={{ height: '115px' }} />
 
-      <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '48px 40px 80px' }}>
+      <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0px 40px 80px' }}>
 
         {/* ── Page title ── */}
         <h1 style={{
           fontFamily: 'CenturySchoolbook, serif',
-          fontSize: '2rem',
+          fontSize: '3rem',
           fontWeight: 400,
           textAlign: 'center',
           color: '#212529',
