@@ -415,3 +415,44 @@ export async function sendNewsletterConfirmation(to: string, unsubscribeToken: s
     console.error(`[email] sendNewsletterConfirmation failed for ${to}:`, error)
   }
 }
+
+// ─── 8. Contact form notification — sent to admin ────────────────────────────
+
+export interface ContactMessageData {
+  firstName: string
+  lastName: string
+  email: string
+  phone?: string
+  content: string
+}
+
+export async function sendContactMessage(data: ContactMessageData): Promise<void> {
+  const body = `
+    <p style="margin:0 0 6px;font-size:20px;color:#212529;">Nouveau message de contact</p>
+    <p style="margin:0 0 32px;font-size:14px;color:#6c757d;line-height:1.6;">
+      Un visiteur a soumis le formulaire de contact.
+    </p>
+
+    ${sectionLabel('Expéditeur')}
+    <p style="margin:0;font-size:14px;color:#212529;">${data.firstName} ${data.lastName}</p>
+    <p style="margin:4px 0 0;font-size:13px;">
+      <a href="mailto:${data.email}" style="color:#957d4c;text-decoration:none;">${data.email}</a>
+    </p>
+    ${data.phone ? `<p style="margin:4px 0 0;font-size:13px;color:#6c757d;">${data.phone}</p>` : ''}
+
+    ${divider()}
+
+    ${sectionLabel('Message')}
+    <p style="margin:0;font-size:14px;color:#212529;line-height:1.7;white-space:pre-wrap;">${data.content}</p>`
+
+  try {
+    await resend.emails.send({
+      from: FROM,
+      to: ADMIN_EMAIL,
+      subject: `Apilace — Message de ${data.firstName} ${data.lastName}`,
+      html: baseLayout('Nouveau message de contact', body),
+    })
+  } catch (error) {
+    console.error(`[email] sendContactMessage failed for ${data.email}:`, error)
+  }
+}
