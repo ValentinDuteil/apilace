@@ -272,7 +272,7 @@ export default function AdminStoresPage() {
     return (
       <>
         <div style={{ height: '115px' }} />
-        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '48px 40px' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0px 40px' }}>
           {Array.from({ length: 2 }).map((_, i) => (
             <div key={i} style={{
               height: '160px', marginBottom: '16px',
@@ -297,7 +297,7 @@ export default function AdminStoresPage() {
         {/* ── Title ── */}
         <h1 style={{
           fontFamily: 'CenturySchoolbook, serif',
-          fontSize: '2rem', fontWeight: 400,
+          fontSize: '3rem', fontWeight: 400,
           textAlign: 'center', color: '#212529', marginBottom: '48px',
         }}>
           Points de retrait

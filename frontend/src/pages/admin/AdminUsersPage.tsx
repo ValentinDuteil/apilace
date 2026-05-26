@@ -101,11 +101,11 @@ export default function AdminUsersPage() {
     <>
       <div style={{ height: '115px' }} />
 
-      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '48px 40px 80px' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0px 40px 80px' }}>
 
         <h1 style={{
           fontFamily: 'CenturySchoolbook, serif',
-          fontSize: '2rem', fontWeight: 400,
+          fontSize: '3rem', fontWeight: 400,
           textAlign: 'center', color: '#212529', marginBottom: '48px',
         }}>
           Ma clientèle

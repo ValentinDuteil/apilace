@@ -105,7 +105,7 @@ export default function AdminOrderDetailPage() {
     return (
       <>
         <div style={{ height: '115px' }} />
-        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '48px 40px' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0px 40px' }}>
           {Array.from({ length: 5 }).map((_, i) => (
             <div key={i} style={{
               height: '72px',
@@ -175,7 +175,7 @@ export default function AdminOrderDetailPage() {
         }}>
           <h1 style={{
             fontFamily: 'CenturySchoolbook, serif',
-            fontSize: '1.75rem', fontWeight: 400, color: '#212529',
+            fontSize: '3rem', fontWeight: 400, color: '#212529',
           }}>
             Commande #{order.id}
           </h1>
