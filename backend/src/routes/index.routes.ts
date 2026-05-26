@@ -12,6 +12,7 @@ import userRoutes from './user.routes.js'
 import orderRoutes from './order.routes.js'
 import checkoutRoutes from './checkout.routes.js'
 import newsletterRoutes from './newsletter.routes.js'
+import contactRoutes from './contact.routes.js'
 import adminDashboardRoutes from './admin-dashboard.routes.js'
 import adminOrderRoutes from './admin-order.routes.js'
 
@@ -25,6 +26,7 @@ router.use('/auth', authRoutes)
 router.use('/stores', publicStoreRouter)
 router.use('/products', publicProductRouter)
 router.use('/newsletter', newsletterRoutes)
+router.use('/contact', contactRoutes)
 
 // Protected routes — requireAuth + csrfProtection on mutations
 router.use('/cart', requireAuth, csrfProtection, cartRoutes)

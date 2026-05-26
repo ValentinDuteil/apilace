@@ -14,7 +14,6 @@ const VITRINE_LINKS = [
   { label: 'Devis en ligne', href: 'https://custom.apilace.com/' },
   { label: 'Configurateur 3D', href: 'https://demo-apilace.netlify.app/' },
   { label: 'Actualités', href: 'https://apilace.com/pages/actualites' },
-  { label: 'Nous contacter', href: 'https://apilace.com/pages/contact' },
 ]
 
 const ADMIN_LINKS = [
@@ -76,7 +75,7 @@ export default function Navbar() {
         transition: 'transform 0.4s ease',
       }}>
         {/* ── Wrapper centré ── */}
-        <div style={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '1440px', margin: '0 auto', padding: '0 40px', height: '100%' }}>
+        <div className="navbar-inner">
           {/* Left Section: Menu trigger & Desktop Auth Links */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flex: 1 }}>
             <button
@@ -119,9 +118,9 @@ export default function Navbar() {
               <a href="https://apilace.com/pages/actualites" target="_blank" rel="noopener noreferrer" className="navbar-external-link">
                 Actualités
               </a>
-              <a href="https://apilace.com/pages/contact" target="_blank" rel="noopener noreferrer" className="navbar-external-link">
+              <NavLink to="/contact" className="navbar-nav-link">
                 Contact
-              </a>
+              </NavLink>
             </nav>
 
             {/* Cart Widget */}
@@ -154,6 +153,7 @@ export default function Navbar() {
           <SidebarExternalLink href="https://apilace.com/#" onClick={close}>Accueil</SidebarExternalLink>
           <SidebarInternalLink to="/boutique" onClick={close}>Boutique</SidebarInternalLink>
           <SidebarInternalLink to="/panier" onClick={close}>Mon panier</SidebarInternalLink>
+          <SidebarInternalLink to="/contact" onClick={close}>Contact</SidebarInternalLink>
 
           {!user ? (
             <>
@@ -200,7 +200,7 @@ export default function Navbar() {
       </div>
 
       {/* Spacer to prevent content overlapping under fixed header */}
-      <div style={{ height: '115px' }} />
+      <div style={{ height: '80px' }} />
     </>
   )
 }
@@ -311,7 +311,7 @@ const sidebarLinkStyle: React.CSSProperties = {
   fontFamily: "'CenturySchoolbook', serif",
   color: '#ffffff',
   textDecoration: 'none',
-  padding: '12px 0',
+  padding: '10px 5px',
   display: 'flex',
   alignItems: 'center',
   gap: '12px',
@@ -330,6 +330,6 @@ const sidebarTitleStyle: React.CSSProperties = {
 
 const welcomeStyle: React.CSSProperties = {
   fontFamily: "'CenturySchoolbook', serif",
-  fontSize: '14px',
+  fontSize: '1rem',
   color: '#957d4c'
 }

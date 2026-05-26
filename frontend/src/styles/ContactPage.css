@@ -1,0 +1,13 @@
+/* ContactPage.css — Contact form specific styles */
+
+.contact-textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+/* ── Responsive — breakpoint 992px ── */
+@media (max-width: 992px) {
+  .contact-textarea {
+    min-height: 120px;
+  }
+}
