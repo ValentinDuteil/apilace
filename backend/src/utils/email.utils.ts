@@ -1,11 +1,14 @@
 // email.utils.ts — Centralized email service for Apilace
-// 6 transactional templates sent via Resend:
+// 9 transactional templates sent via Resend:
 //   1. sendOrderConfirmation  — client, on PAID
 //   2. sendOrderReady         — client, on READY
 //   3. sendRefundConfirmation — client, on REFUNDED
 //   4. sendPasswordReset      — client, on forgot password
 //   5. sendCancellationNotification — admin, on client cancellation
 //   6. sendInvoiceRequest     — admin, on client invoice request
+//   7. sendNewsletterConfirmation — subscriber, on newsletter signup
+//   8. sendContactMessage         — admin, on contact form submission
+//   9. sendRefundAudit            — admin, on refund processed
 //
 // All functions are fail-safe: a Resend error is logged but never re-thrown.
 // Email failures must not interrupt the main business flow.
@@ -264,7 +267,7 @@ export async function sendRefundConfirmation(to: string, data: RefundConfirmatio
   const body = `
     <p style="margin:0 0 6px;font-size:20px;color:#212529;">${greeting}</p>
     <p style="margin:0 0 32px;font-size:14px;color:#6c757d;line-height:1.6;">
-      Le remboursement de votre commande n°${data.orderId} d'un montant de <strong style="color:#212529;">${formatPrice(data.totalAmount)}</strong> a bien été initié. Il sera recrédité sur votre moyen de paiement d'origine sous 5 à 10 jours ouvrés selon votre banque.
+      Le remboursement de votre commande n°${data.orderId} d'un montant de <strong style="color:#212529;">${formatPrice(data.totalAmount * 0.3)}</strong> a bien été initié. Il sera recrédité sur votre moyen de paiement d'origine sous 5 à 10 jours ouvrés selon votre banque.
     </p>
 
     ${divider()}
@@ -325,7 +328,7 @@ export async function sendCancellationNotification(data: CancellationNotificatio
   const body = `
     <p style="margin:0 0 6px;font-size:20px;color:#212529;">Annulation de commande</p>
     <p style="margin:0 0 32px;font-size:14px;color:#6c757d;line-height:1.6;">
-      Un client a annulé sa commande. Aucune action immédiate requise — la commande est passée au statut ANNULÉE.
+      Un client a annulé sa commande. Veuillez traiter le remboursement de l'acompte depuis la fiche de commande dès que vous avez confirmé la situation.
     </p>
 
     ${sectionLabel('Détails de la commande')}
@@ -454,5 +457,47 @@ export async function sendContactMessage(data: ContactMessageData): Promise<void
     })
   } catch (error) {
     console.error(`[email] sendContactMessage failed for ${data.email}:`, error)
+  }
+}
+
+// ─── 9. Refund audit trail — sent to admin ───────────────────────────────────
+
+export interface RefundAuditData {
+  orderId: number
+  clientEmail: string
+  clientName: string
+  totalAmount: number
+}
+
+export async function sendRefundAudit(data: RefundAuditData): Promise<void> {
+  const body = `
+    <p style="margin:0 0 6px;font-size:20px;color:#212529;">Remboursement traité</p>
+    <p style="margin:0 0 32px;font-size:14px;color:#6c757d;line-height:1.6;">
+      Un remboursement a été validé et exécuté via Stripe.
+    </p>
+
+    ${sectionLabel('Détails')}
+    <p style="margin:0;font-size:14px;color:#212529;">Commande <strong>#${data.orderId}</strong></p>
+    <p style="margin:4px 0 0;font-size:13px;color:#6c757d;">${data.clientName}</p>
+    <p style="margin:2px 0 0;font-size:13px;">
+      <a href="mailto:${data.clientEmail}" style="color:#957d4c;text-decoration:none;">${data.clientEmail}</a>
+    </p>
+    <p style="margin:12px 0 0;font-size:14px;color:#212529;">
+      Acompte remboursé : <strong>${formatPrice(data.totalAmount * 0.3)}</strong>
+    </p>
+
+    ${divider()}
+
+    ${ctaButton('Voir la commande', `${FRONTEND_URL}/admin/commandes/${data.orderId}`)}`
+
+  try {
+    await resend.emails.send({
+      from: FROM,
+      to: ADMIN_EMAIL,
+      subject: `Apilace — Remboursement traité — commande #${data.orderId}`,
+      html: baseLayout(`Remboursement commande #${data.orderId}`, body),
+    })
+  } catch (error) {
+    console.error(`[email] sendRefundAudit failed for order #${data.orderId}:`, error)
   }
 }

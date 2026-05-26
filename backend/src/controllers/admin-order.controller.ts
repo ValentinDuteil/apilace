@@ -7,7 +7,10 @@ import { UnprocessableEntityError } from '../utils/AppError.js'
 import { stripe } from '../lib/stripe.js'
 import { getOrderOrThrow } from '../utils/order.utils.js'
 import type { UpdateOrderStatusDto } from '../schemas/order.schemas.js'
-import { sendOrderReady, sendRefundConfirmation } from '../utils/email.utils.js'
+import { 
+  sendOrderReady, 
+  sendRefundConfirmation,
+  sendRefundAudit } from '../utils/email.utils.js'
 
 export async function getAdminOrders(req: Request, res: Response): Promise<void> {
   const status = req.query.status as string | undefined
@@ -90,6 +93,11 @@ export async function refundOrder(req: Request, res: Response): Promise<void> {
   const id = parseInt(req.params.id as string)
   const order = await getOrderOrThrow(id)
 
+  // Guard — an admin cannot refund their own order
+  if (order.userId === req.user!.id) {
+    throw new UnprocessableEntityError('Un administrateur ne peut pas rembourser sa propre commande')
+  }
+
   const refundableStatuses = ['PAID', 'READY', 'COLLECTED', 'CANCELLED']
   if (!refundableStatuses.includes(order.status)) {
     throw new UnprocessableEntityError('Cette commande ne peut pas être remboursée')
@@ -113,10 +121,17 @@ export async function refundOrder(req: Request, res: Response): Promise<void> {
     ),
   ])
 
-  // Notify the client of their refund — fail-safe, a Resend error will not throw here
+  // Notify client and send admin audit trail — both fail-safe
+  const clientName = [order.user.firstName, order.user.lastName].filter(Boolean).join(' ') || order.user.email
   await sendRefundConfirmation(order.user.email, {
     orderId: id,
     firstName: order.user.firstName,
+    totalAmount: Number(order.totalAmount),
+  })
+  await sendRefundAudit({
+    orderId: id,
+    clientEmail: order.user.email,
+    clientName,
     totalAmount: Number(order.totalAmount),
   })
 
