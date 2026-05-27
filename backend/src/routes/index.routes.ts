@@ -13,6 +13,7 @@ import orderRoutes from './order.routes.js'
 import checkoutRoutes from './checkout.routes.js'
 import newsletterRoutes from './newsletter.routes.js'
 import contactRoutes from './contact.routes.js'
+import { publicLegalRouter, adminLegalRouter } from './legal.routes.js'
 import adminDashboardRoutes from './admin-dashboard.routes.js'
 import adminOrderRoutes from './admin-order.routes.js'
 
@@ -27,6 +28,7 @@ router.use('/stores', publicStoreRouter)
 router.use('/products', publicProductRouter)
 router.use('/newsletter', newsletterRoutes)
 router.use('/contact', contactRoutes)
+router.use('/legal', publicLegalRouter)
 
 // Protected routes — requireAuth + csrfProtection on mutations
 router.use('/cart', requireAuth, csrfProtection, cartRoutes)
@@ -39,5 +41,6 @@ router.use('/admin/stores', requireAuth, requireAdmin, csrfProtection, adminStor
 router.use('/admin/products', requireAuth, requireAdmin, csrfProtection, adminProductRouter)
 router.use('/admin/orders', requireAuth, requireAdmin, csrfProtection, adminOrderRoutes)
 router.use('/admin/users', requireAuth, requireAdmin, csrfProtection, userRoutes)
+router.use('/admin/legal', adminLegalRouter)
 
 export default router
