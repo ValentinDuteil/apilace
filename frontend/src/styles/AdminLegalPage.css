@@ -1,0 +1,260 @@
+/* ─── AdminLegalPage ─────────────────────────────────────────────────────────── */
+
+/* ── Document type tabs ── */
+
+.legal-admin-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(33, 37, 41, 0.1);
+}
+
+.legal-admin-tab {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.9rem;
+  color: #6c757d;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 10px 24px;
+  margin-bottom: -1px;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.legal-admin-tab:hover {
+  color: #212529;
+}
+
+.legal-admin-tab--active {
+  color: #957d4c;
+  border-bottom-color: #957d4c;
+  font-weight: 600;
+}
+
+/* ── Actions bar ── */
+
+.legal-admin-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.legal-admin-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── Feedback messages ── */
+
+.legal-feedback {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legal-feedback--success {
+  color: #2d6a4f;
+}
+
+.legal-feedback--error {
+  color: #842029;
+}
+
+/* ── Section card ── */
+
+.legal-card {
+  border: 1px solid rgba(33, 37, 41, 0.1);
+  background: #ffffff;
+  transition: border-color 0.15s ease;
+}
+
+.legal-card:focus-within {
+  border-color: rgba(33, 37, 41, 0.25);
+}
+
+.legal-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #f8f9fa;
+  border-bottom: 1px solid rgba(33, 37, 41, 0.08);
+}
+
+.legal-card-handle {
+  color: #adb5bd;
+  background: none;
+  border: none;
+  cursor: grab;
+  padding: 4px 6px;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  transition: color 0.15s ease;
+}
+
+.legal-card-handle:hover {
+  color: #6c757d;
+}
+
+.legal-card-handle:active {
+  cursor: grabbing;
+}
+
+.legal-card-title-input {
+  flex: 1;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #212529;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 4px 0;
+}
+
+.legal-card-title-input::placeholder {
+  color: #adb5bd;
+  font-weight: 400;
+}
+
+.legal-card-delete {
+  color: #adb5bd;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 0.82rem;
+  flex-shrink: 0;
+  transition: color 0.15s ease;
+}
+
+.legal-card-delete:hover {
+  color: #842029;
+}
+
+/* ── TipTap toolbar ── */
+
+.legal-editor {
+  display: flex;
+  flex-direction: column;
+}
+
+.legal-editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 12px;
+  border-bottom: 1px solid rgba(33, 37, 41, 0.07);
+  background: #fdfdfd;
+  flex-wrap: wrap;
+}
+
+.legal-toolbar-btn {
+  min-width: 30px;
+  height: 26px;
+  padding: 0 8px;
+  background: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.85rem;
+  color: #6c757d;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.legal-toolbar-btn:hover:not(:disabled) {
+  background: #f0ede8;
+  color: #212529;
+  border-color: rgba(33, 37, 41, 0.12);
+}
+
+.legal-toolbar-btn--active {
+  background: #f0ede8;
+  color: #957d4c;
+  border-color: rgba(149, 125, 76, 0.3);
+}
+
+.legal-toolbar-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.legal-toolbar-sep {
+  width: 1px;
+  height: 18px;
+  background: rgba(33, 37, 41, 0.1);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+/* ── TipTap editor body ── */
+
+.legal-editor-body {
+  padding: 16px;
+}
+
+.legal-editor-body .ProseMirror {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.9rem;
+  color: #212529;
+  line-height: 1.8;
+  min-height: 100px;
+  outline: none;
+}
+
+.legal-editor-body .ProseMirror p {
+  margin-bottom: 10px;
+}
+
+.legal-editor-body .ProseMirror p:last-child {
+  margin-bottom: 0;
+}
+
+.legal-editor-body .ProseMirror ul,
+.legal-editor-body .ProseMirror ol {
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+.legal-editor-body .ProseMirror li {
+  margin-bottom: 4px;
+  line-height: 1.75;
+}
+
+.legal-editor-body .ProseMirror strong {
+  font-weight: 600;
+}
+
+.legal-editor-body .ProseMirror em {
+  font-style: italic;
+}
+
+.legal-editor-body .ProseMirror a {
+  color: #957d4c;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 992px) {
+  .legal-admin-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .legal-admin-bar-right {
+    justify-content: flex-end;
+  }
+}
