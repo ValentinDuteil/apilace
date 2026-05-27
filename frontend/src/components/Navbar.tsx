@@ -22,6 +22,7 @@ const ADMIN_LINKS = [
   { label: 'Nouveau produit', to: '/admin/produits/nouveau' },
   { label: 'Éditer un produit', to: '/boutique' },
   { label: 'Points de retrait', to: '/admin/magasins' },
+  { label: 'Textes légaux', to: '/admin/textes-legaux' },
 ]
 
 const SCROLL_THRESHOLD = 80

@@ -17,7 +17,7 @@ import ResetPasswordPage from './pages/ResetPasswordPage'
 import ContactPage from './pages/ContactPage'
 //Google OAuth callback page (after redirect from Google)
 import OAuthCallbackPage from './pages/OAuthCallbackPage'
-// import LegalPage from './pages/LegalPage'
+import LegalPage from './pages/LegalPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 // -- Member pages --
@@ -33,7 +33,7 @@ import AdminOrderDetailPage from './pages/admin/AdminOrderDetailPage'
 import AdminStoresPage from './pages/admin/AdminStoresPage'
 import AdminUsersPage from './pages/admin/AdminUsersPage'
 // import AdminExportsPage from './pages/admin/AdminExportsPage'
-// import AdminLegalPage from './pages/admin/AdminLegalPage'
+import AdminLegalPage from './pages/admin/AdminLegalPage'
 
 export default function App() {
   return (
@@ -52,9 +52,9 @@ export default function App() {
         <Route path="/reinitialisation/:token" element={<ResetPasswordPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/oauth/callback" element={<OAuthCallbackPage />} />
-        {/* <Route path="/mentions-legales" element={<LegalPage type="MENTIONS_LEGALES" />} /> */}
-        {/* <Route path="/cgv" element={<LegalPage type="CGV" />} /> */}
-        {/* <Route path="/confidentialite" element={<LegalPage type="RGPD" />} /> */}
+        <Route path="/mentions-legales" element={<LegalPage type="MENTIONS_LEGALES" />} />
+        <Route path="/cgv" element={<LegalPage type="CGV" />} />
+        <Route path="/confidentialite" element={<LegalPage type="RGPD" />} />
 
         {/* Member routes */}
         <Route path="/checkout/success" element={<ProtectedRoute><CheckoutSuccessPage /></ProtectedRoute>} />
@@ -70,7 +70,7 @@ export default function App() {
         <Route path="/admin/magasins" element={<AdminRoute><AdminStoresPage /></AdminRoute>} />
         <Route path="/admin/utilisateurs" element={<AdminRoute><AdminUsersPage /></AdminRoute>} />
         {/* <Route path="/admin/exports" element={<AdminRoute><AdminExportsPage /></AdminRoute>} /> */}
-        {/* <Route path="/admin/textes-legaux" element={<AdminRoute><AdminLegalPage /></AdminRoute>} /> */}
+        <Route path="/admin/textes-legaux" element={<AdminRoute><AdminLegalPage /></AdminRoute>} />
 
         {/* 404 */}
         <Route path="*" element={<NotFoundPage />} />
