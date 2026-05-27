@@ -200,8 +200,18 @@ model Message {
 model LegalPage {
   id        Int      @id @default(autoincrement())
   type      LegalType @unique
-  content   String
   updatedAt DateTime  @updatedAt
+  sections  LegalSection[]
+}
+
+model LegalSection {
+  id          Int       @id @default(autoincrement())
+  legalPageId Int
+  title       String
+  content     String    @db.Text
+  position    Int
+
+  legalPage   LegalPage @relation(fields: [legalPageId], references: [id], onDelete: Cascade)
 }
 
 enum Role {
