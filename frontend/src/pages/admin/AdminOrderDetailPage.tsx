@@ -172,26 +172,23 @@ export default function AdminOrderDetailPage() {
         <div style={{
           display: 'flex', alignItems: 'center', gap: '16px',
           flexWrap: 'wrap', marginBottom: '8px',
+          justifyContent: 'center'
         }}>
           <h1 style={{
             fontFamily: 'CenturySchoolbook, serif',
             fontSize: '3rem', fontWeight: 400, color: '#212529',
+            textAlign: 'center',
+            margin: '0px 0px 50px 0px',
           }}>
             Commande #{order.id}
           </h1>
-          <StatusBadge status={order.status} />
         </div>
-        <p style={{
-          fontFamily: 'CenturySchoolbook, serif',
-          fontSize: '0.85rem', color: '#adb5bd', marginBottom: '40px',
-        }}>
-          Passée le {formatDate(order.createdAt)}
-        </p>
 
         {/* ── Client + Store ── */}
         <div className="admin-detail-grid">
 
-          <div className="admin-detail-card">
+          {/* ── Client card ── */}
+          <div className="admin-detail-card" style={{ display: 'flex', flexDirection: 'column' }}>
             <p className="admin-detail-card-title">Client</p>
             <p className="admin-detail-value">{getClientName(order)}</p>
             <p className="admin-detail-meta">{order.user.email}</p>
@@ -201,14 +198,15 @@ export default function AdminOrderDetailPage() {
             <a
               href={`mailto:${order.user.email}?subject=Votre commande %23${order.id} — Apilace`}
               className="admin-btn-secondary"
-              style={{ display: 'inline-block', marginTop: '16px' }}
+              style={{ display: 'inline-block', marginTop: 'auto' }}  // ← auto au lieu de 16px
             >
               <i className="fa-solid fa-envelope" style={{ marginRight: '6px' }} />
               Contacter le client
             </a>
           </div>
 
-          <div className="admin-detail-card">
+          {/* ── Store card ── */}
+          <div className="admin-detail-card" style={{ display: 'flex', flexDirection: 'column' }}>
             <p className="admin-detail-card-title">Magasin de retrait</p>
             <p className="admin-detail-value">{order.store.name}</p>
             <p className="admin-detail-meta">{order.store.address}</p>
@@ -217,18 +215,17 @@ export default function AdminOrderDetailPage() {
               <a
                 href={`mailto:${order.store.email}?subject=Commande %23${order.id} — Apilace`}
                 className="admin-btn-secondary"
-                style={{ display: 'inline-block', marginTop: '16px' }}
+                style={{ display: 'inline-block', marginTop: 'auto' }}  // ← auto au lieu de 16px
               >
                 <i className="fa-solid fa-envelope" style={{ marginRight: '6px' }} />
                 Contacter le magasin
               </a>
             )}
           </div>
-
         </div>
 
         {/* ── Articles ── */}
-        <p className="admin-section-title" style={{ marginBottom: '16px' }}>
+        <p className="admin-section-title" style={{ marginBottom: '16px', fontSize: '1.25rem' }}>
           Articles commandés
         </p>
         <div style={{ marginBottom: '40px' }}>
@@ -237,7 +234,7 @@ export default function AdminOrderDetailPage() {
             return (
               <div key={item.id} style={{
                 display: 'flex', alignItems: 'center', gap: '16px',
-                padding: '16px 0',
+                padding: '28px',
                 borderBottom: '1px solid rgba(33,37,41,0.08)',
               }}>
                 <div style={{
@@ -272,15 +269,26 @@ export default function AdminOrderDetailPage() {
                     Taille : {item.size} — Quantité : {item.quantity}
                   </p>
                 </div>
-                <p style={{
-                  fontFamily: 'CenturySchoolbook, serif',
-                  fontWeight: 700, color: '#957d4c', fontSize: '1rem', flexShrink: 0,
+                <div style={{
+                  display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px',
                 }}>
-                  {formatPrice(item.unitPrice)}
-                </p>
+                  <p style={{
+                    fontFamily: 'CenturySchoolbook, serif',
+                    fontWeight: 700, color: '#957d4c', fontSize: '1rem', flexShrink: 0,
+                  }}>
+                    {formatPrice(item.unitPrice)}
+                  </p>
+                  <StatusBadge status={order.status} />
+                </div>
               </div>
             )
           })}
+          <p style={{
+            fontFamily: 'CenturySchoolbook, serif',
+            fontSize: '0.85rem', color: '#adb5bd', marginBottom: '40px',
+          }}>
+            Passée le {formatDate(order.createdAt)}
+          </p>
         </div>
 
         {/* ── Récapitulatif financier ── */}
