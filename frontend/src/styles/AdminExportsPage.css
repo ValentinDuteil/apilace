@@ -1,0 +1,111 @@
+/* ─── AdminExportsPage ───────────────────────────────────────────────────────── */
+ 
+/* ── Card header ── */
+ 
+.admin-export-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+ 
+.admin-export-card-desc {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.82rem;
+  color: #adb5bd;
+  margin-top: 4px;
+}
+ 
+/* ── Filter grid ── */
+ 
+.admin-export-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+ 
+/* ── Filter field ── */
+ 
+.admin-export-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+ 
+.admin-export-label {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #adb5bd;
+}
+ 
+.admin-export-input {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.9rem;
+  color: #212529;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(33, 37, 41, 0.2);
+  padding: 8px 0;
+  outline: none;
+  width: 100%;
+  appearance: none;
+  border-radius: 0;
+  transition: border-color 0.2s ease;
+}
+ 
+.admin-export-input:focus {
+  border-bottom-color: #957d4c;
+}
+ 
+.admin-export-input::placeholder {
+  color: #ced4da;
+}
+ 
+/* Style for date inputs — remove native browser chrome on webkit */
+.admin-export-input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.4;
+  cursor: pointer;
+}
+ 
+/* ── Footer (buttons) ── */
+ 
+.admin-export-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(33, 37, 41, 0.08);
+}
+ 
+/* ── Error ── */
+ 
+.admin-export-error {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.82rem;
+  color: #842029;
+  margin-bottom: 12px;
+}
+ 
+/* ── Responsive ── */
+ 
+@media (max-width: 992px) {
+  .admin-export-grid {
+    grid-template-columns: 1fr;
+  }
+ 
+  .admin-export-footer {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+ 
+  .admin-export-footer .admin-btn-primary,
+  .admin-export-footer .admin-btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+}
