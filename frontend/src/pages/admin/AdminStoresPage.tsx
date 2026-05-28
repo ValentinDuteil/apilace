@@ -518,7 +518,7 @@ export default function AdminStoresPage() {
             Laissez vide pour un jour fermé. La plage 2 est optionnelle (coupure déjeuner).
           </p>
 
-          <div className="admin-hours-row" style={{ borderBottom: 'none', paddingBottom: 0 }}>
+          <div className="admin-hours-row admin-hours-header" style={{ borderBottom: 'none', paddingBottom: 0 }}>
             <span style={{ width: '80px' }} />
             <span style={{
               flex: 1, textAlign: 'center',

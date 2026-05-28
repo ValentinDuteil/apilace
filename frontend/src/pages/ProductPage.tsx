@@ -206,10 +206,11 @@ function ProductCtaSection({ section, product, selectedSize, noSizeError, addErr
               onClick={() => onSelectSize(s.size)}
             />
           ))}
-          <button type="button" className="product-cta-size-guide" onClick={onOpenSizeGuide}>
-            Voir le guide des tailles
-          </button>
+
         </div>
+        <button type="button" className="product-cta-size-guide" onClick={onOpenSizeGuide}>
+          Voir le guide des tailles
+        </button>
 
         {noSizeError && (
           <p style={{ fontFamily: 'CenturySchoolbook, serif', fontSize: '0.875rem', color: '#f5a0a0', marginTop: '6px' }}>
