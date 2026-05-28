@@ -32,6 +32,7 @@ import AdminProductFormPage from './pages/admin/AdminProductFormPage'
 import AdminOrderDetailPage from './pages/admin/AdminOrderDetailPage'
 import AdminStoresPage from './pages/admin/AdminStoresPage'
 import AdminUsersPage from './pages/admin/AdminUsersPage'
+import AdminUserDetailPage from './pages/admin/AdminUserDetailPage'
 // import AdminExportsPage from './pages/admin/AdminExportsPage'
 import AdminLegalPage from './pages/admin/AdminLegalPage'
 
@@ -69,6 +70,7 @@ export default function App() {
         <Route path="/admin/commandes/:id" element={<AdminRoute><AdminOrderDetailPage /></AdminRoute>} />
         <Route path="/admin/magasins" element={<AdminRoute><AdminStoresPage /></AdminRoute>} />
         <Route path="/admin/utilisateurs" element={<AdminRoute><AdminUsersPage /></AdminRoute>} />
+        <Route path="/admin/utilisateurs/:id" element={<AdminRoute><AdminUserDetailPage /></AdminRoute>} />
         {/* <Route path="/admin/exports" element={<AdminRoute><AdminExportsPage /></AdminRoute>} /> */}
         <Route path="/admin/textes-legaux" element={<AdminRoute><AdminLegalPage /></AdminRoute>} />
 

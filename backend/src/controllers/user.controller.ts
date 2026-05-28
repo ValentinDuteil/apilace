@@ -2,16 +2,19 @@
 // List, update role and soft delete user accounts
 
 import { Request, Response } from 'express'
+import { Prisma } from '@prisma/client'
 import { prisma } from '../lib/prisma.js'
-import { NotFoundError } from '../utils/AppError.js'
-import type { UpdateUserRoleDto } from '../schemas/user.schemas.js'
+import { AppError, NotFoundError } from '../utils/AppError.js'
+import type { UpdateUserRoleDto, UpdateUserDto } from '../schemas/user.schemas.js'
 import type { User } from '@prisma/client'
 import type { SafeUser } from '../types/models.types.js'
 
 function toSafeUser(user: User): SafeUser {
-  const { passwordHash: _, ...safeUser } = user
-  return safeUser
+  const { passwordHash, ...safeUser } = user
+  return { ...safeUser, hasPassword: passwordHash !== null }
 }
+
+// ─── List ─────────────────────────────────────────────────────────────────────
 
 export async function getUsers(req: Request, res: Response): Promise<void> {
   const page = parseInt(req.query.page as string) || 1
@@ -67,8 +70,76 @@ export async function getUsers(req: Request, res: Response): Promise<void> {
   })
 }
 
+// ─── Detail ───────────────────────────────────────────────────────────────────
+
+export async function getUserById(req: Request, res: Response): Promise<void> {
+  const id = parseInt(req.params.id as string)
+  if (isNaN(id)) throw new NotFoundError('Utilisateur introuvable')
+
+  const user = await prisma.user.findUnique({
+    where: { id, isDeleted: false },
+    include: {
+      orders: {
+        orderBy: { createdAt: 'desc' },
+        include: {
+          store: { select: { name: true } },
+          items: {
+            include: {
+              product: {
+                select: {
+                  name: true,
+                  images: {
+                    where: { isPrimary: true },
+                    take: 1,
+                    select: { url: true },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  })
+
+  if (!user) throw new NotFoundError('Utilisateur introuvable')
+
+  const { passwordHash, ...safeUser } = user
+  res.json({ ...safeUser, hasPassword: passwordHash !== null })
+}
+
+// ─── Update profile ───────────────────────────────────────────────────────────
+
+export async function updateUser(req: Request, res: Response): Promise<void> {
+  const id = parseInt(req.params.id as string)
+  if (isNaN(id)) throw new NotFoundError('Utilisateur introuvable')
+
+  const data = req.body as UpdateUserDto
+
+  const user = await prisma.user.findUnique({ where: { id, isDeleted: false } })
+  if (!user) throw new NotFoundError('Utilisateur introuvable')
+
+  try {
+    const updated = await prisma.user.update({ where: { id }, data })
+    res.json(toSafeUser(updated))
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === 'P2002'
+    ) {
+      throw new AppError('Cette adresse email est déjà utilisée.', 409)
+    }
+    throw error
+  }
+}
+
+// ─── Update role ──────────────────────────────────────────────────────────────
+
 export async function updateUserRole(req: Request, res: Response): Promise<void> {
   const id = parseInt(req.params.id as string)
+  if (isNaN(id)) throw new NotFoundError('Utilisateur introuvable')
+  if (id === req.user!.id) throw new AppError('Vous ne pouvez pas modifier votre propre rôle.', 403)
+
   const { role } = req.body as UpdateUserRoleDto
 
   const user = await prisma.user.findUnique({ where: { id, isDeleted: false } })
@@ -79,8 +150,12 @@ export async function updateUserRole(req: Request, res: Response): Promise<void>
   res.status(200).json(toSafeUser(updated))
 }
 
+// ─── Soft delete ──────────────────────────────────────────────────────────────
+
 export async function deleteUser(req: Request, res: Response): Promise<void> {
   const id = parseInt(req.params.id as string)
+  if (isNaN(id)) throw new NotFoundError('Utilisateur introuvable')
+  if (id === req.user!.id) throw new AppError('Vous ne pouvez pas désactiver votre propre compte.', 403)
 
   const user = await prisma.user.findUnique({ where: { id, isDeleted: false } })
   if (!user) throw new NotFoundError('Utilisateur introuvable')

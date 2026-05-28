@@ -1,0 +1,130 @@
+/* ─── AdminUserDetailPage ────────────────────────────────────────────────────── */
+ 
+/* ── Section titles ── */
+ 
+.admin-user-section-title {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #212529;
+  text-align: center;
+  margin-bottom: 8px;
+}
+ 
+.admin-user-section-meta {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.82rem;
+  color: #adb5bd;
+  text-align: center;
+  margin-bottom: 32px;
+}
+ 
+/* ── Role badge (header) ── */
+ 
+.admin-user-role-badge {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  display: inline-block;
+}
+ 
+.admin-user-role-badge--admin {
+  background: rgba(149, 125, 76, 0.1);
+  color: #957d4c;
+}
+ 
+.admin-user-role-badge--member {
+  background: rgba(173, 181, 189, 0.15);
+  color: #6c757d;
+}
+ 
+.admin-user-role-badge--toggle {
+  transition: opacity 0.2s ease;
+}
+ 
+.admin-user-role-badge--toggle:hover {
+  opacity: 0.7;
+}
+ 
+/* ── Success message ── */
+ 
+.admin-user-success-msg {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.85rem;
+  color: #2d6a4f;
+  background: #e8f4e8;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+ 
+/* ── Auth type badges ── */
+ 
+.admin-user-auth-badge {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.8rem;
+  color: #6c757d;
+  background: #f8f9fa;
+  border: 1px solid rgba(33, 37, 41, 0.1);
+  padding: 5px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+ 
+/* ── Order cards ── */
+ 
+.admin-user-order-card {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(33, 37, 41, 0.10);
+  background: #ffffff;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+ 
+.admin-user-order-card:hover {
+  border-color: rgba(33, 37, 41, 0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+ 
+/* ── Danger zone ── */
+ 
+.admin-user-danger-zone {
+  border: 1px solid rgba(33, 37, 41, 0.15);
+  background: #f8f9fa;
+  padding: 24px;
+}
+ 
+.admin-user-deactivate-btn {
+  font-family: 'CenturySchoolbook', serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: #212529;
+  background: transparent;
+  border: 1px solid rgba(33, 37, 41, 0.25);
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+ 
+.admin-user-deactivate-btn:hover {
+  border-color: #212529;
+}
+ 
+/* ── Responsive ── */
+ 
+@media (max-width: 992px) {
+  .admin-user-order-card {
+    flex-wrap: wrap;
+  }
+}
